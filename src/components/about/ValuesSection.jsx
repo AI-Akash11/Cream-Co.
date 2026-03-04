@@ -55,11 +55,7 @@ function ValueIcon({ variant }) {
 
   return (
     <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className="h-5 w-5"
-      >
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
         <path
           d={path}
           fill="none"
@@ -86,7 +82,7 @@ export default function ValuesSection() {
             {values.map((value) => (
               <article
                 key={value.title}
-                className="card bg-base-100 shadow-lg border border-base-200/80 dark:border-base-300/30"
+                className="card bg-base-200 shadow-md border border-base-200/80 dark:border-base-300/30 hover:shadow-lg transition-shadow duration-300"
               >
                 <div className="card-body gap-3">
                   <ValueIcon variant={value.icon} />
@@ -105,4 +101,3 @@ export default function ValuesSection() {
     </section>
   );
 }
-

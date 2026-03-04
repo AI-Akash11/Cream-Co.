@@ -52,7 +52,7 @@ const StackedFlippingCarousel = () => {
         duration: 0.7,
         ease: "power3.out",
         transformOrigin: "center center",
-      }
+      },
     );
   }, [activeIndex]);
 
@@ -123,10 +123,11 @@ const Banner = () => {
           <span className="uppercase text-xs sm:text-xs md:text-sm font-semibold tracking-widest text-primary/70 mb-1 sm:mb-2">
             Welcome to Cream & Co.
           </span>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-primary mb-2 sm:mb-3 md:mb-4 leading-tight">
-            Artisan Cakes <span className="text-accent">&</span> Fresh Pastries
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#7a4b4b] mb-2 sm:mb-3 md:mb-4 leading-tight">
+            Artisan Cakes <span className="text-[#c98e72]">&</span> Fresh
+            Pastries
           </h1>
-          <p className="text-sm sm:text-base md:text-lg font-medium text-primary/80 mb-3 sm:mb-4 md:mb-6 max-w-full sm:max-w-lg">
+          <p className="text-sm sm:text-base md:text-lg font-medium text-[#7a4b4b]/80 mb-3 sm:mb-4 md:mb-6 max-w-full sm:max-w-lg">
             Handcrafted with premium ingredients. Every bite tells a story of
             tradition, passion, and celebration.
           </p>
@@ -139,13 +140,13 @@ const Banner = () => {
             </Link>
             <Link
               href="/custom"
-              className="btn btn-outline btn-sm sm:btn-md md:btn-lg font-semibold min-w-[10rem] border-primary text-primary hover:bg-primary hover:text-base-100 shadow-md w-full sm:w-auto md:w-auto"
+              className="btn btn-outline btn-sm sm:btn-md md:btn-lg font-semibold min-w-40 border-[#7a4b4b] text-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white shadow-md w-full sm:w-auto md:w-auto"
             >
               Build a Custom Cake
             </Link>
           </div>
           {/* Trust Bullets */}
-          <ul className="flex flex-wrap gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm font-semibold text-primary/80 mb-3 sm:mb-4 md:mb-4">
+          <ul className="flex flex-wrap gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm font-semibold text-[#7a4b4b]/80 mb-3 sm:mb-4 md:mb-4">
             <li className="flex items-center gap-2">
               <span className="inline-block w-2 h-2 bg-success rounded-full" />{" "}
               Same-day pastries
@@ -161,16 +162,16 @@ const Banner = () => {
           </ul>
           {/* Best Sellers Filter Row */}
           <div className="flex flex-wrap gap-2 w-full">
-            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-primary border-primary hover:bg-primary hover:text-base-100 flex-1 sm:flex-none text-xs sm:text-sm">
+            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-[#7a4b4b] border-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white flex-1 sm:flex-none text-xs sm:text-sm">
               Cakes
             </button>
-            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-primary border-primary hover:bg-primary hover:text-base-100 flex-1 sm:flex-none text-xs sm:text-sm">
+            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-[#7a4b4b] border-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white flex-1 sm:flex-none text-xs sm:text-sm">
               Pastries
             </button>
-            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-primary border-primary hover:bg-primary hover:text-base-100 flex-1 sm:flex-none text-xs sm:text-sm">
+            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-[#7a4b4b] border-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white flex-1 sm:flex-none text-xs sm:text-sm">
               Cheesecake
             </button>
-            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-primary border-primary hover:bg-primary hover:text-base-100 flex-1 sm:flex-none text-xs sm:text-sm">
+            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-[#7a4b4b] border-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white flex-1 sm:flex-none text-xs sm:text-sm">
               Chocolate
             </button>
           </div>

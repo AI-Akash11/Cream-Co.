@@ -18,13 +18,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
         <CartProvider>
-          <header>
+          <header className="sticky top-0 z-50 w-full">
             <Navbar />
           </header>
-          <main className="min-h-[calc(100vh-421px)]">
-
-          {children}
-          </main>
+          <main className="min-h-[calc(100vh-421px)]">{children}</main>
           <footer>
             <Footer />
           </footer>

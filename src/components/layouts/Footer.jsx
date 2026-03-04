@@ -13,7 +13,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50">
+    <footer className="bg-base-200 text-base-content">
       {/* Main Footer Content */}
       <Container>
         <div className="px-4 py-12 md:px-8 md:py-16">
@@ -32,17 +32,17 @@ export default function Footer() {
                   />
                 </div>
                 <div>
-                  <p className="font-serif font-bold text-lg text-neutral-900 dark:text-neutral-50">
+                  <p className="font-serif font-bold text-lg text-base-content">
                     Cream
                   </p>
-                  <p className="font-sans font-semibold text-xs -mt-1 text-neutral-900 dark:text-neutral-50">
+                  <p className="font-sans font-semibold text-xs -mt-1 text-base-content">
                     & Co.
                   </p>
                 </div>
               </div>
 
               {/* Brand Description */}
-              <p className="text-sm opacity-80 leading-relaxed text-neutral-700 dark:text-neutral-300">
+              <p className="text-sm text-base-content/80 leading-relaxed">
                 Premium handcrafted cakes delivered across Dhaka. Order 24 hours
                 in advance for your perfect celebration.
               </p>
@@ -104,14 +104,14 @@ export default function Footer() {
 
             {/* Column 2: Quick Links */}
             <div>
-              <h3 className="font-semibold text-base mb-4 text-neutral-900 dark:text-neutral-50">
+              <h3 className="font-semibold text-base mb-4 text-base-content">
                 Quick Links
               </h3>
               <ul className="flex flex-col gap-3">
                 <li>
                   <Link
                     href="/"
-                    className="text-sm text-neutral-700 dark:text-neutral-300 opacity-80 hover:opacity-100 transition-opacity duration-200"
+                    className="text-sm text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
                     Home
                   </Link>
@@ -119,7 +119,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/shop"
-                    className="text-sm text-neutral-700 dark:text-neutral-300 opacity-80 hover:opacity-100 transition-opacity duration-200"
+                    className="text-sm text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
                     Shop
                   </Link>
@@ -127,7 +127,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/about"
-                    className="text-sm text-neutral-700 dark:text-neutral-300 opacity-80 hover:opacity-100 transition-opacity duration-200"
+                    className="text-sm text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
                     About
                   </Link>
@@ -135,7 +135,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/contact"
-                    className="text-sm text-neutral-700 dark:text-neutral-300 opacity-80 hover:opacity-100 transition-opacity duration-200"
+                    className="text-sm text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
                     Contact
                   </Link>
@@ -145,14 +145,14 @@ export default function Footer() {
 
             {/* Column 3: Customer Support */}
             <div>
-              <h3 className="font-semibold text-base mb-4 text-neutral-900 dark:text-neutral-50">
+              <h3 className="font-semibold text-base mb-4 text-base-content">
                 Support
               </h3>
               <ul className="flex flex-col gap-3">
                 <li>
                   <Link
                     href="#"
-                    className="text-sm text-neutral-700 dark:text-neutral-300 opacity-80 hover:opacity-100 transition-opacity duration-200"
+                    className="text-sm text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
                     FAQ
                   </Link>
@@ -160,7 +160,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-sm text-neutral-700 dark:text-neutral-300 opacity-80 hover:opacity-100 transition-opacity duration-200"
+                    className="text-sm text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
                     Delivery Policy
                   </Link>
@@ -168,7 +168,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-sm text-neutral-700 dark:text-neutral-300 opacity-80 hover:opacity-100 transition-opacity duration-200"
+                    className="text-sm text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
                     Refund Policy
                   </Link>
@@ -176,7 +176,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-sm text-neutral-700 dark:text-neutral-300 opacity-80 hover:opacity-100 transition-opacity duration-200"
+                    className="text-sm text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
                     Terms & Conditions
                   </Link>
@@ -186,36 +186,30 @@ export default function Footer() {
 
             {/* Column 4: Contact Info */}
             <div>
-              <h3 className="font-semibold text-base mb-4 text-neutral-900 dark:text-neutral-50">
+              <h3 className="font-semibold text-base mb-4 text-base-content">
                 Contact Info
               </h3>
               <ul className="flex flex-col gap-4 text-sm">
-                <li className="text-neutral-700 dark:text-neutral-300">
-                  <p className="font-medium text-neutral-900 dark:text-neutral-50">
-                    Location
-                  </p>
-                  <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                <li className="text-base-content/80">
+                  <p className="font-medium text-base-content">Location</p>
+                  <p className="text-xs text-base-content/60">
                     Dhaka, Bangladesh
                   </p>
                 </li>
-                <li className="text-neutral-700 dark:text-neutral-300">
-                  <p className="font-medium text-neutral-900 dark:text-neutral-50">
-                    Phone
-                  </p>
+                <li className="text-base-content/80">
+                  <p className="font-medium text-base-content">Phone</p>
                   <a
                     href="tel:+8801700000000"
-                    className="text-xs text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-50 transition-opacity duration-200"
+                    className="text-xs text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
                     +880 1700 000000
                   </a>
                 </li>
-                <li className="text-neutral-700 dark:text-neutral-300">
-                  <p className="font-medium text-neutral-900 dark:text-neutral-50">
-                    Email
-                  </p>
+                <li className="text-base-content/80">
+                  <p className="font-medium text-base-content">Email</p>
                   <a
                     href="mailto:hello@creamandco.com"
-                    className="text-xs text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-50 transition-opacity duration-200"
+                    className="text-xs text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
                     hello@creamandco.com
                   </a>
@@ -226,9 +220,9 @@ export default function Footer() {
         </div>
       </Container>
       {/* Bottom Bar - Copyright */}
-      <div className="border-t border-neutral-200 dark:border-neutral-800">
+      <div className="border-t border-base-300/60">
         <div className="px-4 md:px-8 py-3 text-center">
-          <p className="text-xs opacity-70 text-neutral-600 dark:text-neutral-400">
+          <p className="text-xs text-base-content/60">
             © {currentYear} Cream & Co. All rights reserved.
           </p>
         </div>
