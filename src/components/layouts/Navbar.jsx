@@ -6,7 +6,8 @@ import Link from "next/link";
 import NavLink from "@/components/buttons/NavLink";
 import { FiShoppingCart, FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
 import { useCart } from "@/context/CartContext";
-import Logo from "@/components/Logo";
+import Logo from "@/components/shared/Logo";
+import Container from "../ui/Container";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -60,7 +61,8 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 w-full bg-primary text-primary-content shadow-md will-change-transform">
       {/* Main Navbar - Full width background, max-width content */}
-      <div className="max-w-7xl mx-auto w-full px-4 md:px-8">
+      <Container>
+      <div className="w-full px-4 md:px-8">
         <div className="navbar p-0 bg-transparent text-primary-content">
           {/* Left Section - Logo */}
           <div className="flex-initial">
@@ -83,13 +85,13 @@ export default function Navbar() {
             {/* Cart Icon with Badge */}
             <div className="indicator">
               {cartCount > 0 && (
-                <span className="badge badge-sm badge-secondary indicator-item -translate-y-2 translate-x-2">
+                <span className="badge badge-sm badge-accent indicator-item -translate-y-2 translate-x-2">
                   {cartCount}
                 </span>
               )}
               <Link
                 href="/cart"
-                className="btn btn-ghost hover:border-base-content btn-sm md:btn-md hover:shadow-lg hover:bg-secondary/30 focus:outline-none transition-all duration-200"
+                className="btn btn-ghost bg-secondary btn-sm md:btn-md shadow-2xl hover:bg-secondary/30 focus:outline-none transition-all duration-200"
                 aria-label="Shopping cart"
               >
                 <FiShoppingCart size={20} />
@@ -99,7 +101,7 @@ export default function Navbar() {
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className={`btn btn-ghost btn-sm md:btn-md rounded-full hover:shadow-lg hover:bg-secondary/30 focus:outline-none transition-all duration-200 ${isDark ? "hover:border-blue-400" : "hover:border-yellow-400"}`}
+              className={`btn btn-ghost btn-sm md:btn-md rounded-full bg-secondary shadow-2xl hover:bg-secondary/30 focus:outline-none transition-all duration-200 ${isDark ? "hover:border-blue-400" : "hover:border-yellow-400"}`}
               aria-label="Toggle theme"
               title={isDark ? "Switch to light mode" : "Switch to dark mode"}
             >
@@ -165,7 +167,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
+</Container>
       {/* Mobile Menu Drawer - Slide from Right */}
       {mobileMenuOpen && (
         <>
