@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import NavLink from "@/components/buttons/NavLink";
 import { FiShoppingCart, FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
 import { useCart } from "@/context/CartContext";
 import Logo from "@/components/Logo";
@@ -69,22 +70,11 @@ export default function Navbar() {
           {/* Center Section - Navigation Links */}
           <div className="flex-1 flex items-center justify-center">
             <div className="hidden md:flex gap-8">
-              {navLinks.map((link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`text-sm font-medium transition-colors duration-200 ${
-                      isActive
-                        ? "text-base-100 font-semibold underline underline-offset-4"
-                        : "hover:text-base-100/80 hover:underline hover:underline-offset-4"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
+              {navLinks.map((link) => (
+                <NavLink key={link.href} href={link.href}>
+                  {link.label}
+                </NavLink>
+              ))}
             </div>
           </div>
 
@@ -192,23 +182,11 @@ export default function Navbar() {
                 <p className="text-xs font-semibold uppercase opacity-60 px-2">
                   Navigation
                 </p>
-                {navLinks.map((link) => {
-                  const isActive = pathname === link.href;
-                  return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className={`block px-4 py-3 rounded-lg transition-all duration-200 text-sm font-medium ${
-                        isActive
-                          ? "text-white font-semibold underline underline-offset-4"
-                          : "hover:bg-primary-focus"
-                      }`}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {link.label}
-                    </Link>
-                  );
-                })}
+                {navLinks.map((link) => (
+                  <div key={link.href} onClick={() => setMobileMenuOpen(false)}>
+                    <NavLink href={link.href}>{link.label}</NavLink>
+                  </div>
+                ))}
               </div>
 
               {/* Divider */}
