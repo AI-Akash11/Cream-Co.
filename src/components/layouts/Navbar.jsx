@@ -7,7 +7,7 @@ import NavLink from "@/components/buttons/NavLink";
 import { FiShoppingCart, FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
 import { useCart } from "@/context/CartContext";
 import Logo from "@/components/shared/Logo";
-import Container from "../ui/Container";
+import Container from "@/components/ui/Container";
 
 const navLinks = [
   { label: "Home", href: "/" },

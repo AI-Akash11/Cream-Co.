@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Container from "@/components/ui/Container";
@@ -130,18 +131,18 @@ const Banner = () => {
             tradition, passion, and celebration.
           </p>
           <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row gap-3 sm:gap-4 mb-3 sm:mb-4 w-full sm:w-auto">
-            <a
-              href="/menu"
+            <Link
+              href="/shop"
               className="btn btn-primary btn-sm sm:btn-md md:btn-lg font-semibold shadow-md w-full sm:w-auto md:w-40"
             >
               Shop Cakes
-            </a>
-            <a
+            </Link>
+            <Link
               href="/custom"
-              className="btn btn-accent btn-sm sm:btn-md md:btn-lg font-semibold shadow-md w-full sm:w-auto md:w-auto"
+              className="btn btn-outline btn-sm sm:btn-md md:btn-lg font-semibold min-w-[10rem] border-primary text-primary hover:bg-primary hover:text-base-100 shadow-md w-full sm:w-auto md:w-auto"
             >
               Build a Custom Cake
-            </a>
+            </Link>
           </div>
           {/* Trust Bullets */}
           <ul className="flex flex-wrap gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm font-semibold text-primary/80 mb-3 sm:mb-4 md:mb-4">
@@ -160,16 +161,16 @@ const Banner = () => {
           </ul>
           {/* Best Sellers Filter Row */}
           <div className="flex flex-wrap gap-2 w-full">
-            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-primary border-primary hover:bg-primary hover:text-base-100 dark:text-base-100 dark:border-base-100 dark:hover:bg-base-100 dark:hover:text-primary flex-1 sm:flex-none text-xs sm:text-sm">
+            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-primary border-primary hover:bg-primary hover:text-base-100 flex-1 sm:flex-none text-xs sm:text-sm">
               Cakes
             </button>
-            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-primary border-primary hover:bg-primary hover:text-base-100 dark:text-base-100 dark:border-base-100 dark:hover:bg-base-100 dark:hover:text-primary flex-1 sm:flex-none text-xs sm:text-sm">
+            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-primary border-primary hover:bg-primary hover:text-base-100 flex-1 sm:flex-none text-xs sm:text-sm">
               Pastries
             </button>
-            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-primary border-primary hover:bg-primary hover:text-base-100 dark:text-base-100 dark:border-base-100 dark:hover:bg-base-100 dark:hover:text-primary flex-1 sm:flex-none text-xs sm:text-sm">
+            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-primary border-primary hover:bg-primary hover:text-base-100 flex-1 sm:flex-none text-xs sm:text-sm">
               Cheesecake
             </button>
-            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-primary border-primary hover:bg-primary hover:text-base-100 dark:text-base-100 dark:border-base-100 dark:hover:bg-base-100 dark:hover:text-primary flex-1 sm:flex-none text-xs sm:text-sm">
+            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-primary border-primary hover:bg-primary hover:text-base-100 flex-1 sm:flex-none text-xs sm:text-sm">
               Chocolate
             </button>
           </div>

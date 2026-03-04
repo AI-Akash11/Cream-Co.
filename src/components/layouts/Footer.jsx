@@ -7,7 +7,7 @@ import {
   FaTiktok,
   FaPinterest,
 } from "react-icons/fa";
-import Container from "../ui/Container";
+import Container from "@/components/ui/Container";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
