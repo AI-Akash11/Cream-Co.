@@ -169,8 +169,8 @@ export default function Testimonials() {
       {/* Full-width slider — intentionally outside Container for edge-to-edge feel */}
       <div className="relative w-full">
         {/* Fade edges */}
-        <div className="absolute inset-y-0 left-0 w-16 sm:w-32 z-10 pointer-events-none bg-gradient-to-r from-base-100 to-transparent" />
-        <div className="absolute inset-y-0 right-0 w-16 sm:w-32 z-10 pointer-events-none bg-gradient-to-l from-base-100 to-transparent" />
+        <div className="absolute inset-y-0 left-0 w-16 sm:w-32 z-10 pointer-events-none bg-linear-to-r from-base-100 to-transparent" />
+        <div className="absolute inset-y-0 right-0 w-16 sm:w-32 z-10 pointer-events-none bg-linear-to-l from-base-100 to-transparent" />
 
         {/* Slider Track */}
         <div ref={trackRef} className="flex gap-5 sm:gap-6 px-4 w-max">
