@@ -4,7 +4,18 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import NavLink from "@/components/buttons/NavLink";
-import { FiShoppingCart, FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
+import {
+  FiShoppingCart,
+  FiMenu,
+  FiX,
+  FiSun,
+  FiMoon,
+  FiChevronDown,
+  FiStar,
+  FiUser,
+  FiLogOut,
+  FiLayout,
+} from "react-icons/fi";
 import { useCart } from "@/context/CartContext";
 import Logo from "@/components/shared/Logo";
 import Container from "@/components/ui/Container";
@@ -21,6 +32,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const { cartCount } = useCart();
 
   // Theme application function must be defined before useEffect
@@ -35,12 +47,18 @@ export default function Navbar() {
     }
   };
 
-  // Initialize theme from localStorage
+  // Theme initialization with a small delay to avoid cascading render lint
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "light";
     const isDarkMode = savedTheme === "dark";
-    setIsDark(isDarkMode);
-    applyTheme(isDarkMode);
+
+    const timer = setTimeout(() => {
+      setIsDark(isDarkMode);
+      applyTheme(isDarkMode);
+      setIsMounted(true);
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const toggleTheme = () => {
@@ -80,7 +98,7 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Right Side - Cart, Theme Toggle, Mobile Menu & Auth */}
+            {/* Right Side - Cart, Theme Toggle, Combined Options (Desktop) & Mobile Menu Toggle */}
             <div className="flex-none flex items-center gap-2 md:gap-3">
               {/* Cart Icon with Badge */}
               <div className="indicator">
@@ -112,6 +130,99 @@ export default function Navbar() {
                 )}
               </button>
 
+              {/* Desktop Combined Dropdown - Hidden on Mobile */}
+              <div className="hidden md:block">
+                <div className="dropdown dropdown-end dropdown-hover group">
+                  <label
+                    tabIndex={0}
+                    className="btn btn-ghost btn-sm md:btn-md rounded-full bg-secondary shadow-2xl hover:bg-secondary/30 focus:outline-none transition-all duration-200 flex items-center gap-1 px-4"
+                  >
+                    <FiUser size={18} />
+                    <FiChevronDown
+                      size={14}
+                      className="group-hover:rotate-180 transition-transform duration-300 opacity-60"
+                    />
+                  </label>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content menu p-2 shadow-2xl bg-base-100 rounded-2xl w-72 border border-base-200 animate-in fade-in slide-in-from-top-2 duration-200 z-50"
+                  >
+                    {/* Invisible Bridge to prevent hover loss */}
+                    <div className="absolute -top-4 left-0 w-full h-4 bg-transparent" />
+
+                    <div className="p-4 border-b border-base-200 mb-2">
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-base-content/40">
+                        Exclusive Services
+                      </p>
+                    </div>
+                    <li className="px-2">
+                      <Link
+                        href="/custom"
+                        className="flex flex-col items-start gap-1 p-4 rounded-xl bg-linear-to-br from-primary/10 to-transparent hover:from-primary hover:to-primary/80 group/item transition-all duration-300 border border-primary/20 hover:border-primary shadow-sm hover:shadow-primary/20"
+                      >
+                        <div className="flex items-center gap-3 w-full">
+                          <div className="bg-primary text-white p-2 rounded-lg group-hover/item:bg-white group-hover/item:text-primary transition-colors duration-300 shadow-sm">
+                            <FiStar className="w-4 h-4" />
+                          </div>
+                          <span className="font-serif font-bold italic text-lg tracking-tight text-base-content group-hover/item:text-white">
+                            Build Your Cake
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-base-content/60 group-hover/item:text-white uppercase tracking-widest font-bold mt-2 leading-none">
+                          Custom Creations
+                        </p>
+                      </Link>
+                    </li>
+                    <div className="divider my-2 opacity-50 px-4" />
+                    <div className="px-4 mb-2">
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-base-content/40">
+                        Account Interface
+                      </p>
+                    </div>
+                    {isLoggedIn ? (
+                      <>
+                        <li>
+                          <Link
+                            href="/dashboard"
+                            className="rounded-xl py-3 flex items-center gap-3 mb-1"
+                          >
+                            <FiLayout size={16} className="opacity-40" />{" "}
+                            Dashboard
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href="/dashboard/orders"
+                            className="rounded-xl py-3 flex items-center gap-3 mb-1"
+                          >
+                            <FiShoppingCart size={16} className="opacity-40" />{" "}
+                            Order History
+                          </Link>
+                        </li>
+                        <div className="divider my-1 opacity-20" />
+                        <li>
+                          <button
+                            onClick={handleLogout}
+                            className="rounded-xl py-3 flex items-center gap-3 text-error font-bold"
+                          >
+                            <FiLogOut size={16} /> Logout Access
+                          </button>
+                        </li>
+                      </>
+                    ) : (
+                      <li className="px-2 mt-2">
+                        <button
+                          onClick={() => setIsLoggedIn(true)}
+                          className="btn btn-secondary w-full rounded-xl text-white font-bold h-12 shadow-lg shadow-secondary/20 hover:-translate-y-1 transition-all"
+                        >
+                          Sign In to Order
+                        </button>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              </div>
+
               {/* Mobile Menu Button - Visible on Mobile Only */}
               <button
                 className="md:hidden btn btn-ghost btn-sm"
@@ -121,49 +232,6 @@ export default function Navbar() {
               >
                 {mobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
               </button>
-
-              {/* Desktop Auth - Hidden on Mobile */}
-              <div className="hidden md:block">
-                {isLoggedIn ? (
-                  // Profile Dropdown when logged in
-                  <div className="dropdown dropdown-end">
-                    <button
-                      className="btn btn-primary btn-sm rounded-lg"
-                      tabIndex={0}
-                    >
-                      Profile
-                    </button>
-                    <ul
-                      tabIndex={0}
-                      className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-40"
-                    >
-                      <li>
-                        <Link href="/dashboard" className="text-neutral">
-                          Dashboard
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/dashboard/orders" className="text-neutral">
-                          Orders
-                        </Link>
-                      </li>
-                      <li>
-                        <button onClick={handleLogout} className="text-neutral">
-                          Logout
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                ) : (
-                  // Login Button when not logged in
-                  <button
-                    className="btn btn-secondary btn-sm rounded-lg"
-                    onClick={() => setIsLoggedIn(true)}
-                  >
-                    Login
-                  </button>
-                )}
-              </div>
             </div>
           </div>
         </div>
@@ -178,10 +246,10 @@ export default function Navbar() {
           />
           {/* Drawer Panel */}
           <div className="fixed right-0 top-16 h-screen w-72 bg-primary text-primary-content shadow-xl z-50 animate-in slide-in-from-right md:hidden overflow-y-auto">
-            <div className="flex flex-col p-6 gap-4">
+            <div className="flex flex-col p-6 gap-6">
               {/* Mobile Nav Links */}
               <div className="space-y-2">
-                <p className="text-xs font-semibold uppercase opacity-60 px-2">
+                <p className="text-xs font-semibold uppercase opacity-60 px-2 mb-2">
                   Navigation
                 </p>
                 {navLinks.map((link) => (
@@ -191,46 +259,70 @@ export default function Navbar() {
                 ))}
               </div>
 
+              {/* Mobile CTA (Build Your Cake) */}
+              <div className="space-y-2">
+                <p className="text-xs font-semibold uppercase opacity-60 px-2 mb-2">
+                  Special Services
+                </p>
+                <Link
+                  href="/custom"
+                  className="flex items-center gap-4 px-4 py-4 rounded-2xl bg-primary/10 text-primary-content hover:bg-primary/20 transition-all border border-primary/20"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <div className="bg-primary text-white p-2 rounded-xl shrink-0">
+                    <FiStar className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-base leading-none">
+                      Build Your Cake
+                    </p>
+                    <p className="text-[10px] opacity-60 uppercase tracking-widest mt-1">
+                      Custom Creations
+                    </p>
+                  </div>
+                </Link>
+              </div>
+
               {/* Divider */}
-              <div className="border-t border-primary-focus" />
+              <div className="border-t border-primary-content/10 mx-2" />
 
               {/* Mobile Auth Section */}
-              <div className="space-y-2">
+              <div className="space-y-4">
                 <p className="text-xs font-semibold uppercase opacity-60 px-2">
-                  Account
+                  Account Access
                 </p>
                 {isLoggedIn ? (
-                  <>
+                  <div className="grid grid-cols-1 gap-2">
                     <Link
                       href="/dashboard"
-                      className="block px-4 py-3 rounded-lg hover:bg-primary-focus transition-colors duration-200 text-sm font-medium"
+                      className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary-focus transition-all text-sm font-medium border border-primary-focus/50"
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      Dashboard
+                      <FiLayout className="opacity-60" /> Dashboard
                     </Link>
                     <Link
                       href="/dashboard/orders"
-                      className="block px-4 py-3 rounded-lg hover:bg-primary-focus transition-colors duration-200 text-sm font-medium"
+                      className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary-focus transition-all text-sm font-medium border border-primary-focus/50"
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      Orders
+                      <FiShoppingCart className="opacity-60" /> Orders
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left px-4 py-3 rounded-lg hover:bg-primary-focus transition-colors duration-200 text-sm font-medium"
+                      className="flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl hover:bg-red-500/10 text-red-100 transition-all text-sm font-bold mt-2"
                     >
-                      Logout
+                      <FiLogOut /> Sign Out
                     </button>
-                  </>
+                  </div>
                 ) : (
                   <button
                     onClick={() => {
                       setIsLoggedIn(true);
                       setMobileMenuOpen(false);
                     }}
-                    className="w-full btn btn-secondary btn-sm rounded-lg"
+                    className="w-full btn btn-secondary btn-lg rounded-2xl font-bold shadow-lg"
                   >
-                    Login
+                    Login to Account
                   </button>
                 )}
               </div>
