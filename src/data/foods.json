@@ -5,7 +5,7 @@
     "slug": "classic-chocolate-fudge-cake",
     "description": "Rich and moist chocolate sponge layered with premium dark chocolate ganache. Perfect for birthdays and celebrations.",
     "category": "Birthday Cakes",
-    "images": ["https://images.unsplash.com/photo-1504674900247-0877df9cc836"],
+    "images": ["https://images.unsplash.com/photo-1464347744102-11db6282f854"],
     "basePrice": 1200,
     "sizes": [
       { "label": "1 lb", "price": 1200 },
@@ -25,7 +25,7 @@
     "slug": "red-velvet-signature",
     "description": "Soft red velvet sponge layered with smooth cream cheese frosting. A customer favorite.",
     "category": "Signature Cakes",
-    "images": ["https://images.unsplash.com/photo-1519864600265-abb23847ef2c"],
+    "images": ["https://images.unsplash.com/photo-1464347744102-11db6282f854"],
     "basePrice": 1600,
     "sizes": [
       { "label": "1 lb", "price": 1600 },
@@ -63,7 +63,7 @@
     "slug": "black-forest-classic",
     "description": "Chocolate sponge layered with whipped cream and cherries. A timeless favorite.",
     "category": "Birthday Cakes",
-    "images": ["https://images.unsplash.com/photo-1505250469679-203ad9ced0cb"],
+    "images": ["https://images.unsplash.com/photo-1464347744102-11db6282f854"],
     "basePrice": 1400,
     "sizes": [
       { "label": "1 lb", "price": 1400 },
@@ -82,7 +82,7 @@
     "slug": "vanilla-buttercream-dream",
     "description": "Classic vanilla sponge with silky buttercream frosting. Customizable with message.",
     "category": "Custom Cakes",
-    "images": ["https://images.unsplash.com/photo-1519864600265-abb23847ef2c"],
+    "images": ["https://images.unsplash.com/photo-1464347744102-11db6282f854"],
     "basePrice": 1100,
     "sizes": [
       { "label": "1 lb", "price": 1100 },
@@ -101,7 +101,7 @@
     "slug": "chocolate-bento-mini-cake",
     "description": "Cute mini bento cake perfect for small celebrations and surprise gifts.",
     "category": "Bento Cakes",
-    "images": ["https://images.unsplash.com/photo-1519864600265-abb23847ef2c"],
+    "images": ["https://images.unsplash.com/photo-1464347744102-11db6282f854"],
     "basePrice": 650,
     "sizes": [{ "label": "Mini (0.5 lb)", "price": 650 }],
     "flavors": ["Chocolate", "Vanilla"],
@@ -117,7 +117,7 @@
     "slug": "butterscotch-delight",
     "description": "Moist sponge layered with caramelized butterscotch cream and crunchy praline.",
     "category": "Premium Cakes",
-    "images": ["https://images.unsplash.com/photo-1504674900247-0877df9cc836"],
+    "images": ["https://images.unsplash.com/photo-1464347744102-11db6282f854"],
     "basePrice": 1350,
     "sizes": [
       { "label": "1 lb", "price": 1350 },
@@ -136,7 +136,7 @@
     "slug": "oreo-overload-cake",
     "description": "Chocolate sponge packed with crushed Oreo cookies and creamy frosting.",
     "category": "Birthday Cakes",
-    "images": ["https://images.unsplash.com/photo-1519864600265-abb23847ef2c"],
+    "images": ["https://images.unsplash.com/photo-1464347744102-11db6282f854"],
     "basePrice": 1500,
     "sizes": [
       { "label": "1 lb", "price": 1500 },
@@ -174,7 +174,7 @@
     "slug": "chocolate-hazelnut-fantasy",
     "description": "Premium chocolate sponge layered with hazelnut cream and ganache drip.",
     "category": "Premium Cakes",
-    "images": ["https://images.unsplash.com/photo-1504674900247-0877df9cc836"],
+    "images": ["https://images.unsplash.com/photo-1464347744102-11db6282f854"],
     "basePrice": 1700,
     "sizes": [
       { "label": "1 lb", "price": 1700 },
@@ -193,7 +193,7 @@
     "slug": "pistachio-cream-cake",
     "description": "Soft sponge layered with smooth pistachio cream and crushed nuts.",
     "category": "Signature Cakes",
-    "images": ["https://images.unsplash.com/photo-1504674900247-0877df9cc836"],
+    "images": ["https://images.unsplash.com/photo-1464347744102-11db6282f854"],
     "basePrice": 1800,
     "sizes": [
       { "label": "1 lb", "price": 1800 },
