@@ -1,4 +1,5 @@
 import Banner from "@/components/home/Banner";
+import CategoriesSection from "@/components/home/CategoriesSection";
 import FeaturedCakes from "@/components/home/FeaturedCakes";
 
 export default function Home() {
@@ -6,6 +7,10 @@ export default function Home() {
     <div className="">
       <section>
         <Banner />
+      </section>
+
+      <section>
+        <CategoriesSection />
       </section>
 
       <section>
