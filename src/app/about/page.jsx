@@ -1,7 +1,7 @@
 import AboutHero from "@/components/about/AboutHero";
 import BrandStory from "@/components/about/BrandStory";
 import ValuesSection from "@/components/about/ValuesSection";
-import WhyChooseUs from "@/components/about/WhyChooseUs";
+import Features from "@/components/about/WhyChooseUs";
 import CallToAction from "@/components/about/CallToAction";
 
 export const metadata = {
@@ -16,9 +16,8 @@ export default function AboutPage() {
       <AboutHero />
       <BrandStory />
       <ValuesSection />
-      <WhyChooseUs />
+      <Features />
       <CallToAction />
     </main>
   );
 }
-
