@@ -5,7 +5,7 @@ export default function FoodCard({ cake }) {
   return (
     <Link href={`/shop/${cake.slug}`} className="group flex flex-col gap-4">
       {/* Image Container - Clean Rectangle, No Rounding */}
-      <div className="relative aspect-square sm:aspect-[4/5] overflow-hidden bg-base-200">
+      <div className="relative aspect-square sm:aspect-4/5 overflow-hidden bg-base-200">
         <Image
           src={cake.images[0]}
           alt={cake.name}
