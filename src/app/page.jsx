@@ -2,6 +2,7 @@ import Banner from "@/components/home/Banner";
 import CategoriesSection from "@/components/home/CategoriesSection";
 import FeaturedCakes from "@/components/home/FeaturedCakes";
 import Testimonials from "@/components/home/Testimonials";
+import HomeCTA from "@/components/home/HomeCTA";
 
 export default function Home() {
   return (
@@ -20,6 +21,10 @@ export default function Home() {
 
       <section>
         <Testimonials />
+      </section>
+
+      <section>
+        <HomeCTA />
       </section>
     </div>
   );
