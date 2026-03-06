@@ -5,6 +5,7 @@ import { FiMail, FiLock, FiUser, FiUpload, FiArrowLeft } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
 
+
 export default function RegisterPage() {
   return (
     <div className="flex flex-col md:flex-row-reverse min-h-[700px]">
