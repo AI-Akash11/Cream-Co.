@@ -33,7 +33,7 @@ export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const { cartCount } = useCart();
+  const { cartCount, setIsCartOpen } = useCart();
 
   // Theme application function must be defined before useEffect
   const applyTheme = (dark) => {
@@ -107,13 +107,13 @@ export default function Navbar() {
                     {cartCount}
                   </span>
                 )}
-                <Link
-                  href="/cart"
+                <button
+                  onClick={() => setIsCartOpen(true)}
                   className="btn btn-ghost bg-secondary btn-sm md:btn-md shadow-2xl hover:bg-secondary/30 focus:outline-none transition-all duration-200"
-                  aria-label="Shopping cart"
+                  aria-label="Open cart"
                 >
                   <FiShoppingCart size={20} />
-                </Link>
+                </button>
               </div>
 
               {/* Theme Toggle Button */}

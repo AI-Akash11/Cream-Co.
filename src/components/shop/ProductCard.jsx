@@ -1,25 +1,36 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { addToCart, toggleWishlist } from "@/app/actions/shop-actions";
-import { toast } from "react-hot-toast"; // Assuming toast might be used or added later
+import { addToCart } from "@/app/actions/shop-actions";
+import { useCart } from "@/context/CartContext";
+import { FiCheck } from "react-icons/fi";
 
 export default function ProductCard({ product }) {
   const { _id, name, slug, description, images, basePrice, featured } = product;
+  const { cartItems, addToCart: addClientCart, setIsCartOpen } = useCart();
+
+  const isInCart = cartItems.some((item) => item.id === _id);
 
   const handleAddToCart = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const res = await addToCart(_id);
-    if (res.success) {
-      console.log(res.message);
-      // alert(res.message); // Simple feedback for now
-    }
-  };
 
-  const handleWishlist = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const res = await toggleWishlist(_id);
+    if (isInCart) return;
+
+    // Update client UI state immediately
+    addClientCart({
+      id: _id,
+      name,
+      basePrice,
+      image: images[0],
+    });
+
+    // Optionally open the cart
+    setIsCartOpen(true);
+
+    // Call dummy server action
+    const res = await addToCart(_id);
     if (res.success) {
       console.log(res.message);
     }
@@ -48,32 +59,24 @@ export default function ProductCard({ product }) {
           </div>
         )}
 
-        {/* Quick Actions Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-linear-to-t from-black/60 to-transparent flex gap-2">
+        {/* Quick Actions Overlay / Always Visible Button */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-black/60 to-transparent flex">
           <button
             onClick={handleAddToCart}
-            className="flex-1 bg-white text-black text-xs font-bold py-2 px-3 rounded-none hover:bg-primary hover:text-white transition-colors uppercase tracking-tight"
+            disabled={isInCart}
+            className={`flex-1 flex items-center justify-center gap-2 text-xs font-bold py-3 px-3 rounded-none uppercase tracking-tight transition-all duration-300 ${
+              isInCart
+                ? "bg-success text-white cursor-default"
+                : "bg-white text-black hover:bg-primary hover:text-white"
+            }`}
           >
-            Add to Cart
-          </button>
-          <button
-            onClick={handleWishlist}
-            className="bg-white/20 backdrop-blur-md text-white p-2 hover:bg-white hover:text-black transition-colors"
-            title="Add to Wishlist"
-          >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-              />
-            </svg>
+            {isInCart ? (
+              <>
+                <FiCheck size={16} /> Added to Cart
+              </>
+            ) : (
+              "Add to Cart"
+            )}
           </button>
         </div>
       </div>

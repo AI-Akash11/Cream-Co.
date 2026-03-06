@@ -1,17 +1,37 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 // Create the Cart Context
 const CartContext = createContext();
 
 // Cart Provider Component
 export function CartProvider({ children }) {
-  // Dummy initial cart state with 3 items for demo
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: "Chocolate Delight", quantity: 1 },
-    { id: 2, name: "Strawberry Dream", quantity: 2 },
-  ]);
+  const [cartItems, setCartItems] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const savedCart = localStorage.getItem("creamAndCo_cart");
+    if (savedCart) {
+      setTimeout(() => {
+        try {
+          setCartItems(JSON.parse(savedCart));
+        } catch (e) {
+          console.error("Failed to parse cart", e);
+        }
+      }, 0);
+    }
+    setTimeout(() => setIsHydrated(true), 0);
+  }, []);
+
+  // Sync to localStorage on change
+  useEffect(() => {
+    if (isHydrated) {
+      localStorage.setItem("creamAndCo_cart", JSON.stringify(cartItems));
+    }
+  }, [cartItems, isHydrated]);
 
   // Calculate total cart item count
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -45,12 +65,21 @@ export function CartProvider({ children }) {
     );
   };
 
+  // Calculate total cart price
+  const cartTotal = cartItems.reduce(
+    (total, item) => total + (item.basePrice || 0) * item.quantity,
+    0,
+  );
+
   const value = {
     cartItems,
     cartCount,
+    cartTotal,
     addToCart,
     removeFromCart,
     updateQuantity,
+    isCartOpen,
+    setIsCartOpen,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

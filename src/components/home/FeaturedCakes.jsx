@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/about/SectionHeading";
-import FoodCard from "@/components/cards/FoodCard";
+import ProductCard from "@/components/shop/ProductCard";
 import foods from "@/data/foods.json";
 
 export default function FeaturedCakes() {
@@ -20,7 +20,7 @@ export default function FeaturedCakes() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10 sm:gap-x-8 sm:gap-y-12">
             {featuredCakes.map((cake) => (
-              <FoodCard key={cake._id} cake={cake} />
+              <ProductCard key={cake._id} product={cake} />
             ))}
           </div>
 

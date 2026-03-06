@@ -4,6 +4,7 @@ import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
 import { CartProvider } from "@/context/CartContext";
 import ConditionalLayout from "@/components/layouts/ConditionalLayout";
+import CartDrawer from "@/components/cart/CartDrawer";
 
 const poppins = Poppins({
   weight: ["100", "200", "400", "500", "600", "800"],
@@ -33,6 +34,8 @@ export default function RootLayout({ children }) {
           >
             {children}
           </ConditionalLayout>
+          {/* Global Cart Drawer */}
+          <CartDrawer />
         </CartProvider>
       </body>
     </html>
