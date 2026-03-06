@@ -3,10 +3,35 @@
 import Link from "next/link";
 import { FiMail, FiLock, FiUser, FiUpload, FiArrowLeft } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
-import Image from "next/image";
+import { postUser } from "@/actions/server/auth";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 
 export default function RegisterPage() {
+  const router = useRouter();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    const payload = {name, email, password}
+    console.log(payload)
+
+    const result = await postUser(payload);
+    console.log(result);
+
+    if (result?.success) {
+      toast.success(result.message || "User created successfully.");
+      router.push("/login");
+    } else {
+      toast.error(result?.message || "Registration failed. Please try again.");
+    }
+  }
   return (
     <div className="flex flex-col md:flex-row-reverse min-h-[700px]">
       {/* Right Column: Form */}
@@ -27,7 +52,7 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+        <form className="space-y-5" onSubmit={handleRegister}>
           <div className="form-control">
             <label className="label text-sm font-bold opacity-70">
               Full Name
@@ -38,6 +63,7 @@ export default function RegisterPage() {
               </span>
               <input
                 type="text"
+                name="name"
                 placeholder="John Doe"
                 className="input input-bordered w-full pl-12 rounded-xl bg-base-100 border-base-300 focus:border-primary transition-all"
                 required
@@ -55,21 +81,10 @@ export default function RegisterPage() {
               </span>
               <input
                 type="email"
+                name="email"
                 placeholder="email@example.com"
                 className="input input-bordered w-full pl-12 rounded-xl bg-base-100 border-base-300 focus:border-primary transition-all"
                 required
-              />
-            </div>
-          </div>
-
-          <div className="form-control">
-            <label className="label text-sm font-bold opacity-70">
-              Profile Image
-            </label>
-            <div className="relative">
-              <input
-                type="file"
-                className="file-input file-input-bordered w-full rounded-xl bg-base-100 border-base-300 focus:border-primary transition-all"
               />
             </div>
           </div>
@@ -84,6 +99,7 @@ export default function RegisterPage() {
               </span>
               <input
                 type="password"
+                name="password"
                 placeholder="••••••••"
                 className="input input-bordered w-full pl-12 rounded-xl bg-base-100 border-base-300 focus:border-primary transition-all"
                 required
