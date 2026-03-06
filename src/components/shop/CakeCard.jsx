@@ -6,8 +6,8 @@ import { addToCart } from "@/app/actions/shop-actions";
 import { useCart } from "@/context/CartContext";
 import { FiCheck } from "react-icons/fi";
 
-export default function ProductCard({ product }) {
-  const { _id, name, slug, description, images, basePrice, featured } = product;
+export default function CakeCard({ cake }) {
+  const { _id, name, slug, description, images, basePrice, featured } = cake;
   const { cartItems, addToCart: addClientCart, setIsCartOpen } = useCart();
 
   const isInCart = cartItems.some((item) => item.id === _id);
@@ -38,7 +38,7 @@ export default function ProductCard({ product }) {
 
   return (
     <Link
-      href={`/shop/${slug}`}
+      href={`/shop/${_id}`}
       className="group flex flex-col gap-4 bg-base-200 p-0 sm:p-0 rounded-none overflow-hidden transition-all duration-300 hover:-translate-y-1"
     >
       {/* Image Container */}

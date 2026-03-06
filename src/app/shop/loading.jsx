@@ -21,7 +21,7 @@ export default function ShopLoading() {
               </div>
             </div>
 
-            {/* Filter & Product Area */}
+            {/* Filter & Cake Area */}
             <div className="flex flex-col gap-8 sm:gap-12">
               {/* FilterBar Skeleton */}
               <div className="sticky top-20 z-40 w-full mb-8 sm:mb-12">

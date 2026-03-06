@@ -1,12 +1,9 @@
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/about/SectionHeading";
-import ProductCard from "@/components/shop/ProductCard";
-import foods from "@/data/foods.json";
+import CakeCard from "@/components/shop/CakeCard";
 
-export default function FeaturedCakes() {
-  // Get top 4 featured cakes
-  const featuredCakes = foods.filter((food) => food.featured).slice(0, 4);
+export default function FeaturedCakes({ featuredCakes = [] }) {
 
   return (
     <section className="py-16 sm:py-20 lg:py-24 bg-base-100">
@@ -20,7 +17,7 @@ export default function FeaturedCakes() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10 sm:gap-x-8 sm:gap-y-12">
             {featuredCakes.map((cake) => (
-              <ProductCard key={cake._id} product={cake} />
+              <CakeCard key={cake._id} cake={cake} />
             ))}
           </div>
 

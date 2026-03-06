@@ -11,6 +11,8 @@ import {
 } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
+import Swal from "sweetalert2";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function CartDrawer() {
   const {
@@ -21,6 +23,25 @@ export default function CartDrawer() {
     isCartOpen,
     setIsCartOpen,
   } = useCart();
+
+  const router = useRouter();
+  const isLoggedin = false;
+
+
+  const goToCheckout = () => {
+    if (isLoggedin) {
+      setIsCartOpen(false);
+      router.push("/checkout");
+    } else {
+      setIsCartOpen(false);
+      router.push(`/login?fallbackUrl=checkout`);
+      Swal.fire({
+        icon: "error",
+        title: "Login Required",
+        text: "Please login to proceed to checkout.",
+      });
+    }
+  };
 
   if (!isCartOpen) return null;
 
@@ -142,14 +163,13 @@ export default function CartDrawer() {
             <p className="text-[10px] uppercase tracking-widest text-base-content/50 mb-6 font-bold">
               Shipping & taxes calculated at checkout
             </p>
-            <Link
-              href="/checkout"
-              onClick={() => setIsCartOpen(false)}
+            <button
+              onClick={goToCheckout}
               className="btn btn-primary w-full h-14 rounded-xl text-lg font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all group gap-2"
             >
               Go to Checkout{" "}
               <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </Link>
+            </button>
           </div>
         )}
       </div>

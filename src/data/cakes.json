@@ -1,0 +1,265 @@
+[
+{
+"name": "Classic Chocolate Fudge Cake",
+"description": "Rich and moist chocolate sponge layered with premium dark chocolate ganache. Perfect for birthdays and celebrations.",
+"category": "Birthday Cakes",
+"images": [
+"https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+"https://images.unsplash.com/photo-1602351447937-745cb720612f",
+"https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b"
+],
+"basePrice": 850,
+"sizes": [
+{ "label": "1 lb", "price": 850 },
+{ "label": "2 lb", "price": 1500 },
+{ "label": "3 lb", "price": 2100 }
+],
+"flavors": ["Chocolate", "Dark Chocolate"],
+"stock": 20,
+"preparationTimeHours": 24,
+"isAvailable": true,
+"featured": true,
+"createdAt": "2026-01-10"
+},
+
+{
+"name": "Red Velvet Signature",
+"description": "Soft red velvet sponge layered with smooth cream cheese frosting. A customer favorite.",
+"category": "Signature Cakes",
+"images": [
+"https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7",
+"https://images.unsplash.com/photo-1603532648955-039310d9ed75",
+"https://images.unsplash.com/photo-1621303837174-89787a7d4729"
+],
+"basePrice": 950,
+"sizes": [
+{ "label": "1 lb", "price": 950 },
+{ "label": "2 lb", "price": 1700 }
+],
+"flavors": ["Red Velvet"],
+"stock": 15,
+"preparationTimeHours": 24,
+"isAvailable": true,
+"featured": true,
+"createdAt": "2026-01-12"
+},
+
+{
+"name": "Strawberry Bliss Cake",
+"description": "Light vanilla sponge layered with fresh strawberry cream and seasonal strawberries.",
+"category": "Premium Cakes",
+"images": [
+"https://images.unsplash.com/photo-1562440499-64c9a111f713",
+"https://images.unsplash.com/photo-1559620192-032c4bc4674e",
+"https://images.unsplash.com/photo-1557925923-cd4648e211a0"
+],
+"basePrice": 900,
+"sizes": [
+{ "label": "1 lb", "price": 900 },
+{ "label": "2 lb", "price": 1600 }
+],
+"flavors": ["Strawberry", "Vanilla Strawberry"],
+"stock": 18,
+"preparationTimeHours": 24,
+"isAvailable": true,
+"featured": false,
+"createdAt": "2026-01-14"
+},
+
+{
+"name": "Black Forest Classic",
+"description": "Chocolate sponge layered with whipped cream and cherries. A timeless favorite.",
+"category": "Birthday Cakes",
+"images": [
+"https://images.unsplash.com/photo-1605478036937-0b8b47d8103b",
+"https://images.unsplash.com/photo-1576618148400-f54bed99fcfd",
+"https://images.unsplash.com/photo-1627308595229-7830a5c91f9f"
+],
+"basePrice": 800,
+"sizes": [
+{ "label": "1 lb", "price": 800 },
+{ "label": "2 lb", "price": 1450 }
+],
+"flavors": ["Black Forest"],
+"stock": 22,
+"preparationTimeHours": 24,
+"isAvailable": true,
+"featured": false,
+"createdAt": "2026-01-16"
+},
+
+{
+"name": "Vanilla Buttercream Dream",
+"description": "Classic vanilla sponge with silky buttercream frosting. Customizable with message.",
+"category": "Custom Cakes",
+"images": [
+"https://images.unsplash.com/photo-1621303837174-89787a7d4729",
+"https://images.unsplash.com/photo-1541783245831-57d6fb0926d3",
+"https://images.unsplash.com/photo-1589302168068-964664d93dc0"
+],
+"basePrice": 750,
+"sizes": [
+{ "label": "1 lb", "price": 750 },
+{ "label": "2 lb", "price": 1350 }
+],
+"flavors": ["Vanilla", "Vanilla Almond"],
+"stock": 25,
+"preparationTimeHours": 24,
+"isAvailable": true,
+"featured": false,
+"createdAt": "2026-01-18"
+},
+
+{
+"name": "Chocolate Bento Mini Cake",
+"description": "Cute mini bento cake perfect for small celebrations and surprise gifts.",
+"category": "Bento Cakes",
+"images": [
+"https://images.unsplash.com/photo-1602351447937-745cb720612f",
+"https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b",
+"https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7"
+],
+"basePrice": 420,
+"sizes": [
+{ "label": "Mini (0.5 lb)", "price": 420 }
+],
+"flavors": ["Chocolate", "Vanilla"],
+"stock": 30,
+"preparationTimeHours": 24,
+"isAvailable": true,
+"featured": true,
+"createdAt": "2026-01-20"
+},
+
+{
+"name": "Butterscotch Delight",
+"description": "Moist sponge layered with caramelized butterscotch cream and crunchy praline.",
+"category": "Premium Cakes",
+"images": [
+"https://images.unsplash.com/photo-1589302168068-964664d93dc0",
+"https://images.unsplash.com/photo-1559620192-032c4bc4674e",
+"https://images.unsplash.com/photo-1557925923-cd4648e211a0"
+],
+"basePrice": 850,
+"sizes": [
+{ "label": "1 lb", "price": 850 },
+{ "label": "2 lb", "price": 1500 }
+],
+"flavors": ["Butterscotch"],
+"stock": 17,
+"preparationTimeHours": 24,
+"isAvailable": true,
+"featured": false,
+"createdAt": "2026-01-22"
+},
+
+{
+"name": "Oreo Overload Cake",
+"description": "Chocolate sponge packed with crushed Oreo cookies and creamy frosting.",
+"category": "Birthday Cakes",
+"images": [
+"https://images.unsplash.com/photo-1603532648955-039310d9ed75",
+"https://images.unsplash.com/photo-1605478036937-0b8b47d8103b",
+"https://images.unsplash.com/photo-1578985545062-69928b1d9587"
+],
+"basePrice": 900,
+"sizes": [
+{ "label": "1 lb", "price": 900 },
+{ "label": "2 lb", "price": 1600 }
+],
+"flavors": ["Oreo Chocolate"],
+"stock": 19,
+"preparationTimeHours": 24,
+"isAvailable": true,
+"featured": true,
+"createdAt": "2026-01-25"
+},
+
+{
+"name": "Lemon Zest Fresh Cake",
+"description": "Refreshing lemon sponge layered with light citrus cream.",
+"category": "Signature Cakes",
+"images": [
+"https://images.unsplash.com/photo-1559620192-032c4bc4674e",
+"https://images.unsplash.com/photo-1562440499-64c9a111f713",
+"https://images.unsplash.com/photo-1589302168068-964664d93dc0"
+],
+"basePrice": 800,
+"sizes": [
+{ "label": "1 lb", "price": 800 },
+{ "label": "2 lb", "price": 1450 }
+],
+"flavors": ["Lemon"],
+"stock": 14,
+"preparationTimeHours": 24,
+"isAvailable": true,
+"featured": false,
+"createdAt": "2026-01-27"
+},
+
+{
+"name": "Chocolate Hazelnut Fantasy",
+"description": "Premium chocolate sponge layered with hazelnut cream and ganache drip.",
+"category": "Premium Cakes",
+"images": [
+"https://images.unsplash.com/photo-1576618148400-f54bed99fcfd",
+"https://images.unsplash.com/photo-1602351447937-745cb720612f",
+"https://images.unsplash.com/photo-1578985545062-69928b1d9587"
+],
+"basePrice": 1000,
+"sizes": [
+{ "label": "1 lb", "price": 1000 },
+{ "label": "2 lb", "price": 1800 }
+],
+"flavors": ["Chocolate Hazelnut"],
+"stock": 12,
+"preparationTimeHours": 24,
+"isAvailable": true,
+"featured": true,
+"createdAt": "2026-01-29"
+},
+
+{
+"name": "Pistachio Cream Cake",
+"description": "Soft sponge layered with smooth pistachio cream and crushed nuts.",
+"category": "Signature Cakes",
+"images": [
+"https://images.unsplash.com/photo-1621303837174-89787a7d4729",
+"https://images.unsplash.com/photo-1541783245831-57d6fb0926d3",
+"https://images.unsplash.com/photo-1562440499-64c9a111f713"
+],
+"basePrice": 1100,
+"sizes": [
+{ "label": "1 lb", "price": 1100 },
+{ "label": "2 lb", "price": 1950 }
+],
+"flavors": ["Pistachio"],
+"stock": 10,
+"preparationTimeHours": 24,
+"isAvailable": true,
+"featured": false,
+"createdAt": "2026-02-01"
+},
+
+{
+"name": "Anniversary Floral Cake",
+"description": "Elegant floral-themed cake customized for anniversaries and special events.",
+"category": "Custom Cakes",
+"images": [
+"https://images.unsplash.com/photo-1603532648955-039310d9ed75",
+"https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b",
+"https://images.unsplash.com/photo-1576618148400-f54bed99fcfd"
+],
+"basePrice": 1200,
+"sizes": [
+{ "label": "1 lb", "price": 1200 },
+{ "label": "2 lb", "price": 2100 }
+],
+"flavors": ["Vanilla", "Red Velvet", "Chocolate"],
+"stock": 8,
+"preparationTimeHours": 24,
+"isAvailable": true,
+"featured": true,
+"createdAt": "2026-02-03"
+}
+]

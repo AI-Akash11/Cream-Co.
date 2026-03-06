@@ -1,7 +1,9 @@
 import ShopClient from "../../components/shop/ShopClient";
+import { getCake } from "@/actions/server/cake";
 
 // 1. Export standard static metadata for the Shop page
 export const metadata = {
+  // ... (keep metadata)
   title: "Our Collection | Cream & Co.",
   description:
     "Explore our premium collection of artisan cakes, from custom birthday cakes to elegant wedding centerpieces. Handcrafted with the finest ingredients in Dhaka.",
@@ -32,7 +34,9 @@ export const metadata = {
   },
 };
 
-export default function ShopPage() {
+export default async function ShopPage() {
+  const allCakes = await getCake();
+
   // 2. Render the interactive client component
-  return <ShopClient />;
+  return <ShopClient initialCakes={allCakes} />;
 }

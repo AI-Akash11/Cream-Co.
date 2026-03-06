@@ -4,6 +4,7 @@ import FeaturedCakes from "@/components/home/FeaturedCakes";
 import Testimonials from "@/components/home/Testimonials";
 import HomeCTA from "@/components/home/HomeCTA";
 import Features from "@/components/home/Features";
+import { getCake } from "@/actions/server/cake";
 
 export const metadata = {
   title: "Cream & Co | Premium Cakes & Custom Desserts",
@@ -16,7 +17,10 @@ export const metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const allCakes = await getCake();
+  const featuredCakes = allCakes.filter((cake) => cake.featured).slice(0, 4);
+
   return (
     <div className="">
       <section>
@@ -28,7 +32,7 @@ export default function Home() {
       </section>
 
       <section>
-        <FeaturedCakes />
+        <FeaturedCakes featuredCakes={featuredCakes} />
       </section>
       <section>
         <Features />

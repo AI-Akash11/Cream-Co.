@@ -1,14 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { HiArrowLeft } from "react-icons/hi";
 import { FaHeart } from "react-icons/fa";
 import Container from "@/components/ui/Container";
 import { addToCart, toggleWishlist } from "@/app/actions/shop-actions";
+import gsap from "gsap";
 
-export default function ProductDetailsClient({ product }) {
+export default function CakeDetailsClient({ cake }) {
   const {
     _id,
     name,
@@ -20,13 +21,33 @@ export default function ProductDetailsClient({ product }) {
     stock,
     preparationTimeHours,
     category,
-  } = product;
+  } = cake;
 
   // Selected state
   const [selectedSize, setSelectedSize] = useState(sizes?.[0] || null);
   const [selectedFlavor, setSelectedFlavor] = useState(flavors?.[0] || null);
+  const [activeImage, setActiveImage] = useState(images?.[0] || "");
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
+
+  const mainImageRef = useRef(null);
+
+  // Animate main image when activeImage changes
+  useEffect(() => {
+    if (mainImageRef.current) {
+      gsap.fromTo(
+        mainImageRef.current,
+        { opacity: 0, scale: 0.95, filter: "blur(10px)" },
+        {
+          opacity: 1,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 0.6,
+          ease: "power2.out",
+        }
+      );
+    }
+  }, [activeImage]);
 
   // Price calculation
   const currentPrice = selectedSize ? selectedSize.price : basePrice;
@@ -78,10 +99,13 @@ export default function ProductDetailsClient({ product }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Image Gallery */}
           <div className="flex flex-col gap-6">
-            <div className="relative aspect-4/5 w-full bg-base-200 overflow-hidden shadow-2xl rounded-sm">
+            <div
+              ref={mainImageRef}
+              className="relative aspect-4/5 w-full bg-base-200 overflow-hidden shadow-2xl rounded-sm"
+            >
               <Image
                 src={
-                  images[0] ||
+                  activeImage ||
                   "https://images.unsplash.com/photo-1464347744102-11db6282f854"
                 }
                 alt={name}
@@ -91,13 +115,18 @@ export default function ProductDetailsClient({ product }) {
                 priority
               />
             </div>
-            {/* Thumbnails could go here if more images existed */}
-            {images.length > 1 && (
+            {/* Thumbnails showing all images */}
+            {images.length > 0 && (
               <div className="flex gap-4">
-                {images.slice(1).map((img, idx) => (
+                {images.map((img, idx) => (
                   <div
                     key={idx}
-                    className="relative w-24 h-32 bg-base-200 cursor-pointer border-2 border-transparent hover:border-primary transition-colors"
+                    onClick={() => setActiveImage(img)}
+                    className={`relative w-24 h-32 bg-base-200 cursor-pointer border-2 transition-all ${
+                      activeImage === img
+                        ? "border-primary shadow-md scale-105"
+                        : "border-transparent hover:border-primary/50"
+                    }`}
                   >
                     <Image
                       src={img}

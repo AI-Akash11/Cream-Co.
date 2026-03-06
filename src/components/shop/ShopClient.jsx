@@ -3,53 +3,42 @@
 import React, { useState, useMemo, useEffect } from "react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/about/SectionHeading";
-import ProductCard from "@/components/shop/ProductCard";
+import CakeCard from "@/components/shop/CakeCard";
 import FilterBar from "@/components/shop/FilterBar";
-import foodsData from "@/data/foods.json";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 import ShopCTA from "@/components/shop/ShopCTA";
-import ShopLoading from "../../app/shop/loading";
 
 const ITEMS_PER_PAGE = 12;
 
-export default function ShopClient() {
+export default function ShopClient({ initialCakes = [] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [sortBy, setSortBy] = useState("default");
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Simulate initial loading
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 800);
-    return () => clearTimeout(timer);
-  }, []);
 
   // Extract unique categories from data
   const categories = useMemo(() => {
-    const cats = foodsData.map((item) => item.category);
+    const cats = initialCakes.map((item) => item.category);
     return Array.from(new Set(cats)).sort();
-  }, []);
+  }, [initialCakes]);
 
   // Filtering and Sorting Logic
-  const filteredProducts = useMemo(() => {
-    let results = [...foodsData];
+  const filteredCakes = useMemo(() => {
+    let results = [...initialCakes];
 
     // Filter by Search Query
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase();
       results = results.filter(
-        (product) =>
-          product.name.toLowerCase().includes(query) ||
-          product.description?.toLowerCase().includes(query),
+        (cake) =>
+          cake.name.toLowerCase().includes(query) ||
+          cake.description?.toLowerCase().includes(query),
       );
     }
 
     // Filter by Category
     if (activeCategory !== "All") {
-      results = results.filter(
-        (product) => product.category === activeCategory,
-      );
+      results = results.filter((cake) => cake.category === activeCategory);
     }
 
     // Sorting
@@ -74,14 +63,14 @@ export default function ShopClient() {
     }
 
     return results;
-  }, [searchQuery, activeCategory, sortBy]);
+  }, [searchQuery, activeCategory, sortBy, initialCakes]);
 
   // Pagination Logic
-  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filteredCakes.length / ITEMS_PER_PAGE);
   const currentItems = useMemo(() => {
     const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredProducts.slice(start, start + ITEMS_PER_PAGE);
-  }, [filteredProducts, currentPage]);
+    return filteredCakes.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredCakes, currentPage]);
 
   // Reset page when filters change
   useEffect(() => {
@@ -93,10 +82,6 @@ export default function ShopClient() {
     setActiveCategory("All");
     setSortBy("default");
   };
-
-  if (isLoading) {
-    return <ShopLoading />;
-  }
 
   return (
     <div className="min-h-screen bg-base-100">
@@ -119,7 +104,7 @@ export default function ShopClient() {
               </p>
             </div>
 
-            {/* Filter & Product Area */}
+            {/* Filter & Cake Area */}
             <div className="flex flex-col gap-8 sm:gap-12">
               <FilterBar
                 categories={categories}
@@ -131,13 +116,13 @@ export default function ShopClient() {
                 setSortBy={setSortBy}
               />
 
-              {/* Product Grid / Empty State */}
+              {/* Cake Grid / Empty State */}
               <div className="relative min-h-[400px]">
-                {filteredProducts.length > 0 ? (
+                {filteredCakes.length > 0 ? (
                   <>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10 sm:gap-x-8 sm:gap-y-12">
-                      {currentItems.map((product) => (
-                        <ProductCard key={product._id} product={product} />
+                      {currentItems.map((cake) => (
+                        <CakeCard key={cake._id} cake={cake} />
                       ))}
                     </div>
 

@@ -1,6 +1,6 @@
 import Container from "@/components/ui/Container";
 
-export default function ProductDetailsLoading() {
+export default function CakeDetailsLoading() {
   return (
     <div className="min-h-screen bg-base-100 py-12 sm:py-16">
       <Container>
