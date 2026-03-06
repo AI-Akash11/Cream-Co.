@@ -5,9 +5,14 @@ import Features from "@/components/about/WhyChooseUs";
 import CallToAction from "@/components/about/CallToAction";
 
 export const metadata = {
-  title: "About | Cream & Co.",
+  title: "About Our Artisan Bakery",
   description:
     "Discover the story behind Cream & Co. – Dhaka’s premium artisan cake and pastry studio crafting small-batch bakes with fresh, locally sourced ingredients.",
+  openGraph: {
+    title: "About Our Artisan Bakery | Cream & Co.",
+    description:
+      "Discover the story behind Dhaka's premium artisan cake studio.",
+  },
 };
 
 export default function AboutPage() {

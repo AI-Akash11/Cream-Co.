@@ -21,7 +21,7 @@ export const metadata = {
     siteName: "Cream & Co.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1535141192574-5d4897c12636", // Replace with a generic beautiful shop image
+        url: "https://i.ibb.co.com/9HwfDvG9/image.png", // Replace with a generic beautiful shop image
         width: 1200,
         height: 630,
         alt: "Cream & Co. Cake Collection",

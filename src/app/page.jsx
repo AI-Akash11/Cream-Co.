@@ -5,6 +5,17 @@ import Testimonials from "@/components/home/Testimonials";
 import HomeCTA from "@/components/home/HomeCTA";
 import Features from "@/components/home/Features";
 
+export const metadata = {
+  title: "Cream & Co | Premium Cakes & Custom Desserts",
+  description:
+    "Dhaka's finest artisan cake studio. Order handcrafted premium cakes, custom celebration cakes, and delicious desserts delivered to your doorstep.",
+  openGraph: {
+    title: "Cream & Co | Premium Cakes & Custom Desserts",
+    description:
+      "Dhaka's finest artisan cake studio. Order handcrafted premium cakes and custom celebration cakes.",
+  },
+};
+
 export default function Home() {
   return (
     <div className="">

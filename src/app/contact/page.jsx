@@ -6,9 +6,14 @@ import FAQTeaser from "@/components/contact/FAQTeaser";
 import ContactCTA from "@/components/contact/ContactCTA";
 
 export const metadata = {
-  title: "Contact | Cream & Co.",
+  title: "Contact Us & Find Our Location",
   description:
-    "Get in touch with Cream & Co. – Dhaka's premium artisan bakery. Reach out for order inquiries, custom cake designs, or any questions about our fresh-baked creations.",
+    "Get in touch with Cream & Co. – Dhaka's premium artisan bakery. Reach out for order inquiries, custom cake designs, or visit our location.",
+  openGraph: {
+    title: "Contact Us & Find Our Location | Cream & Co.",
+    description:
+      "Get in touch for order inquiries and custom cake designs in Dhaka.",
+  },
 };
 
 export default function ContactPage() {
