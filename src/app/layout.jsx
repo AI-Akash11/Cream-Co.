@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
 import { CartProvider } from "@/context/CartContext";
+import ConditionalLayout from "@/components/layouts/ConditionalLayout";
 
 const poppins = Poppins({
   weight: ["100", "200", "400", "500", "600", "800"],
@@ -18,13 +19,20 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
         <CartProvider>
-          <header className="sticky top-0 z-50 w-full">
-            <Navbar />
-          </header>
-          <main className="min-h-[calc(100vh-421px)]">{children}</main>
-          <footer>
-            <Footer />
-          </footer>
+          <ConditionalLayout
+            header={
+              <header className="sticky top-0 z-50 w-full">
+                <Navbar />
+              </header>
+            }
+            footer={
+              <footer>
+                <Footer />
+              </footer>
+            }
+          >
+            {children}
+          </ConditionalLayout>
         </CartProvider>
       </body>
     </html>

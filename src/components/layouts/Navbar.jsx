@@ -211,12 +211,12 @@ export default function Navbar() {
                       </>
                     ) : (
                       <li className="px-2 mt-2">
-                        <button
-                          onClick={() => setIsLoggedIn(true)}
-                          className="btn btn-secondary w-full rounded-xl text-white font-bold h-12 shadow-lg shadow-secondary/20 hover:-translate-y-1 transition-all"
+                        <Link
+                          href="/login"
+                          className="btn btn-secondary w-full rounded-xl text-white font-bold h-12 shadow-lg shadow-secondary/20 hover:-translate-y-1 transition-all flex items-center justify-center"
                         >
                           Sign In to Order
-                        </button>
+                        </Link>
                       </li>
                     )}
                   </ul>
@@ -315,15 +315,13 @@ export default function Navbar() {
                     </button>
                   </div>
                 ) : (
-                  <button
-                    onClick={() => {
-                      setIsLoggedIn(true);
-                      setMobileMenuOpen(false);
-                    }}
-                    className="w-full btn btn-secondary btn-lg rounded-2xl font-bold shadow-lg"
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full btn btn-secondary btn-lg rounded-2xl font-bold shadow-lg flex items-center justify-center"
                   >
                     Login to Account
-                  </button>
+                  </Link>
                 )}
               </div>
             </div>
