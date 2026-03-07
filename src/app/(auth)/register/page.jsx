@@ -4,11 +4,14 @@ import Link from "next/link";
 import { FiMail, FiLock, FiUser, FiUpload, FiArrowLeft } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import { postUser } from "@/actions/server/auth";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
-
+import SocialButton from "@/components/buttons/SocialButton";
+import { signIn } from "next-auth/react";
 
 export default function RegisterPage() {
+  const params = useSearchParams();
+  const callBackUrl = params.get("callbackUrl") || "/";
   const router = useRouter();
 
   const handleRegister = async (e) => {
@@ -19,20 +22,25 @@ export default function RegisterPage() {
     const email = form.email.value;
     const password = form.password.value;
 
-    const payload = {name, email, password}
-    console.log(payload)
+    const payload = { name, email, password };
+    console.log(payload);
 
     const result = await postUser(payload);
     console.log(result);
 
     if (result?.success) {
+      // router.push("/login");
+      const result = await signIn("credentials", {
+        email: email,
+        password: password,
+        callbackUrl: callBackUrl,
+      });
       toast.success(result.message || "User created successfully.");
-      router.push("/login");
     } else {
       toast.error(result?.message || "Registration failed. Please try again.");
     }
-  }
-  
+  };
+
   return (
     <div className="flex flex-col md:flex-row-reverse min-h-[700px]">
       {/* Right Column: Form */}
@@ -117,10 +125,7 @@ export default function RegisterPage() {
           Or join with
         </div>
 
-        <button className="btn btn-outline w-full h-14 rounded-xl border-base-300 gap-3 hover:bg-base-300 hover:text-base-content transition-all">
-          <FcGoogle size={24} />
-          <span>Sign up with Google</span>
-        </button>
+        <SocialButton />
 
         <p className="mt-10 text-center text-sm opacity-70">
           Already have an account?{" "}

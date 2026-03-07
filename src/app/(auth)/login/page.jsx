@@ -2,43 +2,42 @@
 
 import Link from "next/link";
 import { FiMail, FiLock, FiArrowLeft } from "react-icons/fi";
-import { FcGoogle } from "react-icons/fc";
-import { signIn } from "next-auth/react"
-import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
 import Swal from "sweetalert2";
-import { useRouter } from "next/navigation";
-
+import {  useSearchParams } from "next/navigation";
+import SocialButton from "@/components/buttons/SocialButton";
 
 export default function LoginPage() {
-  const router = useRouter()
+  const params = useSearchParams();
+  const callBackUrl = params.get("callbackUrl") || "/";
 
   const handleLogin = async (e) => {
     e.preventDefault();
     const form = e.target;
 
     const result = await signIn("credentials", {
-      email: form.email.value, 
-      password: form.password.value, 
-      redirect: false
-    })
-    console.log(result)
-    if(!result.ok){
+      email: form.email.value,
+      password: form.password.value,
+      // redirect: false,
+      callbackUrl: params.get("callbackUrl") || "/",
+    });
+    console.log(result);
+    if (!result.ok) {
       Swal.fire({
         icon: "error",
         title: "Login Failed",
         text: "Invalid credentials",
         timer: 2000,
-        showConfirmButton: false
-      })
+        showConfirmButton: false,
+      });
     } else {
       Swal.fire({
         icon: "success",
         title: "Login Successful",
         text: "You are now logged in",
         timer: 2000,
-        showConfirmButton: false
-      })
-      router.push("/")
+        showConfirmButton: false,
+      });
     }
   };
   return (
@@ -115,15 +114,12 @@ export default function LoginPage() {
           Or continue with
         </div>
 
-        <button className="btn btn-outline w-full h-14 rounded-xl border-base-300 gap-3 hover:bg-base-300 hover:text-base-content transition-all">
-          <FcGoogle size={24} />
-          <span>Login with Google</span>
-        </button>
+        <SocialButton />
 
         <p className="mt-10 text-center text-sm opacity-70">
           Don&apos;t have an account?{" "}
           <Link
-            href="/register"
+            href={`/register?callbackUrl=${callBackUrl}`}
             className="text-primary font-bold hover:underline ml-1"
           >
             Create Account

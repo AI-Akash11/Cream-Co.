@@ -34,7 +34,7 @@ export default function CartDrawer() {
       router.push("/checkout");
     } else {
       setIsCartOpen(false);
-      router.push(`/login?fallbackUrl=checkout`);
+      router.push(`/login?callbackUrl=/checkout`);
       Swal.fire({
         icon: "error",
         title: "Login Required",

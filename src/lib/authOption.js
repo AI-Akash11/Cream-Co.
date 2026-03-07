@@ -2,6 +2,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { dbConnect, collections } from "./dbConnect";
 import { loginUser } from "@/actions/server/auth";
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions = {
   providers: [
@@ -21,6 +22,46 @@ export const authOptions = {
         return user.user;
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     // ...add more providers here
   ],
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      const isExist = await dbConnect(collections.users).findOne({
+        email: user.email,
+        provider: account?.provider,
+      });
+
+      if (isExist) {
+        return true;
+      }
+
+      const newUser = {
+        provider: account.provider,
+        name: user.name,
+        email: user.email,
+        image: user.image,
+        role: "user",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      const result = await dbConnect(collections.users).insertOne(newUser);
+
+      return result.acknowledged;
+      // return true;
+    },
+    // async redirect({ url, baseUrl }) {
+    //   return baseUrl
+    // },
+    // async session({ session, token, user }) {
+    //   return session
+    // },
+    // async jwt({ token, user, account, profile, isNewUser }) {
+    //   return token
+    // }
+  },
 };
