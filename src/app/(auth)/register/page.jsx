@@ -33,9 +33,14 @@ export default function RegisterPage() {
       const result = await signIn("credentials", {
         email: email,
         password: password,
+        redirect: false,
         callbackUrl: callBackUrl,
       });
-      toast.success(result.message || "User created successfully.");
+      if(result.ok){
+
+        toast.success(result.message || "User created successfully.");
+        router.push(callBackUrl);
+      }
     } else {
       toast.error(result?.message || "Registration failed. Please try again.");
     }

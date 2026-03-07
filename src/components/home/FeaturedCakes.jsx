@@ -1,10 +1,9 @@
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/about/SectionHeading";
-import CakeCard from "@/components/shop/CakeCard";
+import CakeCard from "@/components/cards/CakeCard";
 
 export default function FeaturedCakes({ featuredCakes = [] }) {
-
   return (
     <section className="py-16 sm:py-20 lg:py-24 bg-base-100">
       <Container>

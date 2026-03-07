@@ -6,10 +6,12 @@ import Swal from "sweetalert2";
 
 const SocialButton = () => {
     const params = useSearchParams()
-    const callbackUrl = params.get("callbackUrl") || "/"
 
   const handleSignIn = async () => {
-    const result = await signIn("google", { redirect: false, callbackUrl });
+    const result = await signIn("google", { 
+      redirect: false, 
+      callbackUrl: params.get("callbackUrl") || "/",
+    });
 
     console.log(result);
 

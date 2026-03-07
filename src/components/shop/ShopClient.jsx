@@ -3,7 +3,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/about/SectionHeading";
-import CakeCard from "@/components/shop/CakeCard";
+import CakeCard from "@/components/cards/CakeCard";
 import FilterBar from "@/components/shop/FilterBar";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 import ShopCTA from "@/components/shop/ShopCTA";

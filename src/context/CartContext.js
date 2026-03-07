@@ -1,43 +1,98 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useRef } from "react";
+import { useSession } from "next-auth/react";
+import { getCartFromDB, saveCartToDB, syncCartOnLogin } from "@/actions/server/cart";
 
 // Create the Cart Context
 const CartContext = createContext();
 
 // Cart Provider Component
 export function CartProvider({ children }) {
+  const { data: session, status } = useSession();
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
+  
+  // Track previous auth state to detect login events
+  const prevAuthStatus = useRef("loading");
 
-  // Load from localStorage on mount
+  // Load and merge logic on mount and auth changes
   useEffect(() => {
-    const savedCart = localStorage.getItem("creamAndCo_cart");
-    if (savedCart) {
-      setTimeout(() => {
-        try {
-          setCartItems(JSON.parse(savedCart));
-        } catch (e) {
-          console.error("Failed to parse cart", e);
+    let isMounted = true;
+
+    async function initCart() {
+      // Don't act until session is resolved
+      if (status === "loading") return;
+
+      const localCartStr = localStorage.getItem("creamAndCo_cart");
+      let localCart = [];
+      try {
+        if (localCartStr) localCart = JSON.parse(localCartStr);
+      } catch (e) {
+        console.error("Failed to parse local cart data", e);
+      }
+
+      const isDirty = localStorage.getItem("creamAndCo_cart_dirty") === "true";
+
+      if (status === "authenticated" && session?.user?.email) {
+        if (isDirty && localCart.length > 0) {
+          // Immediately wipe the dirty flag so React Strict Mode (or concurrent rerenders) doesn't fire this twice
+          localStorage.setItem("creamAndCo_cart_dirty", "false");
+          
+          // Merge local cart into DB
+          const res = await syncCartOnLogin(session.user.email, localCart);
+          if (res.success && isMounted) {
+            setCartItems(res.items);
+          }
+        } else {
+          // Just fetch the DB cart
+          const res = await getCartFromDB(session.user.email);
+          if (res.success && isMounted) {
+            setCartItems(res.items);
+          }
         }
-      }, 0);
-    }
-    setTimeout(() => setIsHydrated(true), 0);
-  }, []);
+      } else if (status === "unauthenticated") {
+        // Guest mode - just load local cart (which could be the last DB state if they logged out)
+        if (isMounted) setCartItems(localCart);
+      }
 
-  // Sync to localStorage on change
-  useEffect(() => {
-    if (isHydrated) {
-      localStorage.setItem("creamAndCo_cart", JSON.stringify(cartItems));
+      if (isMounted) setIsHydrated(true);
+      prevAuthStatus.current = status;
     }
-  }, [cartItems, isHydrated]);
+
+    initCart();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [status, session?.user?.email]);
+
+  // Sync to database or localStorage on change
+  useEffect(() => {
+    if (!isHydrated) return;
+
+    // ALWAYS keep localStorage in sync with the current active cart
+    localStorage.setItem("creamAndCo_cart", JSON.stringify(cartItems));
+
+    if (status === "authenticated" && session?.user?.email) {
+      // Sync to Database
+      saveCartToDB(session.user.email, cartItems).catch(err => console.error(err));
+    }
+  }, [cartItems, isHydrated, status, session?.user?.email]);
+
+  const markDirtyIfGuest = () => {
+    if (status === "unauthenticated") {
+      localStorage.setItem("creamAndCo_cart_dirty", "true");
+    }
+  };
 
   // Calculate total cart item count
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   // Add item to cart
   const addToCart = (item) => {
+    markDirtyIfGuest();
     setCartItems((prev) => {
       const existingItem = prev.find((i) => i.id === item.id);
       if (existingItem) {
@@ -51,11 +106,13 @@ export function CartProvider({ children }) {
 
   // Remove item from cart
   const removeFromCart = (itemId) => {
+    markDirtyIfGuest();
     setCartItems((prev) => prev.filter((item) => item.id !== itemId));
   };
 
   // Update item quantity
   const updateQuantity = (itemId, quantity) => {
+    markDirtyIfGuest();
     if (quantity <= 0) {
       removeFromCart(itemId);
       return;

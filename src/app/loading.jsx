@@ -17,20 +17,23 @@ export default function GlobalLoading() {
   return (
     <div className="fixed inset-0 z-9999 bg-base-100 flex flex-col items-center justify-center min-h-screen">
       <div className="flex flex-col items-center justify-center gap-8 relative">
-        {/* Decorative Outer Rings */}
-        <div className="absolute inset-0 m-auto w-32 h-32 border-4 border-primary/20 rounded-full animate-ping opacity-50"></div>
-        <div className="absolute inset-0 m-auto w-24 h-24 border-t-4 border-r-4 border-primary rounded-full animate-spin"></div>
-
-        {/* Center Logo / Icon */}
-        <div className="relative w-20 h-20 bg-base-100 rounded-full flex items-center justify-center z-10 shadow-2xl border border-base-200">
-          <div className="flex flex-col items-center justify-center leading-none">
-            <span className="text-primary text-2xl font-serif font-black italic tracking-tighter">
-              C
-              <span className="text-base-content/20 mx-0.5 font-sans not-italic">
-                &
+        {/* Visual Loading Indicator */}
+        <div className="relative w-32 h-32 flex items-center justify-center">
+          {/* Decorative Outer Rings */}
+          <div className="absolute inset-0 m-auto w-32 h-32 border-4 border-primary/20 rounded-full animate-ping opacity-50"></div>
+          <div className="absolute inset-0 m-auto w-24 h-24 border-t-4 border-r-4 border-primary rounded-full animate-spin"></div>
+  
+          {/* Center Logo / Icon */}
+          <div className="relative w-20 h-20 bg-base-100 rounded-full flex items-center justify-center z-10 shadow-2xl border border-base-200">
+            <div className="flex flex-col items-center justify-center leading-none">
+              <span className="text-primary text-2xl font-serif font-black italic tracking-tighter">
+                C
+                <span className="text-base-content/20 mx-0.5 font-sans not-italic">
+                  &
+                </span>
+                C
               </span>
-              C
-            </span>
+            </div>
           </div>
         </div>
 

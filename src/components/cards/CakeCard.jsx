@@ -2,39 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { addToCart } from "@/app/actions/shop-actions";
-import { useCart } from "@/context/CartContext";
-import { FiCheck } from "react-icons/fi";
+import CartButton from "@/components/buttons/CartButton";
 
 export default function CakeCard({ cake }) {
   const { _id, name, slug, description, images, basePrice, featured } = cake;
-  const { cartItems, addToCart: addClientCart, setIsCartOpen } = useCart();
-
-  const isInCart = cartItems.some((item) => item.id === _id);
-
-  const handleAddToCart = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (isInCart) return;
-
-    // Update client UI state immediately
-    addClientCart({
-      id: _id,
-      name,
-      basePrice,
-      image: images[0],
-    });
-
-    // Optionally open the cart
-    setIsCartOpen(true);
-
-    // Call dummy server action
-    const res = await addToCart(_id);
-    if (res.success) {
-      console.log(res.message);
-    }
-  };
 
   return (
     <Link
@@ -61,23 +32,7 @@ export default function CakeCard({ cake }) {
 
         {/* Quick Actions Overlay / Always Visible Button */}
         <div className="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-black/60 to-transparent flex">
-          <button
-            onClick={handleAddToCart}
-            disabled={isInCart}
-            className={`flex-1 flex items-center justify-center gap-2 text-xs font-bold py-3 px-3 rounded-none uppercase tracking-tight transition-all duration-300 ${
-              isInCart
-                ? "bg-success text-white cursor-default"
-                : "bg-white text-black hover:bg-primary hover:text-white"
-            }`}
-          >
-            {isInCart ? (
-              <>
-                <FiCheck size={16} /> Added to Cart
-              </>
-            ) : (
-              "Add to Cart"
-            )}
-          </button>
+          <CartButton cake={cake} buttonStyle="overlay" />
         </div>
       </div>
 

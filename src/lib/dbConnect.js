@@ -5,6 +5,7 @@ export const collections = {
   users: "users",
   cakes: "cakes",
   orders: "orders",
+  cart: "cart",
 };
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {

@@ -5,6 +5,9 @@ import Testimonials from "@/components/home/Testimonials";
 import HomeCTA from "@/components/home/HomeCTA";
 import Features from "@/components/home/Features";
 import { getCake } from "@/actions/server/cake";
+import { getServerSession } from "next-auth";
+import Test from "@/components/Test";
+import { authOptions } from "@/lib/authOption";
 
 export const metadata = {
   title: "Cream & Co | Premium Cakes & Custom Desserts",
@@ -18,6 +21,7 @@ export const metadata = {
 };
 
 export default async function Home() {
+  const session = await getServerSession(authOptions);
   const allCakes = await getCake();
   const featuredCakes = allCakes.filter((cake) => cake.featured).slice(0, 4);
 

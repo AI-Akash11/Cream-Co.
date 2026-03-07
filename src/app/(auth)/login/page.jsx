@@ -4,12 +4,13 @@ import Link from "next/link";
 import { FiMail, FiLock, FiArrowLeft } from "react-icons/fi";
 import { signIn } from "next-auth/react";
 import Swal from "sweetalert2";
-import {  useSearchParams } from "next/navigation";
+import {  useRouter, useSearchParams } from "next/navigation";
 import SocialButton from "@/components/buttons/SocialButton";
 
 export default function LoginPage() {
   const params = useSearchParams();
   const callBackUrl = params.get("callbackUrl") || "/";
+  const router = useRouter()
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,8 +19,8 @@ export default function LoginPage() {
     const result = await signIn("credentials", {
       email: form.email.value,
       password: form.password.value,
-      // redirect: false,
-      callbackUrl: params.get("callbackUrl") || "/",
+      redirect: false,
+      // callbackUrl: params.get("callbackUrl") || "/",
     });
     console.log(result);
     if (!result.ok) {
@@ -38,6 +39,7 @@ export default function LoginPage() {
         timer: 2000,
         showConfirmButton: false,
       });
+      router.push(callBackUrl);
     }
   };
   return (
