@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/about/SectionHeading";
 import CakeCard from "@/components/cards/CakeCard";
@@ -10,17 +11,38 @@ import ShopCTA from "@/components/shop/ShopCTA";
 
 const ITEMS_PER_PAGE = 12;
 
-export default function ShopClient({ initialCakes = [] }) {
+const ALL_CATEGORIES = [
+  "Birthday Cakes",
+  "Signature Cakes",
+  "Premium Cakes",
+  "Custom Cakes",
+  "Bento Cakes",
+  "Wedding Cakes",
+  "Cupcakes",
+  "Pastries",
+];
+
+function ShopContent({ initialCakes = [] }) {
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category");
+
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState(
+    categoryParam && ALL_CATEGORIES.includes(categoryParam)
+      ? categoryParam
+      : "All"
+  );
   const [sortBy, setSortBy] = useState("default");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Extract unique categories from data
-  const categories = useMemo(() => {
-    const cats = initialCakes.map((item) => item.category);
-    return Array.from(new Set(cats)).sort();
-  }, [initialCakes]);
+  // Sync activeCategory when URL search param changes
+  useEffect(() => {
+    if (categoryParam && ALL_CATEGORIES.includes(categoryParam)) {
+      setActiveCategory(categoryParam);
+    } else if (!categoryParam) {
+      setActiveCategory("All");
+    }
+  }, [categoryParam]);
 
   // Filtering and Sorting Logic
   const filteredCakes = useMemo(() => {
@@ -32,7 +54,7 @@ export default function ShopClient({ initialCakes = [] }) {
       results = results.filter(
         (cake) =>
           cake.name.toLowerCase().includes(query) ||
-          cake.description?.toLowerCase().includes(query),
+          cake.description?.toLowerCase().includes(query)
       );
     }
 
@@ -107,7 +129,7 @@ export default function ShopClient({ initialCakes = [] }) {
             {/* Filter & Cake Area */}
             <div className="flex flex-col gap-8 sm:gap-12">
               <FilterBar
-                categories={categories}
+                categories={ALL_CATEGORIES}
                 activeCategory={activeCategory}
                 setActiveCategory={setActiveCategory}
                 searchQuery={searchQuery}
@@ -211,5 +233,19 @@ export default function ShopClient({ initialCakes = [] }) {
       {/* Call to Action Section */}
       <ShopCTA />
     </div>
+  );
+}
+
+// Wrap with Suspense because it uses useSearchParams()
+export default function ShopClient({ initialCakes = [] }) {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
+        <p className="ml-4 font-medium text-base-content/60">Loading Shop...</p>
+      </div>
+    }>
+      <ShopContent initialCakes={initialCakes} />
+    </Suspense>
   );
 }

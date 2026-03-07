@@ -2,6 +2,7 @@
 
 import { useCart } from "@/context/CartContext";
 import { FiLock, FiArrowRight } from "react-icons/fi";
+import Swal from "sweetalert2";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -28,7 +29,15 @@ export default function OrderConfirmation() {
 
     // Basic validation
     if (!deliveryInfo.phone || !deliveryInfo.address || !deliveryInfo.city || !deliveryInfo.zip) {
-      alert("Please fill in all delivery details.");
+      Swal.fire({
+        icon: "error",
+        title: "Missing Information",
+        text: "Please fill in all delivery details.",
+        toast: true,
+        position: "top-end",
+        timer: 3000,
+        showConfirmButton: false
+      });
       setIsProcessing(false);
       return;
     }

@@ -8,16 +8,34 @@ const AuthButtons = () => {
   return (
     <>
       {session.status == "authenticated" ? (
-        <button
-          onClick={() => signOut()}
-          className="btn btn-secondary w-full rounded-xl text-white font-bold h-12 shadow-lg shadow-secondary/20 hover:-translate-y-1 transition-all flex items-center justify-center"
-        >
-          Logout
-        </button>
+        <div className="flex flex-col items-center gap-3 w-full">
+          <Link
+            href="/orders"
+            className="btn btn-outline w-full rounded-xl font-semibold h-12 flex items-center justify-center border-[#7a4b4b] text-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white shadow-md transition-all"
+          >
+            My Orders
+          </Link>
+          
+          {session.data?.user?.role === "admin" && (
+            <Link
+              href="/admin/orders"
+              className="btn btn-primary w-full rounded-xl font-semibold h-12 flex items-center justify-center shadow-md transition-all hover:-translate-y-1"
+            >
+              Admin Dashboard
+            </Link>
+          )}
+          
+          <button
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="btn btn-outline btn-error w-full rounded-xl font-semibold h-12 flex items-center justify-center shadow-md transition-all hover:bg-error hover:text-white"
+          >
+            Logout
+          </button>
+        </div>
       ) : (
         <Link
           href="/login"
-          className="btn btn-secondary w-full rounded-xl text-white font-bold h-12 shadow-lg shadow-secondary/20 hover:-translate-y-1 transition-all flex items-center justify-center"
+          className="btn btn-primary w-full rounded-xl font-semibold h-12 shadow-md hover:-translate-y-1 transition-all flex items-center justify-center"
         >
           Sign In to Order
         </Link>

@@ -6,7 +6,9 @@ import Link from "next/link";
 import { HiArrowLeft } from "react-icons/hi";
 import { FaHeart } from "react-icons/fa";
 import Container from "@/components/ui/Container";
-import { addToCart, toggleWishlist } from "@/app/actions/shop-actions";
+import { toggleWishlist } from "@/app/actions/shop-actions";
+import { useCart } from "@/context/CartContext";
+import Swal from "sweetalert2";
 import gsap from "gsap";
 
 export default function CakeDetailsClient({ cake }) {
@@ -22,6 +24,8 @@ export default function CakeDetailsClient({ cake }) {
     preparationTimeHours,
     category,
   } = cake;
+
+  const { addToCart } = useCart();
 
   // Selected state
   const [selectedSize, setSelectedSize] = useState(sizes?.[0] || null);
@@ -55,27 +59,39 @@ export default function CakeDetailsClient({ cake }) {
 
   const handleAddToCart = async () => {
     setIsAdding(true);
-    try {
-      const res = await addToCart(_id, {
-        size: selectedSize?.label,
-        flavor: selectedFlavor,
-        quantity,
-      });
-      if (res?.success) {
-        console.log("Added to cart", res.message);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsAdding(false);
-    }
+
+    const cartItem = {
+      id: `${_id}-${selectedSize?.label || "default"}-${selectedFlavor || "default"}`, // Unique ID for variants
+      productId: _id,
+      name: name,
+      image: activeImage || images?.[0], // Keep active image if selected
+      basePrice: currentPrice,
+      size: selectedSize?.label,
+      flavor: selectedFlavor,
+      quantity,
+    };
+
+    addToCart(cartItem);
+
+    setIsAdding(false);
+
+    Swal.fire({
+      icon: "success",
+      title: "Added to Cart!",
+      text: `${quantity}x ${name} has been added to your cart.`,
+      toast: true,
+      position: "bottom-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
   };
 
   const handleWishlist = async () => {
     try {
       const res = await toggleWishlist(_id);
       if (res?.success) {
-        console.log("Wishlist toggled", res.message);
+        // console.log("Wishlist toggled", res.message);
       }
     } catch (error) {
       console.error(error);

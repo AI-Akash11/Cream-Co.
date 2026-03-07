@@ -57,24 +57,24 @@ export const authOptions = {
     // async redirect({ url, baseUrl }) {
     //   return baseUrl
     // },
-    async session({ session, token, user }) {
-      if (token) {
-        session.role = token.role;
-        session.email = token.email;
+    async session({ session, token }) {
+      if (token && session.user) {
+        session.user.role = token.role;
+        session.user.id = token.id;
       }
       return session;
     },
-    async jwt({ token, user, account, profile, isNewUser }) {
+    async jwt({ token, user, account }) {
       if (user) {
-        if (account.provider == "google") {
+        token.id = user._id || user.id;
+        
+        if (account?.provider === "google") {
           const dbUser = await dbConnect(collections.users).findOne({
             email: user.email,
           });
-          token.role = dbUser.role;
-          token.email = dbUser.email;
+          token.role = dbUser?.role || "user";
         } else {
-          token.role = user.role;
-          token.email = user.email;
+          token.role = user.role || "user";
         }
       }
       return token;

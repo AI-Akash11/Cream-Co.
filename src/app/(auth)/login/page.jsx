@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState } from "react";
 import Link from "next/link";
 import { FiMail, FiLock, FiArrowLeft } from "react-icons/fi";
 import { signIn } from "next-auth/react";
@@ -11,9 +12,11 @@ export default function LoginPage() {
   const params = useSearchParams();
   const callBackUrl = params.get("callbackUrl") || "/";
   const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     const form = e.target;
 
     const result = await signIn("credentials", {
@@ -22,7 +25,8 @@ export default function LoginPage() {
       redirect: false,
       // callbackUrl: params.get("callbackUrl") || "/",
     });
-    console.log(result);
+    // console.log(result);
+    setIsSubmitting(false);
     if (!result.ok) {
       Swal.fire({
         icon: "error",
@@ -107,8 +111,19 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <button className="btn btn-primary w-full h-14 rounded-xl text-lg font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all">
-            Sign In
+          <button 
+            type="submit"
+            disabled={isSubmitting}
+            className="btn btn-primary w-full h-14 rounded-xl text-lg font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all flex items-center justify-center gap-2"
+          >
+            {isSubmitting ? (
+              <>
+                <span className="loading loading-spinner"></span>
+                Logging in...
+              </>
+            ) : (
+              "Sign In"
+            )}
           </button>
         </form>
 

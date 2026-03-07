@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState } from "react";
 import Link from "next/link";
 import { FiMail, FiLock, FiUser, FiUpload, FiArrowLeft } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
@@ -13,9 +14,11 @@ export default function RegisterPage() {
   const params = useSearchParams();
   const callBackUrl = params.get("callbackUrl") || "/";
   const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     const form = e.target;
 
     const name = form.name.value;
@@ -23,10 +26,10 @@ export default function RegisterPage() {
     const password = form.password.value;
 
     const payload = { name, email, password };
-    console.log(payload);
+    // console.log(payload);
 
     const result = await postUser(payload);
-    console.log(result);
+    // console.log(result);
 
     if (result?.success) {
       // router.push("/login");
@@ -44,6 +47,7 @@ export default function RegisterPage() {
     } else {
       toast.error(result?.message || "Registration failed. Please try again.");
     }
+    setIsSubmitting(false);
   };
 
   return (
@@ -121,9 +125,20 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          <button className="btn btn-primary w-full h-14 rounded-xl text-lg font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all mt-4">
-            Create Account
-          </button>
+           <button 
+             type="submit"
+             disabled={isSubmitting}
+             className="btn btn-primary w-full h-14 rounded-xl text-lg font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all mt-4 flex items-center justify-center gap-2"
+           >
+             {isSubmitting ? (
+               <>
+                 <span className="loading loading-spinner"></span>
+                 Creating Account...
+               </>
+             ) : (
+               "Create Account"
+             )}
+           </button>
         </form>
 
         <div className="divider my-8 opacity-50 uppercase text-[10px] font-bold tracking-widest">

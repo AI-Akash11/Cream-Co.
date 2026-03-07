@@ -30,6 +30,7 @@ export async function POST(request) {
         name: item.name,
         quantity: item.quantity,
         price: item.basePrice || 0,
+        details: item.details || null, // Preserve custom cake details
       })),
       totalAmount: cartTotal,
       deliveryInformation: deliveryInfo,

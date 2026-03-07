@@ -46,6 +46,7 @@ const categories = [
   },
 ];
 
+// Provide URL encoding to guarantee safe URL generation
 export default function CategoriesSection() {
   return (
     <section className="py-16 sm:py-20 lg:py-24 bg-base-100">
@@ -61,7 +62,7 @@ export default function CategoriesSection() {
             {categories.map((cat) => (
               <Link
                 key={cat.slug}
-                href={`/shop?category=${cat.slug}`}
+                href={`/shop?category=${encodeURIComponent(cat.name)}`}
                 className="group flex flex-col items-center gap-3"
               >
                 {/* Circular Image */}

@@ -16,6 +16,7 @@ import {
   FiLogOut,
   FiLayout,
 } from "react-icons/fi";
+import { useSession } from "next-auth/react";
 import { useCart } from "@/context/CartContext";
 import Logo from "@/components/shared/Logo";
 import Container from "@/components/ui/Container";
@@ -30,8 +31,8 @@ const navLinks = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { data: session, status } = useSession();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const { cartCount, setIsCartOpen } = useCart();
@@ -70,11 +71,6 @@ export default function Navbar() {
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setMobileMenuOpen(false);
   };
 
   return (
@@ -180,41 +176,9 @@ export default function Navbar() {
                         Account Interface
                       </p>
                     </div>
-                    {isLoggedIn ? (
-                      <>
-                        <li>
-                          <Link
-                            href="/dashboard"
-                            className="rounded-xl py-3 flex items-center gap-3 mb-1"
-                          >
-                            <FiLayout size={16} className="opacity-40" />{" "}
-                            Dashboard
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            href="/dashboard/orders"
-                            className="rounded-xl py-3 flex items-center gap-3 mb-1"
-                          >
-                            <FiShoppingCart size={16} className="opacity-40" />{" "}
-                            Order History
-                          </Link>
-                        </li>
-                        <div className="divider my-1 opacity-20" />
-                        <li>
-                          <button
-                            onClick={handleLogout}
-                            className="rounded-xl py-3 flex items-center gap-3 text-error font-bold"
-                          >
-                            <FiLogOut size={16} /> Logout Access
-                          </button>
-                        </li>
-                      </>
-                    ) : (
-                      <li className="px-2 mt-2 w-full">
-                        <AuthButtons />
-                      </li>
-                    )}
+                    <div className="px-4 mt-2">
+                      <AuthButtons />
+                    </div>
                   </ul>
                 </div>
               </div>
@@ -287,32 +251,9 @@ export default function Navbar() {
                 <p className="text-xs font-semibold uppercase opacity-60 px-2">
                   Account Access
                 </p>
-                {isLoggedIn ? (
-                  <div className="grid grid-cols-1 gap-2">
-                    <Link
-                      href="/dashboard"
-                      className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary-focus transition-all text-sm font-medium border border-primary-focus/50"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <FiLayout className="opacity-60" /> Dashboard
-                    </Link>
-                    <Link
-                      href="/dashboard/orders"
-                      className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary-focus transition-all text-sm font-medium border border-primary-focus/50"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <FiShoppingCart className="opacity-60" /> Orders
-                    </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl hover:bg-red-500/10 text-red-100 transition-all text-sm font-bold mt-2"
-                    >
-                      <FiLogOut /> Sign Out
-                    </button>
-                  </div>
-                ) : (
+                <div className="px-2">
                   <AuthButtons />
-                )}
+                </div>
               </div>
             </div>
           </div>

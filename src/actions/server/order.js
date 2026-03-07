@@ -11,6 +11,48 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 /**
  * Creates an order in MongoDB and generates a Stripe Checkout Session URL
  */
+// Add this new action to get user orders
+export async function getUserOrders(email) {
+  try {
+    const ordersCollection = dbConnect(collections.orders);
+
+    const orders = await ordersCollection
+      .find({ email })
+      .sort({ createdAt: -1 })
+      .toArray();
+
+    // Serialize object IDs
+    return orders.map((order) => ({
+      ...order,
+      _id: order._id.toString(),
+    }));
+  } catch (error) {
+    console.error("Error fetching user orders:", error);
+    return [];
+  }
+}
+
+// Add this new action to get ALL orders for admin
+export async function getAllOrders() {
+  try {
+    const ordersCollection = dbConnect(collections.orders);
+
+    const orders = await ordersCollection
+      .find({})
+      .sort({ createdAt: -1 })
+      .toArray();
+
+    // Serialize object IDs
+    return orders.map((order) => ({
+      ...order,
+      _id: order._id.toString(),
+    }));
+  } catch (error) {
+    console.error("Error fetching all orders:", error);
+    return [];
+  }
+}
+
 export async function createOrderAndStripeSession(orderData) {
   try {
     const { email, name, deliveryInfo, cartItems, cartTotal } = orderData;
@@ -28,6 +70,7 @@ export async function createOrderAndStripeSession(orderData) {
         name: item.name,
         quantity: item.quantity,
         price: item.basePrice || 0,
+        details: item.details || null, // Preserve custom cake details
       })),
       totalAmount: cartTotal,
       deliveryInformation: deliveryInfo,
