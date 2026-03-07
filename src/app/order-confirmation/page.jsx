@@ -1,59 +1,49 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
-import { FiCreditCard, FiLock, FiCheckCircle } from "react-icons/fi";
+import { FiLock, FiArrowRight } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-export default function CheckoutPage() {
+export default function OrderConfirmation() {
   const { cartItems, cartTotal } = useCart();
-  const [paymentMethod, setPaymentMethod] = useState("stripe");
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const { data: session } = useSession();
+  const router = useRouter();
 
-  const handleCheckout = (e) => {
+  const [deliveryInfo, setDeliveryInfo] = useState({
+    phone: "",
+    address: "",
+    city: "",
+    zip: ""
+  });
+
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleProceedToPayment = (e) => {
     e.preventDefault();
     setIsProcessing(true);
 
-    // Simulate backend payment processing delay
-    setTimeout(() => {
+    // Basic validation
+    if (!deliveryInfo.phone || !deliveryInfo.address || !deliveryInfo.city || !deliveryInfo.zip) {
+      alert("Please fill in all delivery details.");
       setIsProcessing(false);
-      setIsSuccess(true);
-    }, 2000);
-  };
+      return;
+    }
 
-  if (isSuccess) {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center p-4">
-        <div className="max-w-md w-full text-center space-y-6 bg-base-200 p-8 rounded-3xl shadow-xl">
-          <div className="w-20 h-20 bg-success/20 text-success rounded-full flex items-center justify-center mx-auto mb-6">
-            <FiCheckCircle size={40} />
-          </div>
-          <h1 className="text-3xl font-serif font-bold italic">
-            Order Confirmed!
-          </h1>
-          <p className="text-base-content/70">
-            Thank you for your purchase. We've received your order and are
-            beginning preparation.
-          </p>
-          <div className="pt-6 border-t border-base-300">
-            <Link
-              href="/"
-              className="btn btn-primary w-full rounded-xl font-bold"
-            >
-              Return to Home
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
+    // Save delivery info to localStorage to pick it up on the payment page
+    localStorage.setItem("creamAndCo_deliveryInfo", JSON.stringify(deliveryInfo));
+    
+    // Navigate to payment
+    router.push("/payment");
+  };
 
   if (cartItems.length === 0) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center p-4 text-center">
-        <h1 className="text-3xl font-serif font-bold italic mb-4">Checkout</h1>
+        <h1 className="text-3xl font-serif font-bold italic mb-4">Order Confirmation</h1>
         <p className="text-base-content/60 mb-8 max-w-md">
           Your cart is currently empty. Add some delicious treats before
           proceeding to checkout.
@@ -86,37 +76,28 @@ export default function CheckoutPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="form-control">
                   <label className="label text-xs font-bold opacity-70">
-                    First Name
+                    Name
                   </label>
                   <input
                     type="text"
-                    className="input input-bordered w-full rounded-xl focus:border-primary"
-                    placeholder="John"
-                    required
+                    className="input input-bordered w-full rounded-xl focus:border-primary bg-base-200/50 cursor-not-allowed text-base-content/70"
+                    placeholder="Your Name"
+                    value={session?.user?.name || ""}
+                    readOnly
                   />
                 </div>
                 <div className="form-control">
                   <label className="label text-xs font-bold opacity-70">
-                    Last Name
+                    Email Address
                   </label>
                   <input
-                    type="text"
-                    className="input input-bordered w-full rounded-xl focus:border-primary"
-                    placeholder="Doe"
-                    required
+                    type="email"
+                    className="input input-bordered w-full rounded-xl focus:border-primary bg-base-200/50 cursor-not-allowed text-base-content/70"
+                    placeholder="email@example.com"
+                    value={session?.user?.email || ""}
+                    readOnly
                   />
                 </div>
-              </div>
-              <div className="form-control">
-                <label className="label text-xs font-bold opacity-70">
-                  Email Array
-                </label>
-                <input
-                  type="email"
-                  className="input input-bordered w-full rounded-xl focus:border-primary"
-                  placeholder="email@example.com"
-                  required
-                />
               </div>
               <div className="form-control">
                 <label className="label text-xs font-bold opacity-70">
@@ -126,6 +107,8 @@ export default function CheckoutPage() {
                   type="tel"
                   className="input input-bordered w-full rounded-xl focus:border-primary"
                   placeholder="+880 17..."
+                  value={deliveryInfo.phone}
+                  onChange={(e) => setDeliveryInfo({ ...deliveryInfo, phone: e.target.value })}
                   required
                 />
               </div>
@@ -149,6 +132,8 @@ export default function CheckoutPage() {
                   type="text"
                   className="input input-bordered w-full rounded-xl focus:border-primary"
                   placeholder="123 Bakery Lane"
+                  value={deliveryInfo.address}
+                  onChange={(e) => setDeliveryInfo({ ...deliveryInfo, address: e.target.value })}
                   required
                 />
               </div>
@@ -161,6 +146,8 @@ export default function CheckoutPage() {
                     type="text"
                     className="input input-bordered w-full rounded-xl focus:border-primary"
                     placeholder="Gulshan, Dhaka"
+                    value={deliveryInfo.city}
+                    onChange={(e) => setDeliveryInfo({ ...deliveryInfo, city: e.target.value })}
                     required
                   />
                 </div>
@@ -172,117 +159,13 @@ export default function CheckoutPage() {
                     type="text"
                     className="input input-bordered w-full rounded-xl focus:border-primary"
                     placeholder="1212"
+                    value={deliveryInfo.zip}
+                    onChange={(e) => setDeliveryInfo({ ...deliveryInfo, zip: e.target.value })}
                     required
                   />
                 </div>
               </div>
             </div>
-          </section>
-
-          {/* Payment Method */}
-          <section className="bg-base-200 p-6 md:p-8 rounded-3xl shadow-sm border border-base-300">
-            <h2 className="text-xl font-bold mb-6 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-primary text-white text-xs flex items-center justify-center shrink-0">
-                  3
-                </span>
-                Payment Method
-              </div>
-              <FiLock className="text-success" title="Secure Payment" />
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Stripe Option */}
-              <label
-                className={`flex flex-col items-center justify-center p-6 border-2 rounded-2xl cursor-pointer transition-all ${
-                  paymentMethod === "stripe"
-                    ? "border-primary bg-primary/5"
-                    : "border-base-300 hover:border-primary/50"
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="payment"
-                  className="radio radio-primary hidden"
-                  checked={paymentMethod === "stripe"}
-                  onChange={() => setPaymentMethod("stripe")}
-                />
-                <FiCreditCard
-                  size={32}
-                  className={`mb-3 ${paymentMethod === "stripe" ? "text-primary" : "text-base-content/40"}`}
-                />
-                <span className="font-bold text-center">Credit Card</span>
-                <span className="text-[10px] text-base-content/50 uppercase tracking-widest mt-1">
-                  Via Stripe
-                </span>
-              </label>
-
-              {/* SSLCommerz Option */}
-              <label
-                className={`flex flex-col items-center justify-center p-6 border-2 rounded-2xl cursor-pointer transition-all ${
-                  paymentMethod === "sslcommerz"
-                    ? "border-primary bg-primary/5"
-                    : "border-base-300 hover:border-primary/50"
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="payment"
-                  className="radio radio-primary hidden"
-                  checked={paymentMethod === "sslcommerz"}
-                  onChange={() => setPaymentMethod("sslcommerz")}
-                />
-                <div
-                  className={`text-xl font-bold tracking-tighter mb-4 flex items-center ${paymentMethod === "sslcommerz" ? "text-blue-600" : "text-base-content/40"}`}
-                >
-                  SSL<span className="opacity-50">COMMERZ</span>
-                </div>
-                <span className="font-bold text-center">Mobile & Cards</span>
-                <span className="text-[10px] text-base-content/50 uppercase tracking-widest mt-1">
-                  Local Gateway
-                </span>
-              </label>
-            </div>
-
-            {/* Dummy Card Input (Only shows if Stripe) */}
-            {paymentMethod === "stripe" && (
-              <div className="mt-6 p-6 border border-base-300 rounded-2xl bg-base-100">
-                <div className="space-y-4">
-                  <div className="form-control">
-                    <label className="label text-xs font-bold opacity-70">
-                      Card Number
-                    </label>
-                    <input
-                      type="text"
-                      className="input input-bordered w-full rounded-xl focus:border-primary font-mono"
-                      placeholder="0000 0000 0000 0000"
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="form-control">
-                      <label className="label text-xs font-bold opacity-70">
-                        Expiry (MM/YY)
-                      </label>
-                      <input
-                        type="text"
-                        className="input input-bordered w-full rounded-xl focus:border-primary font-mono"
-                        placeholder="12/26"
-                      />
-                    </div>
-                    <div className="form-control">
-                      <label className="label text-xs font-bold opacity-70">
-                        CVC
-                      </label>
-                      <input
-                        type="text"
-                        className="input input-bordered w-full rounded-xl focus:border-primary font-mono"
-                        placeholder="123"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
           </section>
         </div>
 
@@ -337,14 +220,14 @@ export default function CheckoutPage() {
             </div>
 
             <button
-              onClick={handleCheckout}
+              onClick={handleProceedToPayment}
               disabled={isProcessing}
               className="btn btn-primary w-full h-14 rounded-xl text-lg font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all mt-8 gap-2"
             >
               {isProcessing ? (
                 <span className="loading loading-spinner"></span>
               ) : (
-                `Pay ৳${(cartTotal + 100).toLocaleString()}`
+                `Proceed to Payment`
               )}
             </button>
             <p className="text-center text-[10px] text-base-content/50 uppercase tracking-widest mt-4 flex items-center justify-center gap-1">

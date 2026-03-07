@@ -122,6 +122,16 @@ export function CartProvider({ children }) {
     );
   };
 
+  // Clear cart entirely (called after successful payment)
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem("creamAndCo_cart");
+    localStorage.removeItem("creamAndCo_cart_dirty");
+    if (status === "authenticated" && session?.user?.email) {
+      saveCartToDB(session.user.email, []).catch(err => console.error(err));
+    }
+  };
+
   // Calculate total cart price
   const cartTotal = cartItems.reduce(
     (total, item) => total + (item.basePrice || 0) * item.quantity,
@@ -135,8 +145,10 @@ export function CartProvider({ children }) {
     addToCart,
     removeFromCart,
     updateQuantity,
+    clearCart,
     isCartOpen,
     setIsCartOpen,
+    isHydrated,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

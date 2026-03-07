@@ -13,6 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import { usePathname, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function CartDrawer() {
   const {
@@ -25,20 +26,21 @@ export default function CartDrawer() {
   } = useCart();
 
   const router = useRouter();
-  const isLoggedin = false;
+  const { status } = useSession();
+  const isLoggedin = status === "authenticated";
 
 
   const goToCheckout = () => {
     if (isLoggedin) {
       setIsCartOpen(false);
-      router.push("/checkout");
+      router.push("/order-confirmation");
     } else {
       setIsCartOpen(false);
-      router.push(`/login?callbackUrl=/checkout`);
+      router.push(`/login?callbackUrl=/order-confirmation`);
       Swal.fire({
         icon: "error",
         title: "Login Required",
-        text: "Please login to proceed to checkout.",
+        text: "Please login to proceed with your order.",
       });
     }
   };
@@ -167,7 +169,7 @@ export default function CartDrawer() {
               onClick={goToCheckout}
               className="btn btn-primary w-full h-14 rounded-xl text-lg font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all group gap-2"
             >
-              Go to Checkout{" "}
+              Go to Order Confirmation{" "}
               <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
