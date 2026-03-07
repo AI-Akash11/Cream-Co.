@@ -32,6 +32,7 @@ export default function RegisterPage() {
       toast.error(result?.message || "Registration failed. Please try again.");
     }
   }
+  
   return (
     <div className="flex flex-col md:flex-row-reverse min-h-[700px]">
       {/* Right Column: Form */}

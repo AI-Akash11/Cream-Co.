@@ -1,7 +1,7 @@
-"use server"
+"use server";
 
-import { collections, dbConnect } from "@/lib/dbConnect"
-import bcrypt from "bcryptjs"
+import { collections, dbConnect } from "@/lib/dbConnect";
+import bcrypt from "bcryptjs";
 
 export const postUser = async (payload) => {
   const { name, email, password } = payload;
@@ -42,6 +42,43 @@ export const postUser = async (payload) => {
     return { success: false, message: "Database insertion failed" };
   } catch (error) {
     console.error("POST_USER_ERROR:", error);
-    return { success: false, message: error.message || "Internal server error" };
+    return {
+      success: false,
+      message: error.message || "Internal server error",
+    };
+  }
+};
+
+export const loginUser = async (payload) => {
+  if (!payload.email || !payload.password) {
+    return { success: false, message: "Missing required fields" };
+  }
+
+  try {
+    const user = await dbConnect(collections.users).findOne({
+      email: payload.email,
+    });
+    if (!user) {
+      return { success: false, message: "User not found" };
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      payload.password,
+      user.password,
+    );
+    
+    if (!isPasswordValid) {
+      return { success: false, message: "Invalid password" };
+    }
+
+    return { success: true, message: "User logged in successfully", user };
+
+  } catch (error) {
+
+    console.error("LOGIN_USER_ERROR:", error);
+    return {
+      success: false,
+      message: error.message || "Internal server error",
+    };
   }
 };

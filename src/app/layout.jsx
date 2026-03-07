@@ -5,6 +5,7 @@ import Footer from "@/components/layouts/Footer";
 import { CartProvider } from "@/context/CartContext";
 import ConditionalLayout from "@/components/layouts/ConditionalLayout";
 import CartDrawer from "@/components/cart/CartDrawer";
+import NextAuthProvider from "@/provider/NextAuthProvider";
 
 const poppins = Poppins({
   weight: ["100", "200", "400", "500", "600", "800"],
@@ -69,6 +70,7 @@ export const metadata = {
 };
 export default function RootLayout({ children }) {
   return (
+    <NextAuthProvider>
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
         <CartProvider>
@@ -91,5 +93,6 @@ export default function RootLayout({ children }) {
         </CartProvider>
       </body>
     </html>
+    </NextAuthProvider>
   );
 }

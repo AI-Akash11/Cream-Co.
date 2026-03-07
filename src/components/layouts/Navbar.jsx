@@ -19,6 +19,7 @@ import {
 import { useCart } from "@/context/CartContext";
 import Logo from "@/components/shared/Logo";
 import Container from "@/components/ui/Container";
+import AuthButtons from "../buttons/AuthButtons";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -210,13 +211,8 @@ export default function Navbar() {
                         </li>
                       </>
                     ) : (
-                      <li className="px-2 mt-2">
-                        <Link
-                          href="/login"
-                          className="btn btn-secondary w-full rounded-xl text-white font-bold h-12 shadow-lg shadow-secondary/20 hover:-translate-y-1 transition-all flex items-center justify-center"
-                        >
-                          Sign In to Order
-                        </Link>
+                      <li className="px-2 mt-2 w-full">
+                        <AuthButtons />
                       </li>
                     )}
                   </ul>
@@ -315,13 +311,7 @@ export default function Navbar() {
                     </button>
                   </div>
                 ) : (
-                  <Link
-                    href="/login"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="w-full btn btn-secondary btn-lg rounded-2xl font-bold shadow-lg flex items-center justify-center"
-                  >
-                    Login to Account
-                  </Link>
+                  <AuthButtons />
                 )}
               </div>
             </div>

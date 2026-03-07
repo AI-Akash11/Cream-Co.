@@ -3,9 +3,44 @@
 import Link from "next/link";
 import { FiMail, FiLock, FiArrowLeft } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
-import Image from "next/image";
+import { signIn } from "next-auth/react"
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
+
 
 export default function LoginPage() {
+  const router = useRouter()
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+
+    const result = await signIn("credentials", {
+      email: form.email.value, 
+      password: form.password.value, 
+      redirect: false
+    })
+    console.log(result)
+    if(!result.ok){
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: "Invalid credentials",
+        timer: 2000,
+        showConfirmButton: false
+      })
+    } else {
+      Swal.fire({
+        icon: "success",
+        title: "Login Successful",
+        text: "You are now logged in",
+        timer: 2000,
+        showConfirmButton: false
+      })
+      router.push("/")
+    }
+  };
   return (
     <div className="flex flex-col md:flex-row min-h-[600px]">
       {/* Left Column: Form */}
@@ -26,7 +61,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+        <form className="space-y-6" onSubmit={handleLogin}>
           <div className="form-control">
             <label className="label text-sm font-bold opacity-70">
               Email Address
@@ -39,6 +74,7 @@ export default function LoginPage() {
                 type="email"
                 placeholder="email@example.com"
                 className="input input-bordered w-full pl-12 rounded-xl bg-base-100 border-base-300 focus:border-primary transition-all"
+                name="email"
                 required
               />
             </div>
@@ -64,6 +100,7 @@ export default function LoginPage() {
                 type="password"
                 placeholder="••••••••"
                 className="input input-bordered w-full pl-12 rounded-xl bg-base-100 border-base-300 focus:border-primary transition-all"
+                name="password"
                 required
               />
             </div>
