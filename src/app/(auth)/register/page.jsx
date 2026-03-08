@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import SocialButton from "@/components/buttons/SocialButton";
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 
 export default function RegisterPage() {
   const params = useSearchParams();
@@ -160,10 +161,12 @@ export default function RegisterPage() {
 
       {/* Left Column: Banner (Banner on left for register) */}
       <div className="hidden md:block w-1/2 relative bg-base-300">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1089&auto=format&fit=crop"
           alt="Artisan Cakes Branding"
-          className="object-cover w-full h-full"
+          fill
+          className="object-cover"
+          priority
         />
         <div className="absolute inset-0 bg-primary/20 backdrop-blur-[2px] flex flex-col items-center justify-center p-12 text-center text-white">
           <div className="bg-black/40 backdrop-blur-md p-8 rounded-3xl border border-white/20">

@@ -5,7 +5,8 @@ import Link from "next/link";
 import { FiMail, FiLock, FiArrowLeft } from "react-icons/fi";
 import { signIn } from "next-auth/react";
 import Swal from "sweetalert2";
-import {  useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 import SocialButton from "@/components/buttons/SocialButton";
 
 export default function LoginPage() {
@@ -146,10 +147,12 @@ export default function LoginPage() {
 
       {/* Right Column: Banner */}
       <div className="hidden md:block w-1/2 relative bg-base-300">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1089&auto=format&fit=crop"
           alt="Artisan Cakes"
-          className="object-cover w-full h-full"
+          fill
+          className="object-cover"
+          priority
         />
         <div className="absolute inset-0 bg-primary/20 backdrop-blur-[2px] flex flex-col items-center justify-center p-12 text-center text-white">
           <div className="bg-black/40 backdrop-blur-md p-8 rounded-3xl border border-white/20">

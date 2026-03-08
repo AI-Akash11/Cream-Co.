@@ -1,414 +1,143 @@
-# 🧁 Cream & Co.
+# 🧁 Cream & Co. - Artisan Cake Studio
 
-Premium Pre-Order Cake Studio (Dhaka Based)
+> **Dhaka's Finest Artisan Cake Studio.** Handcrafted with premium ingredients. Every bite tells a story of tradition, passion, and celebration.
 
----
-
-# 📌 Project Overview
-
-**Cream & Co.** is a production-ready, single-vendor e-commerce platform built for a Dhaka-based home bakery business. The platform supports pre-order cake purchases, online payments, order lifecycle management, and an admin dashboard.
-
-This project is designed to be portfolio-grade and demonstrates real-world business logic, authentication, payment integration, and role-based access control.
+[![Build Status](https://img.shields.io/badge/Build-Success-success?style=for-the-badge)](https://cream-and-co.vercel.app)
+[![Tech Stack](https://img.shields.io/badge/Tech-Next.js%2015%20%7C%20Tailwind%20%7C%20MongoDB-blue?style=for-the-badge)](https://nextjs.org)
+[![Deployment](https://img.shields.io/badge/Deploy-Vercel-black?style=for-the-badge)](https://vercel.com)
 
 ---
 
-# 🎯 Business Model
+## 📌 Project Overview
 
-* Delivery: Dhaka only
-* Language: English only
-* Pre-order only (Minimum 24-hour notice)
-* Fixed delivery charge (e.g., 80 BDT)
-* Custom cake message allowed (max 30 characters)
-* Online payment required for confirmation (except COD)
+**Cream & Co.** is a production-ready, single-vendor e-commerce platform built for a Dhaka-based home bakery business. The platform supports pre-order cake purchases, a highly interactive custom cake builder, dual-gateway online payments (Stripe & SSLCommerz), and a comprehensive admin dashboard for order management.
 
----
+This project is a high-performance full-stack application demonstrating modern web development best practices, role-based access control (RBAC), and complex state management.
 
-# 🏗️ Tech Stack
-
-## Frontend
-
-* Next.js (App Router)
-* JavaScript (ES6+)
-* Tailwind CSS
-* Shadcn/UI
-* React Hook Form
-* Zod (validation)
-
-## Backend
-
-* Next.js API Routes
-* MongoDB Atlas
-* Mongoose
-* NextAuth.js
-
-## Payment Gateways
-
-* Stripe (Test Mode)
-* SSLCommerz (Sandbox)
-
-## Deployment
-
-* Vercel
-* MongoDB Atlas
-* Cloudinary (Image Storage)
+### 🔗 [Visit the Live Demo](https://cream-and-co.vercel.app)
 
 ---
 
-# 📂 Folder Structure
+## ✨ Key Features
 
-```
-/app
-  /(public)
-    page.js
-    shop/page.js
-    product/[slug]/page.js
-    cart/page.js
-    checkout/page.js
+### 🎂 Professional Cake Shop
+- **Artisan Catalog**: Browse a curated collection of premium cakes with filtering and sorting.
+- **Dynamic Pricing**: Prices update in real-time based on selected size (lb/kg) and flavor.
+- **Detailed Insights**: High-resolution image galleries and preparation time notifications.
 
-  /(dashboard)
-    dashboard/page.js
-    dashboard/orders/page.js
-    dashboard/profile/page.js
+### 🎨 Custom Cake Builder
+- **Step-by-Step Experience**: A multi-step interactive form to design unique cakes.
+- **Total Personalization**: Choose colors, flavors, fillings, and add handcrafted messages.
+- **Instant Integration**: Custom designs flow directly into the global cart system.
 
-  /(admin)
-    admin/page.js
-    admin/products/page.js
-    admin/orders/page.js
-    admin/coupons/page.js
+### 💳 Secure & Diverse Payments
+- **Stripe Integration**: Secure international credit/debit card processing.
+- **SSLCommerz Integration**: Local Bangladesh gateway for Mobile Banking (bKash, Nagad) and local cards.
+- **Order Lifecycle**: Real-time tracking from "Pending" to "Delivered" with status-based UI updates.
 
-/components
-/lib
-/models
-/actions
-/utils
-/middleware.js
+### 🛠️ Dedicated Admin Control
+- **Orders Dashboard**: Manage all platform orders with detailed status controls.
+- **Database Management**: Full CRUD for the cake catalog via an intuitive admin UI.
+- **Revenue Analytics**: Visual summaries of business performance (Coming in V2).
+
+---
+
+## 🏗️ Technology Stack
+
+| Category | Technology |
+| :--- | :--- |
+| **Framework** | Next.js 15 (App Router) |
+| **Styling** | Tailwind CSS + DaisyUI |
+| **Animations** | GSAP 3 (GreenSock) |
+| **Database** | MongoDB Atlas (via Mongoose) |
+| **Auth** | NextAuth.js (Credentials & Google) |
+| **State Management** | React Context API |
+| **Payments** | Stripe & SSLCommerz |
+| **Validation** | Zod + React Hook Form |
+| **Notifications** | SweetAlert2 + React Hot Toast |
+
+---
+
+## 📂 Project Structure
+
+```text
+/src
+  /app          # Next.js App Router (Routes & Server Actions)
+  /components   # UI Components (layouts, shared, shop, home)
+  /context      # Global State Management (CartContext)
+  /lib          # Core Utilities (Auth options, DB connection)
+  /models       # Mongoose Schemas (User, Order, Cake)
+  /provider     # Context Providers (NextAuthProvider)
+  /actions      # Server Actions for DB mutations
+/public         # Static Assets & Global Branding
 ```
 
 ---
 
-# 📄 Page Structure & Features
+## 🚀 Getting Started
 
-## 🏠 Home Page
+### 1. Prerequisite
+- Node.js 18.x or higher
+- MongoDB Atlas account
+- Stripe & SSLCommerz Sandbox accounts
 
-* Hero section
-* Featured cakes
-* Categories
-* Custom cake CTA
-* Testimonials
-* Dhaka-only delivery banner
-* Footer with contact info
-
----
-
-## 🛍️ Shop Page
-
-* Category filter
-* Price sorting
-* Search functionality
-* Pagination
-* Server-side rendered product list
-
----
-
-## 🎂 Product Details Page
-
-Features:
-
-* Image gallery
-* Size selector (1lb / 2lb / 3lb)
-* Flavor selector
-* Delivery date picker
-* Custom message input
-* Dynamic price calculation
-* Stock validation
-
-Business Logic:
-
-* If delivery date < 24 hours → Add to Cart disabled
-
----
-
-## 🛒 Cart Page
-
-* Update quantity
-* Remove items
-* Apply coupon
-* Delivery charge calculation
-* Live total update
-
----
-
-## 💳 Checkout Page
-
-Customer Information:
-
-* Full Name
-* Phone (Bangladesh validation)
-* Address
-* Area selection (Dhaka only)
-
-Delivery:
-
-* Confirm delivery date
-
-Payment Options:
-
-* Stripe (Card)
-* SSLCommerz (Sandbox)
-* Cash on Delivery
-
-Logic:
-
-* Create order (Pending)
-* Redirect to payment gateway
-* Update order on success
-
----
-
-## ✅ Order Success Page
-
-* Order ID
-* Delivery date
-* Payment status
-* Order summary
-
----
-
-# 🔐 Authentication System
-
-* Credentials login
-* Optional Google login
-* Role-based users:
-
-  * customer
-  * admin
-
-Protected Routes:
-
-* /dashboard
-* /admin (admin only)
-
----
-
-# 👤 User Dashboard
-
-## Orders
-
-* View order history
-* Track order status
-
-Order Status Flow:
-
-* Pending
-* Confirmed
-* Baking
-* Out for delivery
-* Delivered
-
-## Profile
-
-* Update personal info
-* Change password
-
----
-
-# 🛠️ Admin Panel
-
-## Admin Dashboard
-
-* Total revenue
-* Total orders
-* Pending orders
-* Revenue chart (last 7 days)
-
-## Product Management
-
-* Add product
-* Edit product
-* Delete product
-* Toggle availability
-* Upload images (Cloudinary)
-
-## Order Management
-
-* View order details
-* Update order status
-* Verify SSLCommerz payment
-
-## Coupon Management
-
-* Create coupon
-* Set expiry date
-* Percentage or fixed discount
-* Usage limit
-* Enable/disable coupon
-
----
-
-# 🗃️ Database Schema
-
-## User
-
-```
-name
-email
-password
-role
-phone
-address
-createdAt
+### 2. Installation
+```bash
+git clone https://github.com/your-username/cream-and-co.git
+cd cream-and-co
+npm install
 ```
 
-## Product
+### 3. Environment Variables
+Create a `.env.local` file in the root directory:
 
-```
-name
-slug
-description
-category
-images[]
-basePrice
-sizes[]
-flavors[]
-stock
-preparationTimeHours
-isAvailable
-createdAt
-```
+```env
+# Database
+MONGODB_URI=your_mongodb_atlas_uri
 
-## Order
+# NextAuth
+NEXTAUTH_SECRET=your_nextauth_secret
+NEXTAUTH_URL=http://localhost:3000
 
-```
-userId
-items[]
-subtotal
-deliveryCharge
-discount
-total
-deliveryDate
-paymentMethod
-paymentStatus
-transactionId
-orderStatus
-address
-phone
-createdAt
+# Social Login
+GOOGLE_CLIENT_ID=your_google_id
+GOOGLE_CLIENT_SECRET=your_google_secret
+
+# Payments
+STRIPE_SECRET_KEY=your_stripe_secret
+STORE_ID=your_sslcommerz_store_id
+STORE_PASSWORD=your_sslcommerz_password
+SSLCOMMERZ_IS_LIVE=false
+
+# App URL
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
 ```
 
-## Coupon
-
-```
-code
-discountType
-value
-expiryDate
-usageLimit
-usedCount
-isActive
+### 4. Development
+```bash
+npm run dev
 ```
 
 ---
 
-# 💳 Payment Integration Plan
+## 📈 Business Logic & Rules
 
-## Stripe (Test Mode)
-
-1. Create checkout session
-2. Redirect to Stripe
-3. Handle webhook
-4. Update order payment status
-
-## SSLCommerz (Sandbox)
-
-1. Create payment session
-2. Redirect to gateway
-3. Handle success/fail callback
-4. Validate transaction
-5. Update order status
+- **Pre-Order Only**: Minimum 24-hour notice is enforced for all orders.
+- **Delivery Scope**: Optimized for Dhaka city delivery with fixed shipping logic.
+- **Customization**: Strictly validated message lengths and character sets for calligraphy.
 
 ---
 
-# 🇧🇩 Bangladesh-Specific Features
+## 🏁 Deployment
 
-* Dhaka-only delivery banner
-* Fixed delivery charge logic
-* Phone validation for Bangladesh numbers
-* Festival promotional banner toggle
-* Mobile-first design
+The project is optimized for **Vercel**. Connect your GitHub repository to Vercel, import the environment variables, and it will deploy automatically.
 
 ---
 
-# 🚀 Development Roadmap
+## 📝 License
 
-## Phase 1
-
-* Authentication
-* Database setup
-* Product CRUD
-
-## Phase 2
-
-* Shop & Product page
-* Cart system
-
-## Phase 3
-
-* Checkout system
-* Order creation
-
-## Phase 4
-
-* Stripe integration
-* SSLCommerz integration
-
-## Phase 5
-
-* Admin dashboard
-* Coupon system
-
-## Phase 6
-
-* UI polish
-* SEO optimization
-* Performance improvements
-* Deployment to Vercel
+This project is built for **Cream & Co.** and is provided for portfolio review purposes. All rights reserved by the original owners.
 
 ---
 
-# 📈 Portfolio Positioning
-
-This project demonstrates:
-
-* Full-stack development with Next.js
-* Role-based authentication
-* Payment gateway integration
-* Order lifecycle management
-* Admin dashboard implementation
-* Bangladesh-specific commerce logic
-* Production-level folder architecture
-
----
-
-# 🧠 Future Improvements (Optional)
-
-* Inventory tracking automation
-* Daily production capacity control
-* Email notifications
-* SMS notification integration
-* Analytics dashboard enhancement
-* Multi-language support
-
----
-
-# 🏁 Deployment Plan
-
-* Frontend & API: Vercel
-* Database: MongoDB Atlas
-* Images: Cloudinary
-* Environment Variables: Vercel Dashboard
-
----
-
-# 📌 Final Goal
-
-Build a production-ready, realistic, Bangladesh-focused single-vendor bakery commerce platform that demonstrates advanced full-stack skills and business-aware development.
+**Built with ❤️ for Sweet Celebrations.**

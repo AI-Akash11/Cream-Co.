@@ -94,7 +94,7 @@ export default function CakeDetailsClient({ cake }) {
         // console.log("Wishlist toggled", res.message);
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
 

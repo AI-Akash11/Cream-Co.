@@ -62,6 +62,8 @@ const testimonials = [
   },
 ];
 
+import Image from "next/image";
+
 function StarRating({ count = 5 }) {
   return (
     <div
@@ -93,13 +95,12 @@ function TestimonialCard({ testimonial }) {
         </p>
       </blockquote>
       <footer className="flex items-center gap-3 pt-3 border-t border-base-300/30 mt-auto">
-        <div className="h-9 w-9 rounded-full overflow-hidden ring-2 ring-primary/20 shrink-0 bg-base-300">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+        <div className="relative h-9 w-9 rounded-full overflow-hidden ring-2 ring-primary/20 shrink-0 bg-base-300">
+          <Image
             src={avatar}
             alt={name}
-            className="h-full w-full object-cover"
-            loading="lazy"
+            fill
+            className="object-cover"
           />
         </div>
         <div>
