@@ -14,7 +14,7 @@ export default function FeaturedCakes({ featuredCakes = [] }) {
             align="center"
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10 sm:gap-x-8 sm:gap-y-12">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 sm:gap-x-8 gap-y-10 sm:gap-y-12">
             {featuredCakes.map((cake) => (
               <CakeCard key={cake._id} cake={cake} />
             ))}

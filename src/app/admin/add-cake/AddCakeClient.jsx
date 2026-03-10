@@ -19,7 +19,7 @@ const CATEGORIES = [
   "Pastries",
 ];
 
-export default function AddProductClient() {
+export default function AddCakeClient() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -41,7 +41,6 @@ export default function AddProductClient() {
       shortDescription: formData.get("shortDescription"),
       description: formData.get("description"),
       images: images,
-      stock: parseInt(formData.get("stock")),
       preparationTimeHours: parseInt(formData.get("prepTime")),
       featured: formData.get("featured") === "on",
     };
@@ -53,214 +52,200 @@ export default function AddProductClient() {
     if (response.success) {
       Swal.fire({
         icon: "success",
-        title: "Product Added!",
-        text: "The new cake has been successfully listed in your shop.",
+        title: "Cake Added!",
+        text: "The new artisan cake has been successfully listed.",
         timer: 2000,
         showConfirmButton: false,
       });
-      router.push("/admin/manage-products");
+      router.push("/admin/manage-cakes");
     } else {
       Swal.fire({
         icon: "error",
         title: "Submission Failed",
-        text: response.error || "There was an error adding the product.",
+        text: response.error || "There was an error adding the cake.",
       });
     }
   };
 
   return (
-    <Container>
-      <div className="max-w-4xl mx-auto">
-        <SectionHeading
-          eyebrow="Inventory Management"
-          title="Add New Product"
-          align="left"
-        />
+    <div className="max-w-4xl mx-auto flex flex-col gap-8">
+      {/* Header section */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+          <h1 className="text-3xl font-serif font-black text-base-content">Add New Cake</h1>
+          <p className="text-base-content/60 mt-1">List a new handcrafted creation in your shop</p>
+        </div>
+      </div>
 
-        <form onSubmit={handleSubmit} className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 bg-base-200 p-8 rounded-3xl shadow-xl border border-base-300">
-          {/* Product Name */}
-          <div className="form-control md:col-span-2">
-            <label className="label text-sm font-bold uppercase tracking-widest opacity-70">
-              Product Name
-            </label>
-            <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-primary">
-                <FiTag size={18} />
-              </span>
-              <input
-                type="text"
-                name="name"
-                placeholder="Ex: Artisan Dark Chocolate Truffle"
-                className="input input-bordered w-full pl-12 rounded-xl bg-base-100"
-                required
-              />
-            </div>
-          </div>
-
-          {/* Category */}
-          <div className="form-control">
-            <label className="label text-sm font-bold uppercase tracking-widest opacity-70">
-              Category
-            </label>
-            <select name="category" className="select select-bordered w-full rounded-xl bg-base-100" required>
-              <option disabled selected>Choose a category</option>
-              {CATEGORIES.map(cat => (
-                <option key={cat} value={cat}>{cat}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Price */}
-          <div className="form-control">
-            <label className="label text-sm font-bold uppercase tracking-widest opacity-70">
-              Base Price (৳)
-            </label>
-            <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-primary">
-                <FiDollarSign size={18} />
-              </span>
-              <input
-                type="number"
-                name="price"
-                placeholder="1500"
-                className="input input-bordered w-full pl-12 rounded-xl bg-base-100"
-                required
-              />
-            </div>
-          </div>
-
-          {/* Stock */}
-          <div className="form-control">
-            <label className="label text-sm font-bold uppercase tracking-widest opacity-70">
-              Stock Quantity
-            </label>
-            <input
-              type="number"
-              name="stock"
-              placeholder="10"
-              className="input input-bordered w-full rounded-xl bg-base-100"
-              required
-            />
-          </div>
-
-          {/* Prep Time */}
-          <div className="form-control">
-            <label className="label text-sm font-bold uppercase tracking-widest opacity-70">
-              Prep Time (Hours)
-            </label>
-            <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-primary">
-                <FiClock size={18} />
-              </span>
-              <input
-                type="number"
-                name="prepTime"
-                placeholder="24"
-                className="input input-bordered w-full pl-12 rounded-xl bg-base-100"
-                required
-              />
-            </div>
-          </div>
-
-          {/* Short Description */}
-          <div className="form-control md:col-span-2">
-            <label className="label text-sm font-bold uppercase tracking-widest opacity-70">
-              Short Description (1-2 lines)
-            </label>
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-base-100 p-8 rounded-3xl shadow-xl border border-base-300">
+        {/* Cake Name */}
+        <div className="form-control md:col-span-2">
+          <label className="label text-xs font-bold uppercase tracking-widest opacity-60">
+            Cake Name
+          </label>
+          <div className="relative">
+            <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-primary">
+              <FiTag size={18} />
+            </span>
             <input
               type="text"
-              name="shortDescription"
-              placeholder="Brief overview for the card..."
-              className="input input-bordered w-full rounded-xl bg-base-100"
+              name="name"
+              placeholder="Ex: Artisan Dark Chocolate Truffle"
+              className="input input-bordered w-full pl-12 rounded-xl bg-base-100"
               required
             />
           </div>
+        </div>
 
-          {/* Full Description */}
-          <div className="form-control md:col-span-2">
-            <label className="label text-sm font-bold uppercase tracking-widest opacity-70">
-              Full Description
-            </label>
-            <textarea
-              name="description"
-              placeholder="Detailed product information..."
-              className="textarea textarea-bordered w-full h-32 rounded-xl bg-base-100"
+        {/* Category */}
+        <div className="form-control">
+          <label className="label text-xs font-bold uppercase tracking-widest opacity-60">
+            Category
+          </label>
+          <select name="category" className="select select-bordered w-full rounded-xl bg-base-100" required>
+            <option disabled selected>Choose a category</option>
+            {CATEGORIES.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Price */}
+        <div className="form-control">
+          <label className="label text-xs font-bold uppercase tracking-widest opacity-60">
+            Base Price (৳)
+          </label>
+          <div className="relative">
+            <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-primary">
+              <FiDollarSign size={18} />
+            </span>
+            <input
+              type="number"
+              name="price"
+              placeholder="1500"
+              className="input input-bordered w-full pl-12 rounded-xl bg-base-100"
               required
-            ></textarea>
+            />
           </div>
+        </div>
 
-          {/* Image URLs */}
-          <div className="form-control md:col-span-2">
-            <label className="label text-sm font-bold uppercase tracking-widest opacity-70">
-              Image URLs (Add up to 3)
-            </label>
-            <div className="space-y-4">
-              <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-primary">
-                  <FiImage size={18} />
-                </span>
-                <input
-                  type="url"
-                  name="image1"
-                  placeholder="Primary Image URL"
-                  className="input input-bordered w-full pl-12 rounded-xl bg-base-100"
-                  required
-                />
-              </div>
-              <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-primary">
-                  <FiImage size={18} />
-                </span>
-                <input
-                  type="url"
-                  name="image2"
-                  placeholder="Secondary Image URL (Optional)"
-                  className="input input-bordered w-full pl-12 rounded-xl bg-base-100"
-                />
-              </div>
-              <div className="relative">
-                <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-primary">
-                  <FiImage size={18} />
-                </span>
-                <input
-                  type="url"
-                  name="image3"
-                  placeholder="Third Image URL (Optional)"
-                  className="input input-bordered w-full pl-12 rounded-xl bg-base-100"
-                />
-              </div>
+        {/* Prep Time */}
+        <div className="form-control">
+          <label className="label text-xs font-bold uppercase tracking-widest opacity-60">
+            Prep Time (Hours)
+          </label>
+          <div className="relative">
+            <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-primary">
+              <FiClock size={18} />
+            </span>
+            <input
+              type="number"
+              name="prepTime"
+              placeholder="24"
+              className="input input-bordered w-full pl-12 rounded-xl bg-base-100"
+              required
+            />
+          </div>
+        </div>
+
+        {/* Short Description */}
+        <div className="form-control md:col-span-2">
+          <label className="label text-xs font-bold uppercase tracking-widest opacity-60">
+            Short Description (1-2 lines)
+          </label>
+          <input
+            type="text"
+            name="shortDescription"
+            placeholder="Brief overview for the card..."
+            className="input input-bordered w-full rounded-xl bg-base-100"
+            required
+          />
+        </div>
+
+        {/* Full Description */}
+        <div className="form-control md:col-span-2">
+          <label className="label text-xs font-bold uppercase tracking-widest opacity-60">
+            Full Description
+          </label>
+          <textarea
+            name="description"
+            placeholder="Detailed information about the cake..."
+            className="textarea textarea-bordered w-full h-32 rounded-xl bg-base-100"
+            required
+          ></textarea>
+        </div>
+
+        {/* Image URLs */}
+        <div className="form-control md:col-span-2">
+          <label className="label text-xs font-bold uppercase tracking-widest opacity-60">
+            Image URLs (Add up to 3)
+          </label>
+          <div className="space-y-4">
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-primary">
+                <FiImage size={18} />
+              </span>
+              <input
+                type="url"
+                name="image1"
+                placeholder="Primary Image URL (ImgBB, Cloudinary, or Unsplash)"
+                className="input input-bordered w-full pl-12 rounded-xl bg-base-100"
+                required
+              />
+            </div>
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-primary">
+                <FiImage size={18} />
+              </span>
+              <input
+                type="url"
+                name="image2"
+                placeholder="Secondary Image URL (Optional)"
+                className="input input-bordered w-full pl-12 rounded-xl bg-base-100"
+              />
+            </div>
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-primary">
+                <FiImage size={18} />
+              </span>
+              <input
+                type="url"
+                name="image3"
+                placeholder="Third Image URL (Optional)"
+                className="input input-bordered w-full pl-12 rounded-xl bg-base-100"
+              />
             </div>
           </div>
+        </div>
 
-          {/* Featured Toggle */}
-          <div className="form-control md:col-span-2">
-            <label className="label cursor-pointer justify-start gap-4">
-              <input type="checkbox" name="featured" className="checkbox checkbox-primary rounded-md" />
-              <span className="label-text font-bold uppercase tracking-widest opacity-70">Feature this product on homepage</span>
-            </label>
-          </div>
+        {/* Featured Toggle */}
+        <div className="form-control md:col-span-2">
+          <label className="label cursor-pointer justify-start gap-4 p-4 rounded-2xl bg-base-200/30 border border-base-300/50">
+            <input type="checkbox" name="featured" className="checkbox checkbox-primary rounded-md" />
+            <span className="label-text font-bold uppercase tracking-wider sm:tracking-widest opacity-70 text-[10px] sm:text-xs">Feature this cake on homepage</span>
+          </label>
+        </div>
 
-          {/* Submit Button */}
-          <div className="md:col-span-2 mt-4">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="btn btn-primary w-full h-16 rounded-xl text-lg font-bold uppercase tracking-widest shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all"
-            >
-              {isSubmitting ? (
-                <>
-                  <span className="loading loading-spinner"></span>
-                  Adding Product...
-                </>
-              ) : (
-                <>
-                  <FiPlus className="mr-2" /> Publish Product
-                </>
-              )}
-            </button>
-          </div>
-        </form>
-      </div>
-    </Container>
+        {/* Submit Button */}
+        <div className="md:col-span-2 mt-4">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="btn btn-primary w-full h-16 rounded-xl text-lg font-bold uppercase tracking-widest shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all"
+          >
+            {isSubmitting ? (
+              <>
+                <span className="loading loading-spinner"></span>
+                Adding Cake...
+              </>
+            ) : (
+              <>
+                <FiPlus className="mr-2" /> Publish Cake
+              </>
+            )}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }

@@ -35,27 +35,24 @@ export default function AdminOrdersClient({ initialData }) {
   }, []);
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <div className="max-w-6xl mx-auto flex flex-col gap-8">
+      {/* Header section */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h1 className="text-3xl sm:text-4xl font-serif font-black text-base-content">
-            All Orders Dashboard
-          </h1>
-          <p className="text-base-content/60 mt-1">
-            Manage and track all customer orders
-          </p>
+          <h1 className="text-3xl font-serif font-black text-base-content">All Orders</h1>
+          <p className="text-base-content/60 mt-1">Found total {total} orders in your collection</p>
         </div>
 
         {/* Stats Cards */}
-        <div className="flex gap-4">
-          <div className="bg-base-100 rounded-xl p-4 border border-base-300 shadow-sm min-w-[150px]">
-            <p className="text-xs font-bold text-base-content/50 uppercase tracking-widest mb-1">
+        <div className="flex flex-wrap gap-4">
+          <div className="bg-base-200 p-4 px-6 rounded-2xl border border-base-300 min-w-[140px]">
+            <p className="text-[10px] font-bold text-base-content/40 uppercase tracking-widest mb-1">
               Total Orders
             </p>
             <p className="text-2xl font-black">{total}</p>
           </div>
-          <div className="bg-base-100 rounded-xl p-4 border border-base-300 shadow-sm min-w-[150px]">
-            <p className="text-xs font-bold text-base-content/50 uppercase tracking-widest mb-1">
+          <div className="bg-base-200 p-4 px-6 rounded-2xl border border-base-300 min-w-[140px]">
+            <p className="text-[10px] font-bold text-base-content/40 uppercase tracking-widest mb-1">
               Page Revenue
             </p>
             <p className="text-2xl font-black text-primary">
@@ -66,29 +63,17 @@ export default function AdminOrdersClient({ initialData }) {
       </div>
 
       {/* Orders Table */}
-      <div className="bg-base-100 rounded-2xl border border-base-300 shadow-sm overflow-hidden flex flex-col">
+      <div className="bg-base-100 rounded-3xl shadow-xl overflow-hidden border border-base-300">
         <div className="overflow-x-auto">
-          <table className="table w-full">
+          <table className="table table-lg w-full">
             <thead>
-              <tr className="bg-base-200/50 text-base-content/70">
-                <th className="font-bold text-xs uppercase tracking-widest py-4">
-                  Date & ID
-                </th>
-                <th className="font-bold text-xs uppercase tracking-widest py-4">
-                  Customer
-                </th>
-                <th className="font-bold text-xs uppercase tracking-widest py-4">
-                  Items
-                </th>
-                <th className="font-bold text-xs uppercase tracking-widest py-4 text-right">
-                  Total
-                </th>
-                <th className="font-bold text-xs uppercase tracking-widest py-4 text-center">
-                  Payment
-                </th>
-                <th className="font-bold text-xs uppercase tracking-widest py-4 text-center">
-                  Status
-                </th>
+              <tr className="bg-base-200/50 text-[10px] uppercase tracking-widest font-black opacity-60">
+                <th>Date & ID</th>
+                <th>Customer</th>
+                <th>Items</th>
+                <th className="text-right">Total</th>
+                <th className="text-center">Payment</th>
+                <th className="text-center">Status</th>
               </tr>
             </thead>
             <tbody>
@@ -100,64 +85,64 @@ export default function AdminOrdersClient({ initialData }) {
                 </tr>
               ) : orders.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="text-center py-12 text-base-content/50">
+                  <td colSpan="6" className="text-center py-20 opacity-40">
                     No orders have been placed yet.
                   </td>
                 </tr>
               ) : (
                 orders.map((order) => (
                   <tr key={order._id} className="hover:bg-base-200/30 transition-colors">
-                    <td className="py-4">
+                    <td>
                       <div className="flex flex-col">
-                        <span className="font-medium text-sm">
+                        <span className="font-bold text-sm">
                           {format(new Date(order.createdAt), "MMM d, yyyy")}
                         </span>
-                        <span className="text-xs text-base-content/50 font-mono mt-0.5">
+                        <span className="text-[10px] opacity-50 font-mono mt-0.5 uppercase tracking-tighter font-bold">
                           #{order._id.slice(-6)}
                         </span>
                       </div>
                     </td>
-                    <td className="py-4">
+                    <td>
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-base-200 flex items-center justify-center shrink-0">
+                        <div className="w-10 h-10 rounded-full bg-base-200 flex items-center justify-center shrink-0 border border-base-300">
                           <HiOutlineUser className="text-base-content/40" />
                         </div>
                         <div className="flex flex-col">
-                          <span className="font-medium text-sm truncate max-w-[150px]">
+                          <span className="font-bold text-sm truncate max-w-[150px]">
                             {order.userName}
                           </span>
-                          <span className="text-xs text-base-content/50 truncate max-w-[150px]">
+                          <span className="text-[11px] opacity-50 truncate max-w-[150px]">
                             {order.email}
                           </span>
                         </div>
                       </div>
                     </td>
-                    <td className="py-4">
+                    <td>
                       <div className="flex flex-col gap-1">
                         <div className="flex items-center gap-2">
-                          <HiOutlineShoppingBag className="text-base-content/40" />
-                          <span className="text-sm font-bold">
-                            {order.cartItems.reduce((acc, item) => acc + item.quantity, 0)} items
+                          <HiOutlineShoppingBag className="text-primary" />
+                          <span className="text-xs font-black">
+                            {order.cartItems.reduce((acc, item) => acc + item.quantity, 0)} Items
                           </span>
                         </div>
-                        <div className="flex flex-col gap-1 ml-6">
+                        <div className="flex flex-col gap-1 ml-0 mt-1">
                           {order.cartItems.map((item, i) => (
-                            <div key={i} className="text-[10px] leading-tight text-base-content/70">
-                              <span className="font-medium">{item.name}</span> (x{item.quantity})
+                            <div key={i} className="text-[10px] leading-tight font-medium opacity-60">
+                              <span className="font-bold">{item.name}</span> (x{item.quantity})
                             </div>
                           ))}
                         </div>
                       </div>
                     </td>
-                    <td className="py-4 text-right">
-                      <span className="font-bold text-sm text-primary">
+                    <td className="text-right">
+                      <span className="font-black text-sm text-primary">
                         ৳{order.totalAmount.toLocaleString()}
                       </span>
                     </td>
-                    <td className="py-4">
+                    <td>
                       <div className="flex justify-center">
                         <span
-                          className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                          className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest ${
                             order.paymentStatus === "paid"
                               ? "bg-success/10 text-success border border-success/20"
                               : order.paymentStatus === "cancelled" || order.paymentStatus === "failed"
@@ -169,15 +154,15 @@ export default function AdminOrdersClient({ initialData }) {
                         </span>
                       </div>
                     </td>
-                    <td className="py-4">
+                    <td>
                       <div className="flex justify-center">
                         <span
-                          className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                          className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest ${
                             order.orderStatus === "confirmed"
                               ? "bg-info/10 text-info border border-info/20"
                               : order.orderStatus === "delivered"
                               ? "bg-success/10 text-success border border-success/20"
-                              : "bg-base-300 text-base-content/70"
+                              : "bg-base-300 text-base-content/60 border border-base-300"
                           }`}
                         >
                           {order.orderStatus}
@@ -193,7 +178,7 @@ export default function AdminOrdersClient({ initialData }) {
 
         {/* Pagination Controls */}
         {totalPages > 1 && (
-          <div className="p-6 border-t border-base-200 flex items-center justify-between bg-base-50/50">
+          <div className="p-6 border-t border-base-200 flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-widest opacity-50">
               Page {currentPage} of {totalPages}
             </span>
@@ -211,7 +196,7 @@ export default function AdminOrdersClient({ initialData }) {
                   className={`btn btn-sm join-item rounded-lg w-10 ${
                     currentPage === i + 1
                       ? "btn-primary shadow-lg shadow-primary/20"
-                      : "btn-ghost"
+                      : ""
                   }`}
                   onClick={() => fetchOrders(i + 1)}
                   disabled={isLoading}

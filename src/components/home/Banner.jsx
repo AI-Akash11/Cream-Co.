@@ -57,7 +57,7 @@ const StackedFlippingCarousel = () => {
   }, [activeIndex]);
 
   return (
-    <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md h-60 sm:h-72 md:h-80 lg:h-96 flex flex-col items-center gap-3">
+    <div className="relative w-full max-w-[90%] sm:max-w-sm md:max-w-md h-60 sm:h-72 md:h-80 lg:h-96 flex flex-col items-center gap-3">
       <div
         className="relative w-full h-full"
         style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
@@ -132,16 +132,16 @@ const Banner = () => {
             Handcrafted with premium ingredients. Every bite tells a story of
             tradition, passion, and celebration.
           </p>
-          <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row gap-3 sm:gap-4 mb-3 sm:mb-4 w-full sm:w-auto">
+          <div className="flex flex-row flex-wrap gap-3 sm:gap-4 mb-3 sm:mb-4 w-full">
             <Link
               href="/shop"
-              className="btn btn-primary btn-sm sm:btn-md md:btn-lg font-semibold shadow-md w-full sm:w-auto md:w-40"
+              className="btn btn-primary btn-sm sm:btn-md md:btn-lg font-semibold shadow-md flex-1 sm:flex-none sm:w-40"
             >
               Shop Cakes
             </Link>
             <Link
               href="/custom"
-              className="btn btn-outline btn-sm sm:btn-md md:btn-lg font-semibold min-w-40 border-[#7a4b4b] text-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white shadow-md w-full sm:w-auto md:w-auto"
+              className="btn btn-outline btn-sm sm:btn-md md:btn-lg font-semibold border-[#7a4b4b] text-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white shadow-md flex-1 sm:flex-none sm:min-w-40"
             >
               Build a Custom Cake
             </Link>

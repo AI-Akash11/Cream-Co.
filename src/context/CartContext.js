@@ -53,8 +53,15 @@ export function CartProvider({ children }) {
           }
         }
       } else if (status === "unauthenticated") {
-        // Guest mode - just load local cart (which could be the last DB state if they logged out)
-        if (isMounted) setCartItems(localCart);
+        // Detect Logout: If we were authenticated and now we are not, clear the local state
+        if (prevAuthStatus.current === "authenticated") {
+          setCartItems([]);
+          localStorage.removeItem("creamAndCo_cart");
+          localStorage.removeItem("creamAndCo_cart_dirty");
+        } else {
+          // Regular guest mode load
+          if (isMounted) setCartItems(localCart);
+        }
       }
 
       if (isMounted) setIsHydrated(true);

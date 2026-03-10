@@ -8,9 +8,10 @@ import { HiOutlineUser, HiOutlineShoppingBag } from "react-icons/hi";
 import AdminOrdersClient from "./AdminOrdersClient";
 
 export const metadata = {
-  title: "Admin Orders | Cream & Co.",
-  description: "View all customer orders.",
+  title: "All Orders | Cream & Co.",
+  description: "View and manage all customer orders.",
 };
+
 export default async function AdminOrdersPage() {
   const session = await getServerSession(authOptions);
 
@@ -21,12 +22,8 @@ export default async function AdminOrdersPage() {
   const initialData = await getAllOrders(1, 10);
 
   return (
-    <div className="min-h-screen bg-base-200 py-12 lg:py-20">
-      <Container>
-        <div className="max-w-7xl mx-auto space-y-8">
-          <AdminOrdersClient initialData={initialData} />
-        </div>
-      </Container>
+    <div className="min-h-screen">
+      <AdminOrdersClient initialData={initialData} />
     </div>
   );
 }

@@ -74,7 +74,7 @@ export default function ContactForm() {
             align="center"
           />
 
-          <div className="max-w-2xl mx-auto w-full">
+          <div className="max-w-4xl mx-auto w-full">
             {submitted ? (
               <div
                 role="status"
@@ -133,7 +133,7 @@ export default function ContactForm() {
                       onChange={handleChange}
                       placeholder="e.g. Farhan Islam"
                       autoComplete="name"
-                      className={`input input-bordered w-full bg-base-200/50 dark:bg-base-200/30 focus:border-primary focus:outline-none transition-colors ${
+                      className={`input input-bordered w-full bg-base-100 shadow-sm focus:border-primary focus:outline-none transition-colors ${
                         errors.fullName ? "input-error" : ""
                       }`}
                     />
@@ -161,7 +161,7 @@ export default function ContactForm() {
                         onChange={handleChange}
                         placeholder="you@example.com"
                         autoComplete="email"
-                        className={`input input-bordered w-full bg-base-200/50 dark:bg-base-200/30 focus:border-primary focus:outline-none transition-colors ${
+                        className={`input input-bordered w-full bg-base-100 shadow-sm focus:border-primary focus:outline-none transition-colors ${
                           errors.email ? "input-error" : ""
                         }`}
                       />
@@ -190,7 +190,7 @@ export default function ContactForm() {
                         onChange={handleChange}
                         placeholder="+880 1700-000000"
                         autoComplete="tel"
-                        className="input input-bordered w-full bg-base-200/50 dark:bg-base-200/30 focus:border-primary focus:outline-none transition-colors"
+                        className="input input-bordered w-full bg-base-100 shadow-sm focus:border-primary focus:outline-none transition-colors"
                       />
                     </div>
                   </div>
@@ -208,7 +208,7 @@ export default function ContactForm() {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className={`select select-bordered w-full bg-base-200/50 dark:bg-base-200/30 focus:border-primary focus:outline-none transition-colors ${
+                      className={`select select-bordered w-full bg-base-100 shadow-sm focus:border-primary focus:outline-none transition-colors ${
                         errors.subject ? "select-error" : ""
                       }`}
                     >
@@ -244,7 +244,7 @@ export default function ContactForm() {
                       onChange={handleChange}
                       rows={5}
                       placeholder="Tell us about your order, celebration, or any questions you have…"
-                      className={`textarea textarea-bordered w-full bg-base-200/50 dark:bg-base-200/30 focus:border-primary focus:outline-none transition-colors resize-none text-sm leading-relaxed ${
+                      className={`textarea textarea-bordered w-full bg-base-100 shadow-sm focus:border-primary focus:outline-none transition-colors resize-none text-sm leading-relaxed ${
                         errors.message ? "textarea-error" : ""
                       }`}
                     />
