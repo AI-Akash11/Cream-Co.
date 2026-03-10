@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/about/SectionHeading";
+import { FadeIn } from "@/components/animations/Animations";
 
 export default function HomeCTA() {
   return (
@@ -9,31 +10,33 @@ export default function HomeCTA() {
       <div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-64 h-64 bg-accent/5 dark:bg-accent/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 pointer-events-none" />
 
-      <Container className="relative flex flex-col items-center text-center gap-6 sm:gap-7 z-10">
-        <SectionHeading
-          eyebrow="Tempt Your Sweet Tooth"
-          title="Ready to Taste the Magic?"
-          align="center"
-        />
-        <p className="max-w-2xl text-sm sm:text-base text-base-content/80 leading-relaxed">
-          From signature everyday treats to custom masterpieces for your most
-          cherished celebrations — every Cream & Co. cake is baked fresh with
-          premium ingredients and a whole lot of love.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-          <Link
-            href="/menu"
-            className="btn btn-primary btn-md sm:btn-lg font-semibold min-w-[10rem]"
-          >
-            Explore the Menu
-          </Link>
-          <Link
-            href="/custom"
-            className="btn btn-outline btn-md sm:btn-lg font-semibold min-w-[10rem] border-primary text-primary hover:bg-primary hover:text-base-100"
-          >
-            Request Custom Order
-          </Link>
-        </div>
+      <Container className="relative z-10">
+        <FadeIn className="flex flex-col items-center text-center gap-6 sm:gap-7" direction="up">
+          <SectionHeading
+            eyebrow="Tempt Your Sweet Tooth"
+            title="Ready to Taste the Magic?"
+            align="center"
+          />
+          <p className="max-w-2xl text-sm sm:text-base text-base-content/80 leading-relaxed">
+            From signature everyday treats to custom masterpieces for your most
+            cherished celebrations — every Cream & Co. cake is baked fresh with
+            premium ingredients and a whole lot of love.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+            <Link
+              href="/shop"
+              className="btn btn-primary btn-md sm:btn-lg font-semibold min-w-40"
+            >
+              Explore the Menu
+            </Link>
+            <Link
+              href="/custom"
+              className="btn btn-outline btn-md sm:btn-lg font-semibold min-w-40 border-primary text-primary hover:bg-primary hover:text-base-100"
+            >
+              Request Custom Order
+            </Link>
+          </div>
+        </FadeIn>
       </Container>
     </section>
   );

@@ -115,12 +115,14 @@ const StackedFlippingCarousel = () => {
   );
 };
 
+import { FadeIn } from "@/components/animations/Animations";
+
 const Banner = () => {
   return (
-    <section className="relative w-full min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh] flex items-center justify-center bg-linear-to-br from-[#f7cac9] via-[#fff0e6] to-[#e7b8a3] pb-8 sm:pb-12 md:pb-16">
+    <section className="relative w-full min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh] flex items-center justify-center bg-linear-to-br from-[#f7cac9] via-[#fff0e6] to-[#e7b8a3]">
       <Container className="w-full flex flex-col md:flex-row items-center justify-between py-8 sm:py-12 md:py-16 lg:py-24 gap-6 sm:gap-8 md:gap-12">
         {/* Left Side */}
-        <div className="flex-1 flex flex-col items-start justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 w-full">
+        <FadeIn className="flex-1 flex flex-col items-start justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 w-full" direction="left">
           <span className="uppercase text-xs sm:text-xs md:text-sm font-semibold tracking-widest text-primary/70 mb-1 sm:mb-2">
             Welcome to Cream & Co.
           </span>
@@ -176,7 +178,7 @@ const Banner = () => {
               Chocolate
             </button>
           </div>
-        </div>
+        </FadeIn>
 
         {/* Right Side: Stacked Flipping Cake Carousel */}
         <div className="flex flex-1 flex-col items-center justify-center gap-3 sm:gap-4 w-full md:w-auto">

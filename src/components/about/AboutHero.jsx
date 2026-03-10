@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Container from "@/components/ui/Container";
+import { FadeIn } from "@/components/animations/Animations";
 
 export default function AboutHero() {
   return (
-    <section className="relative w-full bg-gradient-to-br from-primary/5 via-base-100 to-accent/10 dark:from-primary/20 dark:via-base-100 dark:to-accent/20 py-16 sm:py-20 lg:py-24">
+    <section className="relative w-full bg-linear-to-br from-primary/5 via-base-100 to-accent/10 dark:from-primary/20 dark:via-base-100 dark:to-accent/20 py-16 sm:py-20 lg:py-24">
       <Container className="flex flex-col md:flex-row items-center justify-between gap-10 sm:gap-12">
-        <div className="flex-1 flex flex-col gap-4 sm:gap-5">
+        <FadeIn className="flex-1 flex flex-col gap-4 sm:gap-5" direction="left">
           <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-primary/70">
             Our Story
           </p>
@@ -19,10 +20,10 @@ export default function AboutHero() {
             itself. We bake slowly, decorate thoughtfully, and obsess over every
             layer so you can taste the care in every slice.
           </p>
-        </div>
+        </FadeIn>
 
-        <div className="flex-1 w-full max-w-md md:max-w-lg">
-          <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-base-200/70 dark:border-base-300/40 bg-base-100">
+        <FadeIn className="flex-1 w-full max-w-md md:max-w-lg" direction="right">
+          <div className="relative aspect-4/3 rounded-3xl overflow-hidden shadow-2xl border border-base-200/70 dark:border-base-300/40 bg-base-100">
             <Image
               src="/images/about/hero-bakery.jpg"
               alt="Artisan cake being finished with fresh berries at Cream & Co."
@@ -32,9 +33,8 @@ export default function AboutHero() {
               priority
             />
           </div>
-        </div>
+        </FadeIn>
       </Container>
     </section>
   );
 }
-

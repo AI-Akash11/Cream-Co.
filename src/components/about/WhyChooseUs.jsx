@@ -24,11 +24,13 @@ const reasons = [
   },
 ];
 
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/Animations";
+
 export default function WhyChooseUs() {
   return (
     <section className="py-16 sm:py-20 lg:py-24 bg-base-100">
       <Container className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-        <div className="space-y-4 sm:space-y-5">
+        <FadeIn className="space-y-4 sm:space-y-5" direction="left">
           <SectionHeading
             eyebrow="Why Cream & Co."
             title="Designed for Dhaka celebrations"
@@ -39,12 +41,12 @@ export default function WhyChooseUs() {
             actually celebrate. Reliable delivery, flexible customization, and
             transparent communication are built into everything we do.
           </p>
-        </div>
+        </FadeIn>
 
-        <div className="space-y-4 sm:space-y-5">
+        <StaggerContainer className="space-y-4 sm:space-y-5" direction="right">
           <ul className="space-y-3 sm:space-y-4">
             {reasons.map((reason) => (
-              <li
+              <StaggerItem
                 key={reason.title}
                 className="flex items-start gap-3 sm:gap-4"
               >
@@ -68,10 +70,10 @@ export default function WhyChooseUs() {
                     {reason.description}
                   </p>
                 </div>
-              </li>
+              </StaggerItem>
             ))}
           </ul>
-        </div>
+        </StaggerContainer>
       </Container>
     </section>
   );

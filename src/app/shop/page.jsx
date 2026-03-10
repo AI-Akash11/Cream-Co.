@@ -8,12 +8,15 @@ export const metadata = {
   description:
     "Explore our premium collection of artisan cakes, from custom birthday cakes to elegant wedding centerpieces. Handcrafted with the finest ingredients in Dhaka.",
   keywords: [
-    "cakes",
-    "desserts",
-    "birthday cakes",
-    "custom cakes",
-    "dhaka bakery",
+    "cake shop",
+    "online cake order",
+    "custom birthday cakes",
     "wedding cakes",
+    "bento cakes",
+    "premium bakery",
+    "cake delivery service",
+    "artisan cakes",
+    "Cream & Co bakery",
   ],
   openGraph: {
     title: "Our Collection | Cream & Co.",

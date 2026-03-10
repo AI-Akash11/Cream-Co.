@@ -1,5 +1,6 @@
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/about/SectionHeading";
+import { FadeIn } from "@/components/animations/Animations";
 
 export default function MapSection() {
   return (
@@ -12,7 +13,7 @@ export default function MapSection() {
             align="center"
           />
 
-          <div className="relative w-full rounded-2xl overflow-hidden shadow-xl border border-base-200/80 dark:border-base-300/30 bg-base-200 aspect-16/7 min-h-[260px]">
+          <FadeIn className="relative w-full rounded-2xl overflow-hidden shadow-xl border border-base-200/80 dark:border-base-300/30 bg-base-200 aspect-16/7 min-h-[260px]" direction="up">
             {/* Google Maps Embed Placeholder */}
             <iframe
               title="Cream & Co. Bakery Location"
@@ -48,7 +49,7 @@ export default function MapSection() {
                 </p>
               </div>
             </div>
-          </div>
+          </FadeIn>
         </div>
       </Container>
     </section>

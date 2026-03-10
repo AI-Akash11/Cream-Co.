@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/about/SectionHeading";
+import { FadeIn } from "@/components/animations/Animations";
 
 export default function BrandStory() {
   return (
     <section className="py-16 sm:py-20 lg:py-24 bg-base-100">
       <Container className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-        <div className="order-2 md:order-1 space-y-4 sm:space-y-5">
+        <FadeIn className="order-2 md:order-1 space-y-4 sm:space-y-5" direction="left">
           <SectionHeading eyebrow="Behind the oven" title="How Cream & Co. began" />
           <p className="text-sm sm:text-base text-base-content/80">
             Cream &amp; Co. started as a tiny home studio in Dhaka, baking
@@ -27,10 +28,10 @@ export default function BrandStory() {
             each order as a collaboration. You bring the story; we bring the
             craft, to create something that feels uniquely yours.
           </p>
-        </div>
+        </FadeIn>
 
-        <div className="order-1 md:order-2">
-          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl border border-base-200/70 dark:border-base-300/40 bg-base-100">
+        <FadeIn className="order-1 md:order-2" direction="right">
+          <div className="relative aspect-4/3 rounded-2xl overflow-hidden shadow-xl border border-base-200/70 dark:border-base-300/40 bg-base-100">
             <Image
               src="/images/about/story.jpg"
               alt="Freshly baked cakes and pastries cooling in the Cream & Co. kitchen"
@@ -39,9 +40,8 @@ export default function BrandStory() {
               sizes="(min-width: 1024px) 480px, (min-width: 768px) 420px, 100vw"
             />
           </div>
-        </div>
+        </FadeIn>
       </Container>
     </section>
   );
 }
-

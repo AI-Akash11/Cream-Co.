@@ -122,6 +122,8 @@ function ContactCard({ item }) {
   );
 }
 
+import { StaggerContainer, StaggerItem } from "@/components/animations/Animations";
+
 export default function ContactInfo() {
   return (
     <section className="py-16 sm:py-20 lg:py-24 bg-base-200/40 dark:bg-base-200/10">
@@ -132,11 +134,13 @@ export default function ContactInfo() {
             title="How to Reach Us"
             align="center"
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
             {contactItems.map((item) => (
-              <ContactCard key={item.id} item={item} />
+              <StaggerItem key={item.id}>
+                <ContactCard item={item} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </Container>
     </section>

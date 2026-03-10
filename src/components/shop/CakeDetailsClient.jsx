@@ -10,6 +10,7 @@ import { toggleWishlist } from "@/app/actions/shop-actions";
 import { useCart } from "@/context/CartContext";
 import Swal from "sweetalert2";
 import gsap from "gsap";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/Animations";
 
 export default function CakeDetailsClient({ cake }) {
   const {
@@ -101,7 +102,7 @@ export default function CakeDetailsClient({ cake }) {
     <div className="min-h-screen bg-base-100 py-12 sm:py-16">
       <Container>
         {/* Breadcrumb / Back button */}
-        <div className="mb-8 pl-4">
+        <FadeIn className="mb-8 pl-4" direction="none">
           <Link
             href="/shop"
             className="inline-flex items-center gap-2 text-sm text-base-content/60 hover:text-primary transition-colors font-medium tracking-wide"
@@ -109,11 +110,11 @@ export default function CakeDetailsClient({ cake }) {
             <HiArrowLeft className="w-5 h-5" />
             Back to Shop
           </Link>
-        </div>
+        </FadeIn>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Image Gallery */}
-          <div className="flex flex-col gap-6">
+          <FadeIn className="flex flex-col gap-6" direction="left">
             <div
               ref={mainImageRef}
               className="relative aspect-4/5 w-full bg-base-200 overflow-hidden shadow-2xl rounded-sm"
@@ -154,11 +155,11 @@ export default function CakeDetailsClient({ cake }) {
                 ))}
               </div>
             )}
-          </div>
+          </FadeIn>
 
           {/* Details */}
-          <div className="flex flex-col lg:py-6">
-            <div className="mb-8">
+          <StaggerContainer className="flex flex-col lg:py-6" direction="right">
+            <StaggerItem className="mb-8">
               <p className="text-xs text-primary font-bold uppercase tracking-widest mb-4">
                 {category}
               </p>
@@ -173,15 +174,17 @@ export default function CakeDetailsClient({ cake }) {
               <p className="text-base text-base-content/70 leading-relaxed font-light">
                 {description}
               </p>
-            </div>
+            </StaggerItem>
 
-            <div className="w-full h-px bg-base-300 my-8"></div>
+            <StaggerItem>
+              <div className="w-full h-px bg-base-300 my-8"></div>
+            </StaggerItem>
 
             {/* Selectors */}
             <div className="flex flex-col gap-8 mb-10">
               {/* Size Selection */}
               {sizes && sizes.length > 0 && (
-                <div>
+                <StaggerItem>
                   <h3 className="text-sm font-bold uppercase tracking-widest text-base-content mb-4 flex items-center gap-2">
                     Select Size
                   </h3>
@@ -200,12 +203,12 @@ export default function CakeDetailsClient({ cake }) {
                       </button>
                     ))}
                   </div>
-                </div>
+                </StaggerItem>
               )}
 
               {/* Flavor Selection */}
               {flavors && flavors.length > 0 && (
-                <div>
+                <StaggerItem>
                   <h3 className="text-sm font-bold uppercase tracking-widest text-base-content mb-4">
                     Select Flavor
                   </h3>
@@ -224,11 +227,11 @@ export default function CakeDetailsClient({ cake }) {
                       </button>
                     ))}
                   </div>
-                </div>
+                </StaggerItem>
               )}
 
               {/* Quantity */}
-              <div>
+              <StaggerItem>
                 <h3 className="text-sm font-bold uppercase tracking-widest text-base-content mb-4">
                   Quantity
                 </h3>
@@ -251,10 +254,10 @@ export default function CakeDetailsClient({ cake }) {
                     </button>
                   </div>
                 </div>
-              </div>
+              </StaggerItem>
             </div>
 
-            <div className="flex gap-4 mt-auto">
+            <StaggerItem className="flex gap-4 mt-auto">
               <button
                 onClick={handleAddToCart}
                 disabled={isAdding}
@@ -269,10 +272,10 @@ export default function CakeDetailsClient({ cake }) {
               >
                 <FaHeart className="w-6 h-6 text-base-content/40 group-hover:text-red-500 transition-colors" />
               </button>
-            </div>
+            </StaggerItem>
 
             {preparationTimeHours && (
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <StaggerItem className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="p-4 bg-base-200 rounded-sm border border-base-300">
                   <p className="text-xs font-bold uppercase tracking-widest opacity-60 mb-2">Preparation</p>
                   <p className="text-sm font-medium text-base-content/80 flex items-center gap-2">
@@ -296,14 +299,14 @@ export default function CakeDetailsClient({ cake }) {
                     </p>
                   </div>
                 )}
-              </div>
+              </StaggerItem>
             )}
             
-            <p className="text-[10px] text-base-content/40 mt-6 italic">
+            <StaggerItem className="text-[10px] text-base-content/40 mt-6 italic">
               * For custom modifications, please contact us directly after
               placing your order.
-            </p>
-          </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </Container>
     </div>

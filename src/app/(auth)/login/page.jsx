@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import SocialButton from "@/components/buttons/SocialButton";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/Animations";
 
 export default function LoginPage() {
   const params = useSearchParams();
@@ -24,9 +25,7 @@ export default function LoginPage() {
       email: form.email.value,
       password: form.password.value,
       redirect: false,
-      // callbackUrl: params.get("callbackUrl") || "/",
     });
-    // result log removed
     setIsSubmitting(false);
     if (!result.ok) {
       Swal.fire({
@@ -47,10 +46,11 @@ export default function LoginPage() {
       router.push(callBackUrl);
     }
   };
+
   return (
     <div className="flex flex-col md:flex-row min-h-[600px]">
       {/* Left Column: Form */}
-      <div className="w-full md:w-1/2 p-8 lg:p-16 flex flex-col justify-center">
+      <FadeIn className="w-full md:w-1/2 p-8 lg:p-16 flex flex-col justify-center" direction="left">
         <Link
           href="/"
           className="flex items-center gap-2 text-sm font-medium opacity-60 hover:opacity-100 transition-opacity mb-8 w-fit"
@@ -68,85 +68,91 @@ export default function LoginPage() {
         </div>
 
         <form className="space-y-6" onSubmit={handleLogin}>
-          <div className="form-control">
-            <label className="label text-sm font-bold opacity-70">
-              Email Address
-            </label>
-            <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-base-content/40">
-                <FiMail size={18} />
-              </span>
-              <input
-                type="email"
-                placeholder="email@example.com"
-                className="input input-bordered w-full pl-12 rounded-xl bg-base-100 border-base-300 focus:border-primary transition-all"
-                name="email"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="form-control">
-            <div className="flex justify-between items-center mb-1">
-              <label className="label text-sm font-bold opacity-70 p-0">
-                Password
+          <StaggerContainer className="space-y-6">
+            <StaggerItem className="form-control">
+              <label className="label text-sm font-bold opacity-70">
+                Email Address
               </label>
-              <Link
-                href="#"
-                className="text-xs text-primary font-bold hover:underline"
-              >
-                Forgot Password?
-              </Link>
-            </div>
-            <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-base-content/40">
-                <FiLock size={18} />
-              </span>
-              <input
-                type="password"
-                placeholder="••••••••"
-                className="input input-bordered w-full pl-12 rounded-xl bg-base-100 border-base-300 focus:border-primary transition-all"
-                name="password"
-                required
-              />
-            </div>
-          </div>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-base-content/40">
+                  <FiMail size={18} />
+                </span>
+                <input
+                  type="email"
+                  placeholder="email@example.com"
+                  className="input input-bordered w-full pl-12 rounded-xl bg-base-100 border-base-300 focus:border-primary transition-all"
+                  name="email"
+                  required
+                />
+              </div>
+            </StaggerItem>
 
-          <button 
-            type="submit"
-            disabled={isSubmitting}
-            className="btn btn-primary w-full h-14 rounded-xl text-lg font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all flex items-center justify-center gap-2"
-          >
-            {isSubmitting ? (
-              <>
-                <span className="loading loading-spinner"></span>
-                Logging in...
-              </>
-            ) : (
-              "Sign In"
-            )}
-          </button>
+            <StaggerItem className="form-control">
+              <div className="flex justify-between items-center mb-1">
+                <label className="label text-sm font-bold opacity-70 p-0">
+                  Password
+                </label>
+                <Link
+                  href="#"
+                  className="text-xs text-primary font-bold hover:underline"
+                >
+                  Forgot Password?
+                </Link>
+              </div>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-base-content/40">
+                  <FiLock size={18} />
+                </span>
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  className="input input-bordered w-full pl-12 rounded-xl bg-base-100 border-base-300 focus:border-primary transition-all"
+                  name="password"
+                  required
+                />
+              </div>
+            </StaggerItem>
+
+            <StaggerItem>
+              <button 
+                type="submit"
+                disabled={isSubmitting}
+                className="btn btn-primary w-full h-14 rounded-xl text-lg font-bold shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all flex items-center justify-center gap-2"
+              >
+                {isSubmitting ? (
+                  <>
+                    <span className="loading loading-spinner"></span>
+                    Logging in...
+                  </>
+                ) : (
+                  "Sign In"
+                )}
+              </button>
+            </StaggerItem>
+          </StaggerContainer>
         </form>
 
-        <div className="divider my-8 opacity-50 uppercase text-[10px] font-bold tracking-widest">
-          Or continue with
-        </div>
+        <FadeIn direction="up" delay={0.4}>
+          <div className="divider my-8 opacity-50 uppercase text-[10px] font-bold tracking-widest">
+            Or continue with
+          </div>
 
-        <SocialButton />
+          <SocialButton />
 
-        <p className="mt-10 text-center text-sm opacity-70">
-          Don&apos;t have an account?{" "}
-          <Link
-            href={`/register?callbackUrl=${callBackUrl}`}
-            className="text-primary font-bold hover:underline ml-1"
-          >
-            Create Account
-          </Link>
-        </p>
-      </div>
+          <p className="mt-10 text-center text-sm opacity-70">
+            Don&apos;t have an account?{" "}
+            <Link
+              href={`/register?callbackUrl=${callBackUrl}`}
+              className="text-primary font-bold hover:underline ml-1"
+            >
+              Create Account
+            </Link>
+          </p>
+        </FadeIn>
+      </FadeIn>
 
       {/* Right Column: Banner */}
-      <div className="hidden md:block w-1/2 relative bg-base-300">
+      <FadeIn className="hidden md:block w-1/2 relative bg-base-300" direction="right">
         <Image
           src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1089&auto=format&fit=crop"
           alt="Artisan Cakes"
@@ -165,7 +171,7 @@ export default function LoginPage() {
             </p>
           </div>
         </div>
-      </div>
+      </FadeIn>
     </div>
   );
 }

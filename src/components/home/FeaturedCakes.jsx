@@ -2,6 +2,7 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/about/SectionHeading";
 import CakeCard from "@/components/cards/CakeCard";
+import { StaggerContainer, StaggerItem } from "@/components/animations/Animations";
 
 export default function FeaturedCakes({ featuredCakes = [] }) {
   return (
@@ -14,11 +15,13 @@ export default function FeaturedCakes({ featuredCakes = [] }) {
             align="center"
           />
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 sm:gap-x-8 gap-y-10 sm:gap-y-12">
+          <StaggerContainer className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 sm:gap-x-8 gap-y-10 sm:gap-y-12">
             {featuredCakes.map((cake) => (
-              <CakeCard key={cake._id} cake={cake} />
+              <StaggerItem key={cake._id}>
+                <CakeCard cake={cake} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
 
           <div className="flex justify-center">
             <Link

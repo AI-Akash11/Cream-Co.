@@ -1,5 +1,6 @@
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/about/SectionHeading";
+import { StaggerContainer, StaggerItem } from "@/components/animations/Animations";
 
 const features = [
   {
@@ -8,7 +9,6 @@ const features = [
     description:
       "We use Belgian chocolate, fresh cream, and seasonal fruits sourced locally — never shortcuts or premixes.",
     icon: (
-      // Leaf / natural ingredient icon
       <svg
         viewBox="0 0 24 24"
         className="h-5 w-5"
@@ -30,7 +30,6 @@ const features = [
     description:
       "Every cake is baked in small batches to ensure peak freshness, softness, and flavour in every bite.",
     icon: (
-      // Oven / heat lines
       <svg
         viewBox="0 0 24 24"
         className="h-5 w-5"
@@ -52,7 +51,6 @@ const features = [
     description:
       "From elegant wedding tiers to playful birthday bento cakes — we craft designs tailored to your story.",
     icon: (
-      // Pencil / design icon
       <svg
         viewBox="0 0 24 24"
         className="h-5 w-5"
@@ -79,7 +77,6 @@ const features = [
     description:
       "Forgot an order? We offer same-day delivery across Dhaka with secure packaging and careful handling.",
     icon: (
-      // Delivery truck icon
       <svg
         viewBox="0 0 24 24"
         className="h-5 w-5"
@@ -139,16 +136,17 @@ export default function Features() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature) => (
-            <FeatureCard
-              key={feature.id}
-              title={feature.title}
-              description={feature.description}
-              icon={feature.icon}
-            />
+            <StaggerItem key={feature.id}>
+              <FeatureCard
+                title={feature.title}
+                description={feature.description}
+                icon={feature.icon}
+              />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </Container>
     </section>
   );

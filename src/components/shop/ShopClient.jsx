@@ -9,6 +9,7 @@ import FilterBar from "@/components/shop/FilterBar";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 import ShopCTA from "@/components/shop/ShopCTA";
 import { getCake } from "@/actions/server/cake";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/Animations";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -83,7 +84,7 @@ function ShopContent({ initialData }) {
         <Container>
           <div className="flex flex-col gap-10 sm:gap-14">
             {/* Header Area */}
-            <div className="max-w-3xl mx-auto text-center">
+            <FadeIn className="max-w-3xl mx-auto text-center" direction="up">
               <SectionHeading
                 eyebrow="Our Collection"
                 title="Explore Our Cakes & Desserts"
@@ -95,7 +96,7 @@ function ShopContent({ initialData }) {
                 milestone celebration or an everyday treat, we have something
                 sweet waiting for you.
               </p>
-            </div>
+            </FadeIn>
 
             {/* Filter & Cake Area */}
             <div className="flex flex-col gap-8 sm:gap-12">
@@ -119,11 +120,13 @@ function ShopContent({ initialData }) {
                 
                 {cakes.length > 0 ? (
                   <>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10 sm:gap-x-8 sm:gap-y-12">
+                    <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10 sm:gap-x-8 sm:gap-y-12">
                       {cakes.map((cake) => (
-                        <CakeCard key={cake._id} cake={cake} />
+                        <StaggerItem key={cake._id}>
+                          <CakeCard cake={cake} />
+                        </StaggerItem>
                       ))}
-                    </div>
+                    </StaggerContainer>
 
                     {/* Pagination */}
                     {totalPages > 1 && (

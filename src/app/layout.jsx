@@ -6,6 +6,7 @@ import { CartProvider } from "@/context/CartContext";
 import ConditionalLayout from "@/components/layouts/ConditionalLayout";
 import CartDrawer from "@/components/cart/CartDrawer";
 import NextAuthProvider from "@/provider/NextAuthProvider";
+import SmoothScrolling from "@/components/animations/SmoothScrolling";
 
 const poppins = Poppins({
   weight: ["100", "200", "400", "500", "600", "800"],
@@ -23,17 +24,25 @@ export const metadata = {
   description:
     "Cream & Co is a premium cake studio offering freshly baked cakes, custom celebration cakes, and handcrafted desserts for birthdays, weddings, and special occasions.",
 
+  category: "Food & Bakery",
+
   keywords: [
     "cake shop",
-    "custom cakes",
-    "birthday cakes",
+    "online cake order",
+    "custom birthday cakes",
     "wedding cakes",
     "bento cakes",
-    "premium cakes",
-    "online cake order",
-    "cake delivery",
+    "premium bakery",
+    "cake delivery service",
+    "artisan cakes",
     "Cream & Co bakery",
+    "custom cakes Dhaka",
+    "best cakes Dhaka",
   ],
+
+  authors: [{ name: "Ali Imam Akash" }],
+  creator: "Ali Imam Akash",
+  publisher: "Ali Imam Akash",
 
   icons: {
     icon: "/logoImage.png",
@@ -75,20 +84,22 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.className} antialiased selection:bg-primary/10`}>
         <CartProvider>
-          <ConditionalLayout
-            header={
-              <header className="sticky top-0 z-50 w-full">
-                <Navbar />
-              </header>
-            }
-            footer={
-              <footer>
-                <Footer />
-              </footer>
-            }
-          >
-            {children}
-          </ConditionalLayout>
+          <SmoothScrolling>
+            <ConditionalLayout
+              header={
+                <header className="sticky top-0 z-50 w-full">
+                  <Navbar />
+                </header>
+              }
+              footer={
+                <footer>
+                  <Footer />
+                </footer>
+              }
+            >
+              {children}
+            </ConditionalLayout>
+          </SmoothScrolling>
           {/* Global Cart Drawer */}
           <CartDrawer />
         </CartProvider>

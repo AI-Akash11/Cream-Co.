@@ -18,7 +18,7 @@ export default function ContactCTA() {
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
           <Link
-            href="/menu"
+            href="/shop"
             className="btn btn-primary btn-md sm:btn-lg font-semibold min-w-40"
           >
             Shop Cakes
