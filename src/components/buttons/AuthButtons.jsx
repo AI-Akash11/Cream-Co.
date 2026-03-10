@@ -11,7 +11,7 @@ const AuthButtons = () => {
         <div className="flex flex-col items-center gap-3 w-full">
           <Link
             href="/orders"
-            className="btn btn-outline w-full rounded-xl font-semibold h-12 flex items-center justify-center border-[#7a4b4b] text-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white shadow-md transition-all"
+            className="btn bg-base-100 md:btn-outline w-full rounded-xl font-semibold h-12 flex items-center justify-center border-[#7a4b4b] text-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white shadow-md transition-all"
           >
             My Orders
           </Link>
@@ -21,13 +21,13 @@ const AuthButtons = () => {
             <div className="flex flex-col gap-3 w-full">
               <Link
                 href="/admin/manage-cakes"
-                className="btn btn-primary w-full rounded-xl font-semibold h-12 flex items-center justify-center shadow-md transition-all hover:-translate-y-1"
+                className="btn bg-base-100 md:btn-outline w-full rounded-xl font-semibold h-12 flex items-center justify-center border-[#7a4b4b] text-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white shadow-md transition-all"
               >
                 Manage Cakes
               </Link>
               <Link
                 href="/admin/add-cake"
-                className="btn btn-primary w-full rounded-xl font-semibold h-12 flex items-center justify-center shadow-md transition-all hover:-translate-y-1"
+                className="btn bg-base-100 md:btn-outline w-full rounded-xl font-semibold h-12 flex items-center justify-center border-[#7a4b4b] text-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white shadow-md transition-all"
               >
                 Add Cake
               </Link>
@@ -37,7 +37,7 @@ const AuthButtons = () => {
           
           <button
             onClick={() => signOut({ callbackUrl: "/" })}
-            className="btn btn-outline btn-error w-full rounded-xl font-semibold h-12 flex items-center justify-center shadow-md transition-all hover:bg-error hover:text-white"
+            className="btn bg-base-100 md:btn-outline btn-error w-full rounded-xl font-semibold h-12 flex items-center justify-center shadow-md transition-all hover:bg-error hover:text-white"
           >
             Logout
           </button>

@@ -226,7 +226,7 @@ export default function Navbar() {
                 </p>
                 <Link
                   href="/custom"
-                  className="flex items-center gap-4 px-4 py-4 rounded-2xl bg-primary/10 text-primary-content hover:bg-primary/20 transition-all border border-primary/20"
+                  className="flex bg-base-100 items-center gap-4 px-4 py-4 rounded-2xl text-primary-content hover:bg-primary/20 transition-all border border-primary/20"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <div className="bg-primary text-white p-2 rounded-xl shrink-0">

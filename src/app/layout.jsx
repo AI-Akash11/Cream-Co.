@@ -9,6 +9,7 @@ import NextAuthProvider from "@/provider/NextAuthProvider";
 
 const poppins = Poppins({
   weight: ["100", "200", "400", "500", "600", "800"],
+    subsets: ["latin"],
 });
 
 export const metadata = {

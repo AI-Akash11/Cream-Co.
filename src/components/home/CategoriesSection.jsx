@@ -7,42 +7,42 @@ const categories = [
   {
     name: "Birthday Cakes",
     slug: "birthday-cakes",
-    image: "https://images.unsplash.com/photo-1464347744102-11db6282f854",
+    image: "https://i.ibb.co.com/4wgXKrwZ/Birthday-Cake1.jpg",
   },
   {
     name: "Signature Cakes",
     slug: "signature-cakes",
-    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+    image: "https://i.ibb.co.com/KpgCNn4H/Signature1.jpg",
   },
   {
     name: "Premium Cakes",
     slug: "premium-cakes",
-    image: "https://images.unsplash.com/photo-1464347744102-11db6282f854",
+    image: "https://i.ibb.co.com/Kx7GYJ8N/Premium1.jpg",
   },
   {
     name: "Custom Cakes",
     slug: "custom-cakes",
-    image: "https://images.unsplash.com/photo-1508737027454-e6454ef45afd",
+    image: "https://i.ibb.co.com/xKBVbWDs/Custom1.jpg",
   },
   {
     name: "Bento Cakes",
     slug: "bento-cakes",
-    image: "https://images.unsplash.com/photo-1571115177098-24ec42ed204d",
+    image: "https://i.ibb.co.com/Mx2P56tM/Bento1.jpg",
   },
   {
     name: "Wedding Cakes",
     slug: "wedding-cakes",
-    image: "https://images.unsplash.com/photo-1535254973040-607b474cb50d",
+    image: "https://i.ibb.co.com/tTbz8mMm/Wedding1.jpg",
   },
   {
     name: "Cupcakes",
     slug: "cupcakes",
-    image: "https://images.unsplash.com/photo-1486427944299-d1955d23e34d",
+    image: "https://i.ibb.co.com/V0m203Fk/Cupcake1.jpg",
   },
   {
     name: "Pastries",
     slug: "pastries",
-    image: "https://images.unsplash.com/photo-1464347744102-11db6282f854",
+    image: "https://i.ibb.co.com/V0Yf5XGp/Pastry1.jpg",
   },
 ];
 
