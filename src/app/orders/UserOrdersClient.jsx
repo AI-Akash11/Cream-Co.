@@ -171,7 +171,7 @@ export default function UserOrdersClient({ initialData, userEmail }) {
                     <button
                       onClick={() => fetchOrders(currentPage - 1)}
                       disabled={currentPage === 1 || isLoading}
-                      className="p-2 border border-base-300 rounded-full text-base-content hover:bg-primary hover:text-white transition-all disabled:opacity-20 transition-all hover:scale-105"
+                      className="p-2 border border-base-300 rounded-full text-base-content hover:bg-primary hover:text-white transition-all disabled:opacity-20 hover:scale-105"
                     >
                       <HiArrowLeft className="w-5 h-5" />
                     </button>
@@ -196,7 +196,7 @@ export default function UserOrdersClient({ initialData, userEmail }) {
                     <button
                       onClick={() => fetchOrders(currentPage + 1)}
                       disabled={currentPage === totalPages || isLoading}
-                      className="p-2 border border-base-300 rounded-full text-base-content hover:bg-primary hover:text-white transition-all disabled:opacity-20 transition-all hover:scale-105"
+                      className="p-2 border border-base-300 rounded-full text-base-content hover:bg-primary hover:text-white transition-all disabled:opacity-20 hover:scale-105"
                     >
                       <HiArrowRight className="w-5 h-5" />
                     </button>

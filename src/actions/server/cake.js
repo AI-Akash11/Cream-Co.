@@ -1,6 +1,7 @@
 "use server";
 
 import { ObjectId } from "mongodb";
+import { revalidatePath } from "next/cache";
 const { dbConnect, collections } = require("@/lib/dbConnect");
 
 /**
@@ -88,13 +89,16 @@ export const getSingleCake = async (id) => {
 
 export const addCake = async (cakeData) => {
     try {
-        // Remove stock if passed by mistake
         const { stock, ...rest } = cakeData;
         const result = await dbConnect(collections.cakes).insertOne({
             ...rest,
             createdAt: new Date(),
             updatedAt: new Date(),
         });
+        
+        revalidatePath("/shop");
+        revalidatePath("/");
+        
         return { success: true, id: result.insertedId.toString() };
     } catch (error) {
         console.error("Error adding cake:", error);
@@ -105,7 +109,6 @@ export const addCake = async (cakeData) => {
 export const updateCake = async (id, updatedData) => {
     try {
         if (!id || id.length !== 24) throw new Error("Invalid ID");
-        // Remove stock if passed by mistake
         const { stock, ...rest } = updatedData;
         const query = { _id: new ObjectId(id) };
         const result = await dbConnect(collections.cakes).updateOne(query, {
@@ -114,6 +117,11 @@ export const updateCake = async (id, updatedData) => {
                 updatedAt: new Date(),
             }
         });
+
+        revalidatePath("/shop");
+        revalidatePath("/");
+        revalidatePath(`/shop/${id}`);
+        
         return { success: true, modifiedCount: result.modifiedCount };
     } catch (error) {
         console.error("Error updating cake:", error);
@@ -126,6 +134,10 @@ export const deleteCake = async (id) => {
         if (!id || id.length !== 24) throw new Error("Invalid ID");
         const query = { _id: new ObjectId(id) };
         const result = await dbConnect(collections.cakes).deleteOne(query);
+        
+        revalidatePath("/shop");
+        revalidatePath("/");
+        
         return { success: true, deletedCount: result.deletedCount };
     } catch (error) {
         console.error("Error deleting cake:", error);

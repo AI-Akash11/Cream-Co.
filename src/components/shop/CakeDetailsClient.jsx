@@ -90,10 +90,10 @@ export default function CakeDetailsClient({ cake }) {
     try {
       const res = await toggleWishlist(_id);
       if (res?.success) {
-        // console.log("Wishlist toggled", res.message);
+        // console.log removed
       }
     } catch (error) {
-      // console.error(error);
+      // console.error removed
     }
   };
 

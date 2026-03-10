@@ -50,7 +50,7 @@ export default function Footer() {
               {/* Social Icons */}
               <div className="flex gap-4 pt-2">
                 <a
-                  href="https://instagram.com"
+                  href="https://ali-imam-akash.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-pink-600 hover:text-pink-400 transition-colors duration-200"
@@ -60,7 +60,7 @@ export default function Footer() {
                   <FaInstagram size={20} />
                 </a>
                 <a
-                  href="https://facebook.com"
+                  href="https://ali-imam-akash.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:text-blue-400 transition-colors duration-200"
@@ -70,7 +70,7 @@ export default function Footer() {
                   <FaFacebook size={20} />
                 </a>
                 <a
-                  href="https://twitter.com"
+                  href="https://ali-imam-akash.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sky-500 hover:text-sky-400 transition-colors duration-200"
@@ -80,7 +80,7 @@ export default function Footer() {
                   <FaTwitter size={20} />
                 </a>
                 <a
-                  href="https://tiktok.com"
+                  href="https://ali-imam-akash.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-cyan-500 hover:text-cyan-300 transition-colors duration-200"
@@ -90,7 +90,7 @@ export default function Footer() {
                   <FaTiktok size={20} />
                 </a>
                 <a
-                  href="https://pinterest.com"
+                  href="https://ali-imam-akash.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-red-600 hover:text-red-400 transition-colors duration-200"
@@ -151,7 +151,7 @@ export default function Footer() {
               <ul className="flex flex-col gap-3">
                 <li>
                   <Link
-                    href="#"
+                    href="/faq"
                     className="text-sm text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
                     FAQ
@@ -159,7 +159,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/delivery-policy"
                     className="text-sm text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
                     Delivery Policy
@@ -167,7 +167,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/refund-policy"
                     className="text-sm text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
                     Refund Policy
@@ -175,7 +175,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/terms"
                     className="text-sm text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
                     Terms & Conditions
@@ -202,16 +202,18 @@ export default function Footer() {
                     href="tel:+8801700000000"
                     className="text-xs text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
-                    +880 1700 000000
+                    +880 17826336573
                   </a>
                 </li>
                 <li className="text-base-content/80">
                   <p className="font-medium text-base-content">Email</p>
                   <a
-                    href="mailto:hello@creamandco.com"
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=akash1437aliimam@gmail.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-xs text-base-content/70 hover:text-base-content transition-colors duration-200"
                   >
-                    hello@creamandco.com
+                    akash1437aliimam@gmail.com
                   </a>
                 </li>
               </ul>

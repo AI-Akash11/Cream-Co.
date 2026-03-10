@@ -27,10 +27,10 @@ export default function RegisterPage() {
     const password = form.password.value;
 
     const payload = { name, email, password };
-    // console.log(payload);
+    // payload log removed
 
     const result = await postUser(payload);
-    // console.log(result);
+    // result log removed
 
     if (result?.success) {
       // router.push("/login");

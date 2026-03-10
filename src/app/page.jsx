@@ -6,7 +6,6 @@ import HomeCTA from "@/components/home/HomeCTA";
 import Features from "@/components/home/Features";
 import { getCake } from "@/actions/server/cake";
 import { getServerSession } from "next-auth";
-import Test from "@/components/Test";
 import { authOptions } from "@/lib/authOption";
 
 export const metadata = {

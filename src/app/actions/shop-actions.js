@@ -6,8 +6,6 @@
  * @returns {Promise<{success: boolean, message: string}>}
  */
 export async function addToCart(cakeId) {
-  // console.log(`[DUMMY ACTION] Adding cake ${cakeId} to cart.`);
-
   // Simulate network delay
   await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -23,8 +21,6 @@ export async function addToCart(cakeId) {
  * @returns {Promise<{success: boolean, message: string}>}
  */
 export async function toggleWishlist(cakeId) {
-  // console.log(`[DUMMY ACTION] Toggling wishlist for cake ${cakeId}.`);
-
   // Simulate network delay
   await new Promise((resolve) => setTimeout(resolve, 500));
 

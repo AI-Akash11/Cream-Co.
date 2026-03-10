@@ -13,8 +13,6 @@ const SocialButton = () => {
       callbackUrl: params.get("callbackUrl") || "/",
     });
 
-    // console.log(result);
-
     if (!result.ok) {
       Swal.fire({
         icon: "error",

@@ -58,7 +58,8 @@ export default function ContactForm() {
       return;
     }
     // TODO: Integrate API endpoint here
-    // console.log("Form submitted:", formData);
+    // log removed
+
     setSubmitted(true);
     setFormData(initialState);
     setErrors({});

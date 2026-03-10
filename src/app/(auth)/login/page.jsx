@@ -26,7 +26,7 @@ export default function LoginPage() {
       redirect: false,
       // callbackUrl: params.get("callbackUrl") || "/",
     });
-    // console.log(result);
+    // result log removed
     setIsSubmitting(false);
     if (!result.ok) {
       Swal.fire({
