@@ -85,6 +85,7 @@ const StackedFlippingCarousel = () => {
                 fill
                 className="object-cover w-full h-full"
                 priority={isTop}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 unoptimized
               />
             </div>

@@ -74,7 +74,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full bg-primary/95 backdrop-blur-sm text-primary-content shadow-md transition-all duration-300">
+    <nav className="sticky top-0 z-50 w-full bg-primary/95 backdrop-blur-sm text-primary-content shadow-md transition-all duration-300">
       {/* Main Navbar - Full width background, max-width content */}
       <Container>
         <div className="w-full px-4 md:px-8">

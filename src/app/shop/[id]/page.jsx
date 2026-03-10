@@ -3,7 +3,7 @@ import { getCake, getSingleCake } from "@/actions/server/cake";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  const cakes = await getCake();
+  const { cakes } = await getCake();
   return cakes.map((item) => ({
     id: item._id,
   }));

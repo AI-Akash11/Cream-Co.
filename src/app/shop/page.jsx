@@ -35,8 +35,8 @@ export const metadata = {
 };
 
 export default async function ShopPage() {
-  const allCakes = await getCake();
+  const initialData = await getCake({ page: 1, limit: 12 });
 
   // 2. Render the interactive client component
-  return <ShopClient initialCakes={allCakes} />;
+  return <ShopClient initialData={initialData} />;
 }

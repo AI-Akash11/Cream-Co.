@@ -10,11 +10,11 @@ export default function Logo() {
       {/* Logo Image */}
       <div className="w-8 h-8 md:w-10 md:h-10 relative">
         <Image
-          src="/favicon.ico"
+          src="/logoImage.png"
           alt="Cream & Co. Logo"
-          width={40}
-          height={40}
-          className="w-full h-full"
+          fill
+          className="object-contain"
+          sizes="(max-width: 768px) 32px, 40px"
           priority
         />
       </div>

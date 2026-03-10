@@ -5,51 +5,67 @@ import Stripe from "stripe";
 import { ObjectId } from "mongodb";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: "2023-10-16", // Note: use latest supported or default API version of the package
+  apiVersion: "2023-10-16",
 });
 
 /**
- * Creates an order in MongoDB and generates a Stripe Checkout Session URL
+ * Get user orders with pagination
  */
-// Add this new action to get user orders
-export async function getUserOrders(email) {
+export async function getUserOrders(email, page = 1, limit = 10) {
   try {
     const ordersCollection = dbConnect(collections.orders);
+    const query = { email };
+    
+    const total = await ordersCollection.countDocuments(query);
+    const skip = (page - 1) * limit;
 
-    const orders = await ordersCollection
-      .find({ email })
+    const ordersData = await ordersCollection
+      .find(query)
       .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
       .toArray();
 
-    // Serialize object IDs
-    return orders.map((order) => ({
-      ...order,
-      _id: order._id.toString(),
-    }));
+    return {
+      success: true,
+      orders: ordersData.map((order) => ({ ...order, _id: order._id.toString() })),
+      total,
+      page,
+      totalPages: Math.ceil(total / limit)
+    };
   } catch (error) {
     console.error("Error fetching user orders:", error);
-    return [];
+    return { success: false, orders: [], total: 0 };
   }
 }
 
-// Add this new action to get ALL orders for admin
-export async function getAllOrders() {
+/**
+ * Get all orders for admin with pagination
+ */
+export async function getAllOrders(page = 1, limit = 10) {
   try {
     const ordersCollection = dbConnect(collections.orders);
+    
+    const total = await ordersCollection.countDocuments({});
+    const skip = (page - 1) * limit;
 
-    const orders = await ordersCollection
+    const ordersData = await ordersCollection
       .find({})
       .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
       .toArray();
 
-    // Serialize object IDs
-    return orders.map((order) => ({
-      ...order,
-      _id: order._id.toString(),
-    }));
+    return {
+      success: true,
+      orders: ordersData.map((order) => ({ ...order, _id: order._id.toString() })),
+      total,
+      page,
+      totalPages: Math.ceil(total / limit)
+    };
   } catch (error) {
     console.error("Error fetching all orders:", error);
-    return [];
+    return { success: false, orders: [], total: 0 };
   }
 }
 
@@ -70,7 +86,7 @@ export async function createOrderAndStripeSession(orderData) {
         name: item.name,
         quantity: item.quantity,
         price: item.basePrice || 0,
-        details: item.details || null, // Preserve custom cake details
+        details: item.details || null,
       })),
       totalAmount: cartTotal,
       deliveryInformation: deliveryInfo,
@@ -80,16 +96,10 @@ export async function createOrderAndStripeSession(orderData) {
       createdAt: new Date(),
     };
 
-    // 1. Save Order to Database
     const collection = dbConnect(collections.orders);
     const result = await collection.insertOne(newOrder);
     const orderId = result.insertedId.toString();
 
-    // 2. Format Line Items for Stripe
-    // Stripe requires amounts in the smallest currency unit (cents if USD). 
-    // BDT is technically supported by Stripe but usually processed in USD or cents.
-    // For local dev, assuming BDT is passed straight to Stripe in subunits (paisa).
-    // E.g., 1 Taka = 100 Paisa.
     const lineItems = cartItems.map((item) => ({
       price_data: {
         currency: "bdt",
@@ -102,19 +112,17 @@ export async function createOrderAndStripeSession(orderData) {
       quantity: item.quantity,
     }));
 
-    // Add shipping as a line item
     lineItems.push({
         price_data: {
             currency: "bdt",
             product_data: { name: "Standard Shipping" },
-            unit_amount: 100 * 100, // 100 Taka
+            unit_amount: 100 * 100,
         },
         quantity: 1,
     });
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
-    // 3. Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: lineItems,
@@ -134,9 +142,6 @@ export async function createOrderAndStripeSession(orderData) {
   }
 }
 
-/**
- * Updates an order's payment/order status after a successful Stripe payment
- */
 export async function markOrderPaid(orderId) {
   try {
     const collection = dbConnect(collections.orders);

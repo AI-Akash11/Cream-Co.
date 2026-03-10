@@ -20,7 +20,6 @@ export default function CakeDetailsClient({ cake }) {
     basePrice,
     sizes,
     flavors,
-    stock,
     preparationTimeHours,
     category,
   } = cake;
@@ -170,15 +169,6 @@ export default function CakeDetailsClient({ cake }) {
                 <span className="text-3xl font-bold text-primary">
                   ৳{totalPrice.toLocaleString()}
                 </span>
-                {stock > 0 ? (
-                  <span className="px-4 py-1.5 bg-success/10 text-success text-xs font-bold uppercase tracking-wider rounded-sm shadow-sm ring-1 ring-success/20">
-                    In Stock
-                  </span>
-                ) : (
-                  <span className="px-4 py-1.5 bg-error/10 text-error text-xs font-bold uppercase tracking-wider rounded-sm shadow-sm ring-1 ring-error/20">
-                    Out of Stock
-                  </span>
-                )}
               </div>
               <p className="text-base text-base-content/70 leading-relaxed font-light">
                 {description}
@@ -254,15 +244,12 @@ export default function CakeDetailsClient({ cake }) {
                       {quantity}
                     </div>
                     <button
-                      onClick={() => setQuantity((q) => Math.min(stock, q + 1))}
+                      onClick={() => setQuantity((q) => q + 1)}
                       className="px-6 py-3 text-base-content hover:bg-base-200 transition-colors text-lg font-medium"
                     >
                       +
                     </button>
                   </div>
-                  <p className="text-xs text-base-content/40 uppercase tracking-widest font-bold">
-                    {stock} Available
-                  </p>
                 </div>
               </div>
             </div>
@@ -270,7 +257,7 @@ export default function CakeDetailsClient({ cake }) {
             <div className="flex gap-4 mt-auto">
               <button
                 onClick={handleAddToCart}
-                disabled={isAdding || stock === 0}
+                disabled={isAdding}
                 className="flex-1 btn btn-primary text-white rounded-sm uppercase tracking-widest font-black h-16 text-lg hover:scale-[1.02] transition-transform shadow-xl shadow-primary/20"
               >
                 {isAdding ? "Adding..." : "Add to Cart"}
@@ -285,17 +272,37 @@ export default function CakeDetailsClient({ cake }) {
             </div>
 
             {preparationTimeHours && (
-              <div className="mt-8 p-4 bg-base-200 rounded-sm border border-base-300">
-                <p className="text-sm font-medium text-base-content/80 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-warning animate-pulse"></span>
-                  Preparation time: {preparationTimeHours} hours
-                </p>
-                <p className="text-xs text-base-content/60 mt-2 italic">
-                  * For custom modifications, please contact us directly after
-                  placing your order.
-                </p>
+              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="p-4 bg-base-200 rounded-sm border border-base-300">
+                  <p className="text-xs font-bold uppercase tracking-widest opacity-60 mb-2">Preparation</p>
+                  <p className="text-sm font-medium text-base-content/80 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-warning animate-pulse"></span>
+                    Ready in {preparationTimeHours} hours
+                  </p>
+                </div>
+                {cake.createdAt && (
+                  <div className="p-4 bg-base-200 rounded-sm border border-base-300">
+                    <p className="text-xs font-bold uppercase tracking-widest opacity-60 mb-2">Handcrafted Since</p>
+                    <p className="text-sm font-medium text-base-content/80">
+                      {new Date(cake.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                    </p>
+                  </div>
+                )}
+                {cake.featured && (
+                  <div className="sm:col-span-2 p-4 bg-primary/5 rounded-sm border border-primary/20">
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-1">Baker&apos;s Signature</p>
+                    <p className="text-sm font-medium text-primary/80 italic">
+                      This is one of our most celebrated creations, recommended for connoisseurs.
+                    </p>
+                  </div>
+                )}
               </div>
             )}
+            
+            <p className="text-[10px] text-base-content/40 mt-6 italic">
+              * For custom modifications, please contact us directly after
+              placing your order.
+            </p>
           </div>
         </div>
       </Container>

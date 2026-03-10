@@ -17,12 +17,22 @@ const AuthButtons = () => {
           </Link>
           
           {session.data?.user?.role === "admin" && (
-            <Link
-              href="/admin/orders"
-              className="btn btn-primary w-full rounded-xl font-semibold h-12 flex items-center justify-center shadow-md transition-all hover:-translate-y-1"
-            >
-              Admin Dashboard
-            </Link>
+            <div className="flex flex-col gap-3 w-full">
+            <div className="flex flex-col gap-3 w-full">
+              <Link
+                href="/admin/manage-cakes"
+                className="btn btn-primary w-full rounded-xl font-semibold h-12 flex items-center justify-center shadow-md transition-all hover:-translate-y-1"
+              >
+                Manage Cakes
+              </Link>
+              <Link
+                href="/admin/add-cake"
+                className="btn btn-primary w-full rounded-xl font-semibold h-12 flex items-center justify-center shadow-md transition-all hover:-translate-y-1"
+              >
+                Add Cake
+              </Link>
+            </div>
+            </div>
           )}
           
           <button

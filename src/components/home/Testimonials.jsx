@@ -101,6 +101,7 @@ function TestimonialCard({ testimonial }) {
             alt={name}
             fill
             className="object-cover"
+            sizes="36px"
           />
         </div>
         <div>

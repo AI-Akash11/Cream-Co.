@@ -35,7 +35,7 @@ export const metadata = {
   ],
 
   icons: {
-    icon: "https://i.ibb.co.com/NgfSLWcW/image.png",
+    icon: "/logoImage.png",
   },
 
   openGraph: {
@@ -71,8 +71,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <NextAuthProvider>
-    <html lang="en">
-      <body className={`${poppins.className} antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${poppins.className} antialiased selection:bg-primary/10`}>
         <CartProvider>
           <ConditionalLayout
             header={

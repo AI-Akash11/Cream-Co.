@@ -24,16 +24,15 @@ export default function GlobalLoading() {
           <div className="absolute inset-0 m-auto w-24 h-24 border-t-4 border-r-4 border-primary rounded-full animate-spin"></div>
   
           {/* Center Logo / Icon */}
-          <div className="relative w-20 h-20 bg-base-100 rounded-full flex items-center justify-center z-10 shadow-2xl border border-base-200">
-            <div className="flex flex-col items-center justify-center leading-none">
-              <span className="text-primary text-2xl font-serif font-black italic tracking-tighter">
-                C
-                <span className="text-base-content/20 mx-0.5 font-sans not-italic">
-                  &
-                </span>
-                C
-              </span>
-            </div>
+          <div className="relative w-20 h-20 bg-base-100 rounded-full flex items-center justify-center z-10 shadow-2xl border border-base-200 overflow-hidden">
+            <Image 
+              src="/logoImage.png" 
+              alt="Cream & Co." 
+              width={64} 
+              height={64} 
+              className="object-contain"
+              priority
+            />
           </div>
         </div>
 

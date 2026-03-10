@@ -93,14 +93,16 @@ export function CartProvider({ children }) {
   // Add item to cart
   const addToCart = (item) => {
     markDirtyIfGuest();
+    const qtyToAdd = item.quantity || 1;
+    
     setCartItems((prev) => {
       const existingItem = prev.find((i) => i.id === item.id);
       if (existingItem) {
         return prev.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i,
+          i.id === item.id ? { ...i, quantity: i.quantity + qtyToAdd } : i,
         );
       }
-      return [...prev, { ...item, quantity: 1 }];
+      return [...prev, { ...item, quantity: qtyToAdd }];
     });
   };
 

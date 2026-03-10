@@ -22,7 +22,7 @@ export const metadata = {
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
-  const allCakes = await getCake();
+  const { cakes: allCakes } = await getCake();
   const featuredCakes = allCakes.filter((cake) => cake.featured).slice(0, 4);
 
   return (

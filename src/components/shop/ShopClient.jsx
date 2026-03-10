@@ -1,13 +1,14 @@
 "use client";
 
-import React, { useState, useMemo, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import React, { useState, useEffect, useCallback, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/about/SectionHeading";
 import CakeCard from "@/components/cards/CakeCard";
 import FilterBar from "@/components/shop/FilterBar";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 import ShopCTA from "@/components/shop/ShopCTA";
+import { getCake } from "@/actions/server/cake";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -22,87 +23,57 @@ const ALL_CATEGORIES = [
   "Pastries",
 ];
 
-function ShopContent({ initialCakes = [] }) {
+function ShopContent({ initialData }) {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  
   const categoryParam = searchParams.get("category");
 
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState(
-    categoryParam && ALL_CATEGORIES.includes(categoryParam)
+    (categoryParam && ALL_CATEGORIES.includes(categoryParam))
       ? categoryParam
       : "All"
   );
   const [sortBy, setSortBy] = useState("default");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(initialData.page || 1);
+  const [cakes, setCakes] = useState(initialData.cakes || []);
+  const [totalPages, setTotalPages] = useState(initialData.totalPages || 1);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Sync activeCategory when URL search param changes
-  useEffect(() => {
-    if (categoryParam && ALL_CATEGORIES.includes(categoryParam)) {
-      setActiveCategory(categoryParam);
-    } else if (!categoryParam) {
-      setActiveCategory("All");
+  const fetchCakes = useCallback(async (page = 1) => {
+    setIsLoading(true);
+    const result = await getCake({
+      page,
+      limit: ITEMS_PER_PAGE,
+      search: searchQuery,
+      category: activeCategory,
+      sortBy: sortBy
+    });
+
+    if (result.success) {
+      setCakes(result.cakes);
+      setTotalPages(result.totalPages);
+      setCurrentPage(result.page);
     }
-  }, [categoryParam]);
-
-  // Filtering and Sorting Logic
-  const filteredCakes = useMemo(() => {
-    let results = [...initialCakes];
-
-    // Filter by Search Query
-    if (searchQuery.trim() !== "") {
-      const query = searchQuery.toLowerCase();
-      results = results.filter(
-        (cake) =>
-          cake.name.toLowerCase().includes(query) ||
-          cake.description?.toLowerCase().includes(query)
-      );
-    }
-
-    // Filter by Category
-    if (activeCategory !== "All") {
-      results = results.filter((cake) => cake.category === activeCategory);
-    }
-
-    // Sorting
-    switch (sortBy) {
-      case "price-low":
-        results.sort((a, b) => a.basePrice - b.basePrice);
-        break;
-      case "price-high":
-        results.sort((a, b) => b.basePrice - a.basePrice);
-        break;
-      case "name":
-        results.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      default:
-        // Default: Sort by Featured first, then Newest (simulated by createdAt)
-        results.sort((a, b) => {
-          if (a.featured && !b.featured) return -1;
-          if (!a.featured && b.featured) return 1;
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        });
-        break;
-    }
-
-    return results;
-  }, [searchQuery, activeCategory, sortBy, initialCakes]);
-
-  // Pagination Logic
-  const totalPages = Math.ceil(filteredCakes.length / ITEMS_PER_PAGE);
-  const currentItems = useMemo(() => {
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredCakes.slice(start, start + ITEMS_PER_PAGE);
-  }, [filteredCakes, currentPage]);
-
-  // Reset page when filters change
-  useEffect(() => {
-    setTimeout(() => setCurrentPage(1), 0);
+    setIsLoading(false);
   }, [searchQuery, activeCategory, sortBy]);
+
+  // No need for separate useEffect to sync category, we can derive it or handle it in fetchCakes
+
+  // Handle Fetching
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fetchCakes(1);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [fetchCakes]);
 
   const handleResetFilters = () => {
     setSearchQuery("");
     setActiveCategory("All");
     setSortBy("default");
+    router.push("/shop", { scroll: false });
   };
 
   return (
@@ -140,10 +111,16 @@ function ShopContent({ initialCakes = [] }) {
 
               {/* Cake Grid / Empty State */}
               <div className="relative min-h-[400px]">
-                {filteredCakes.length > 0 ? (
+                {isLoading && (
+                  <div className="absolute inset-0 z-10 bg-base-100/50 flex items-center justify-center backdrop-blur-sm">
+                     <span className="loading loading-spinner loading-lg text-primary"></span>
+                  </div>
+                )}
+                
+                {cakes.length > 0 ? (
                   <>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10 sm:gap-x-8 sm:gap-y-12">
-                      {currentItems.map((cake) => (
+                      {cakes.map((cake) => (
                         <CakeCard key={cake._id} cake={cake} />
                       ))}
                     </div>
@@ -152,10 +129,8 @@ function ShopContent({ initialCakes = [] }) {
                     {totalPages > 1 && (
                       <div className="mt-16 sm:mt-24 flex items-center justify-center gap-4">
                         <button
-                          onClick={() =>
-                            setCurrentPage((p) => Math.max(1, p - 1))
-                          }
-                          disabled={currentPage === 1}
+                          onClick={() => fetchCakes(currentPage - 1)}
+                          disabled={currentPage === 1 || isLoading}
                           className="p-2 border border-base-300 rounded-full text-base-content hover:bg-primary hover:text-white transition-all disabled:opacity-20 disabled:hover:bg-transparent"
                         >
                           <HiArrowLeft className="w-5 h-5" />
@@ -165,7 +140,8 @@ function ShopContent({ initialCakes = [] }) {
                           {Array.from({ length: totalPages }).map((_, i) => (
                             <button
                               key={i}
-                              onClick={() => setCurrentPage(i + 1)}
+                              onClick={() => fetchCakes(i + 1)}
+                              disabled={isLoading}
                               className={`w-10 h-10 rounded-full text-xs font-bold transition-all border-2 ${
                                 currentPage === i + 1
                                   ? "bg-primary text-white border-primary shadow-lg shadow-primary/20"
@@ -178,10 +154,8 @@ function ShopContent({ initialCakes = [] }) {
                         </div>
 
                         <button
-                          onClick={() =>
-                            setCurrentPage((p) => Math.min(totalPages, p + 1))
-                          }
-                          disabled={currentPage === totalPages}
+                          onClick={() => fetchCakes(currentPage + 1)}
+                          disabled={currentPage === totalPages || isLoading}
                           className="p-2 border border-base-300 rounded-full text-base-content hover:bg-primary hover:text-white transition-all disabled:opacity-20 disabled:hover:bg-transparent"
                         >
                           <HiArrowRight className="w-5 h-5" />
@@ -189,7 +163,7 @@ function ShopContent({ initialCakes = [] }) {
                       </div>
                     )}
                   </>
-                ) : (
+                ) : !isLoading && (
                   <div className="flex flex-col items-center justify-center py-20 text-center gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <div className="p-8 bg-base-200 rounded-full border-2 border-dashed border-base-300 text-base-content/20 scale-110">
                       <svg
@@ -237,7 +211,7 @@ function ShopContent({ initialCakes = [] }) {
 }
 
 // Wrap with Suspense because it uses useSearchParams()
-export default function ShopClient({ initialCakes = [] }) {
+export default function ShopClient({ initialData }) {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center">
@@ -245,7 +219,7 @@ export default function ShopClient({ initialCakes = [] }) {
         <p className="ml-4 font-medium text-base-content/60">Loading Shop...</p>
       </div>
     }>
-      <ShopContent initialCakes={initialCakes} />
+      <ShopContent initialData={initialData} />
     </Suspense>
   );
 }
