@@ -82,18 +82,20 @@ export default function ValuesSection() {
           />
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
             {values.map((value) => (
-              <StaggerItem key={value.title}>
+              <StaggerItem key={value.title} className="h-full">
                 <article
                   className="card bg-base-200 shadow-md border border-base-200/80 dark:border-base-300/30 hover:shadow-lg transition-all duration-300 h-full"
                 >
-                  <div className="card-body gap-3">
+                  <div className="card-body gap-3 flex flex-col h-full">
                     <ValueIcon variant={value.icon} />
-                    <h3 className="card-title text-base sm:text-lg font-semibold text-primary">
-                      {value.title}
-                    </h3>
-                    <p className="text-sm sm:text-[0.95rem] text-base-content/80">
-                      {value.description}
-                    </p>
+                    <div className="flex flex-col gap-2 grow">
+                      <h3 className="card-title text-base sm:text-lg font-semibold text-primary">
+                        {value.title}
+                      </h3>
+                      <p className="text-sm sm:text-[0.95rem] text-base-content/80">
+                        {value.description}
+                      </p>
+                    </div>
                   </div>
                 </article>
               </StaggerItem>

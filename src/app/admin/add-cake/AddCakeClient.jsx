@@ -102,8 +102,13 @@ export default function AddCakeClient() {
           <label className="label text-xs font-bold uppercase tracking-widest opacity-60">
             Category
           </label>
-          <select name="category" className="select select-bordered w-full rounded-xl bg-base-100" required>
-            <option disabled selected>Choose a category</option>
+          <select 
+            name="category" 
+            className="select select-bordered w-full rounded-xl bg-base-100" 
+            required
+            defaultValue="Choose a category"
+          >
+            <option disabled>Choose a category</option>
             {CATEGORIES.map(cat => (
               <option key={cat} value={cat}>{cat}</option>
             ))}

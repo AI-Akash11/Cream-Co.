@@ -120,9 +120,9 @@ function ShopContent({ initialData }) {
                 
                 {cakes.length > 0 ? (
                   <>
-                    <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10 sm:gap-x-8 sm:gap-y-12">
+                    <StaggerContainer className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-8 sm:gap-x-8 sm:gap-y-12">
                       {cakes.map((cake) => (
-                        <StaggerItem key={cake._id}>
+                        <StaggerItem key={cake._id} className="h-full">
                           <CakeCard cake={cake} />
                         </StaggerItem>
                       ))}

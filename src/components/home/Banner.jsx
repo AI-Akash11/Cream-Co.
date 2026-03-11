@@ -14,175 +14,137 @@ const images = [
   "/BannerCakeImage4.jpg",
 ];
 
-const StackedFlippingCarousel = () => {
+const BannerSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const topCardRef = useRef(null);
+  const sliderRef = useRef(null);
 
-  const offsets = [0, 8, 16, 24];
-  const rotations = [0, 1.5, 3, 4.5];
-  const maxVisible = 4;
-
-  const goNext = () => {
-    setActiveIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const goPrev = () => {
-    setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
+  const goNext = () => setActiveIndex((prev) => (prev + 1) % images.length);
+  const goPrev = () => setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      goNext();
-    }, 3500);
-
+    const interval = setInterval(goNext, 5000);
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    if (!topCardRef.current) return;
-
+    if (!sliderRef.current) return;
     gsap.fromTo(
-      topCardRef.current,
-      { y: 40, opacity: 0, scale: 0.9, rotateZ: -1.5 },
-      {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        rotateZ: 0,
-        duration: 0.7,
-        ease: "power3.out",
-        transformOrigin: "center center",
-      },
+      sliderRef.current.children,
+      { opacity: 0, x: 20 },
+      { opacity: 1, x: 0, duration: 0.8, ease: "power2.out" }
     );
   }, [activeIndex]);
 
   return (
-    <div className="relative w-full max-w-[90%] sm:max-w-sm md:max-w-md h-60 sm:h-72 md:h-80 lg:h-96 flex flex-col items-center gap-3">
-      <div
-        className="relative w-full h-full"
-        style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
-      >
-        {Array.from({ length: maxVisible }).map((_, position) => {
-          const imageIndex = (activeIndex + position) % images.length;
-          const src = images[imageIndex];
-          const isTop = position === 0;
-
-          return (
-            <div
-              key={`${src}-${position}`}
-              ref={isTop ? topCardRef : null}
-              className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl border border-white transition-all duration-700"
-              style={{
-                transform: `translateY(${offsets[position]}px) rotateZ(${rotations[position]}deg)`,
-                zIndex: 20 - position,
-                backfaceVisibility: "hidden",
-                WebkitBackfaceVisibility: "hidden",
-              }}
-            >
-              <Image
-                src={src}
-                alt={`Cake ${imageIndex + 1}`}
-                fill
-                className="object-cover w-full h-full"
-                priority={isTop}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                unoptimized
-              />
-            </div>
-          );
-        })}
+    <div className="flex flex-col gap-6 w-full max-w-[600px] mx-auto lg:mx-0">
+      {/* Image Container */}
+      <div className="relative aspect-4/3 sm:aspect-video lg:aspect-4/3 rounded-[2.5rem] overflow-hidden shadow-2xl group">
+        <div ref={sliderRef} className="absolute inset-0 w-full h-full">
+          <Image
+            key={images[activeIndex]}
+            src={images[activeIndex]}
+            alt={`Cake Slider ${activeIndex + 1}`}
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
       </div>
 
-      <div className="flex items-center justify-center gap-4 mt-6 sm:mt-8">
+      {/* Slider Controls Below Image */}
+      <div className="flex items-center justify-center gap-4">
         <button
-          type="button"
           onClick={goPrev}
-          aria-label="Previous image"
-          className="btn btn-circle btn-xs sm:btn-sm bg-base-100/80 border border-primary/30 text-primary hover:bg-primary hover:text-base-100 shadow-md"
+          className="btn btn-circle btn-sm bg-white border-none shadow-md text-primary hover:bg-primary hover:text-white"
         >
-          <FaChevronLeft className="text-xs sm:text-sm" />
+          <FaChevronLeft size={12} />
         </button>
+        <div className="flex gap-2">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveIndex(i)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                activeIndex === i ? "w-8 bg-primary/60" : "w-1.5 bg-primary/20"
+              }`}
+            />
+          ))}
+        </div>
         <button
-          type="button"
           onClick={goNext}
-          aria-label="Next image"
-          className="btn btn-circle btn-xs sm:btn-sm bg-base-100/80 border border-primary/30 text-primary hover:bg-primary hover:text-base-100 shadow-md"
+          className="btn btn-circle btn-sm bg-white border-none shadow-md text-primary hover:bg-primary hover:text-white"
         >
-          <FaChevronRight className="text-xs sm:text-sm" />
+          <FaChevronRight size={12} />
         </button>
       </div>
     </div>
   );
 };
 
-import { FadeIn } from "@/components/animations/Animations";
-
 const Banner = () => {
   return (
-    <section className="relative w-full min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh] flex items-center justify-center bg-linear-to-br from-[#f7cac9] via-[#fff0e6] to-[#e7b8a3]">
-      <Container className="w-full flex flex-col md:flex-row items-center justify-between py-8 sm:py-12 md:py-16 lg:py-24 gap-6 sm:gap-8 md:gap-12">
-        {/* Left Side */}
-        <FadeIn className="flex-1 flex flex-col items-start justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 w-full" direction="left">
-          <span className="uppercase text-xs sm:text-xs md:text-sm font-semibold tracking-widest text-primary/70 mb-1 sm:mb-2">
-            Welcome to Cream & Co.
-          </span>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#7a4b4b] mb-2 sm:mb-3 md:mb-4 leading-tight">
-            Artisan Cakes <span className="text-[#c98e72]">&</span> Fresh
-            Pastries
-          </h1>
-          <p className="text-sm sm:text-base md:text-lg font-medium text-[#7a4b4b]/80 mb-3 sm:mb-4 md:mb-6 max-w-full sm:max-w-lg">
-            Handcrafted with premium ingredients. Every bite tells a story of
-            tradition, passion, and celebration.
-          </p>
-          <div className="flex flex-row flex-wrap gap-3 sm:gap-4 mb-3 sm:mb-4 w-full">
+    <section className="relative w-full py-16 sm:py-20 lg:py-24 bg-linear-to-br from-[#f7cac9] via-[#fff0e6] to-[#e7b8a3] overflow-hidden">
+      <Container className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
+        {/* Left Content */}
+        <div className="flex-1 flex flex-col items-start gap-8 w-full max-w-2xl order-2 lg:order-1">
+          <div className="space-y-3 sm:space-y-4">
+            <span className="uppercase text-xs font-semibold tracking-[0.25em] text-primary/70">
+              Welcome to Cream & Co.
+            </span>
+            <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-primary leading-[1.2]">
+              Artisan Cakes <span className="text-primary/60 italic font-normal">&</span> <br />
+              Fresh Pastries
+            </h1>
+            <p className="text-sm sm:text-base text-black/70 max-w-lg leading-relaxed">
+              Handcrafted with premium ingredients in the heart of Dhaka. Every bite tells a story of tradition, passion, and celebration.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-4 w-full">
             <Link
               href="/shop"
-              className="btn btn-primary btn-sm sm:btn-md md:btn-lg font-semibold shadow-md flex-1 sm:flex-none sm:w-40"
+              className="btn btn-primary h-12 px-8 font-bold shadow-xl shadow-primary/20 rounded-xl"
             >
-              Shop Cakes
+              Shop Collection
             </Link>
             <Link
               href="/custom"
-              className="btn btn-outline btn-sm sm:btn-md md:btn-lg font-semibold border-[#7a4b4b] text-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white shadow-md flex-1 sm:flex-none sm:min-w-40"
+              className="btn btn-outline h-12 px-8 font-bold border-primary/20 text-primary hover:bg-primary hover:text-primary-content rounded-xl"
             >
-              Build a Custom Cake
+              Custom Creation
             </Link>
           </div>
-          {/* Trust Bullets */}
-          <ul className="flex flex-wrap gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm font-semibold text-[#7a4b4b]/80 mb-3 sm:mb-4 md:mb-4">
-            <li className="flex items-center gap-2">
-              <span className="inline-block w-2 h-2 bg-success rounded-full" />{" "}
-              Same-day pastries
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="inline-block w-2 h-2 bg-success rounded-full" />{" "}
-              Fresh baked daily
-            </li>
-            <li className="hidden sm:flex items-center gap-2">
-              <span className="inline-block w-2 h-2 bg-success rounded-full" />{" "}
-              Delivery slots
-            </li>
-          </ul>
-          {/* Best Sellers Filter Row */}
-          <div className="flex flex-wrap gap-2 w-full">
-            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-[#7a4b4b] border-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white flex-1 sm:flex-none text-xs sm:text-sm">
-              Cakes
-            </button>
-            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-[#7a4b4b] border-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white flex-1 sm:flex-none text-xs sm:text-sm">
-              Pastries
-            </button>
-            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-[#7a4b4b] border-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white flex-1 sm:flex-none text-xs sm:text-sm">
-              Cheesecake
-            </button>
-            <button className="btn btn-outline btn-xs sm:btn-sm bg-transparent text-[#7a4b4b] border-[#7a4b4b] hover:bg-[#7a4b4b] hover:text-white flex-1 sm:flex-none text-xs sm:text-sm">
-              Chocolate
-            </button>
-          </div>
-        </FadeIn>
 
-        {/* Right Side: Stacked Flipping Cake Carousel */}
-        <div className="flex flex-1 flex-col items-center justify-center gap-3 sm:gap-4 w-full md:w-auto">
-          <StackedFlippingCarousel />
+          {/* Bullets with green dots */}
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            {[
+              "Same-day pastries",
+              "Fresh baked daily",
+              "Delivery slots"
+            ].map((text) => (
+              <div key={text} className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-success shadow-sm shadow-success/40" />
+                <span className="text-xs font-semibold text-gray-600">{text}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Category Filter Pills */}
+          <div className="flex flex-wrap gap-3 pt-4 border-t border-gray-300 w-full">
+            {["Cakes", "Pastries", "Cheesecake", "Chocolate"].map((cat) => (
+              <button
+                key={cat}
+                className="px-5 py-2 rounded-lg border border-base-300 text-[10px] font-bold text-gray-600 uppercase tracking-widest hover:bg-primary hover:text-primary-content hover:border-primary transition-all duration-300 shadow-sm"
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Right Slider */}
+        <div className="flex-1 w-full order-2 lg:order-2 flex justify-center lg:justify-end">
+           <BannerSlider />
         </div>
       </Container>
     </section>

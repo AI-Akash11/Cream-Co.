@@ -89,7 +89,7 @@ function ContactCard({ item }) {
   const valueLines = item.value.split("\n");
 
   return (
-    <article className="card bg-base-200 shadow-md border border-base-200/80 dark:border-base-300/30 hover:shadow-lg transition-shadow duration-300">
+    <article className="card bg-base-200 shadow-md border border-base-200/80 dark:border-base-300/30 hover:shadow-lg transition-shadow duration-300 h-full">
       <div className="card-body gap-3 p-5 sm:p-6">
         <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
           {item.icon}
@@ -136,7 +136,7 @@ export default function ContactInfo() {
           />
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
             {contactItems.map((item) => (
-              <StaggerItem key={item.id}>
+              <StaggerItem key={item.id} className="h-full">
                 <ContactCard item={item} />
               </StaggerItem>
             ))}

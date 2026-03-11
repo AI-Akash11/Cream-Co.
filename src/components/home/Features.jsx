@@ -103,12 +103,12 @@ const features = [
 
 function FeatureCard({ title, description, icon }) {
   return (
-    <article className="group flex flex-col gap-4 p-6 rounded-xl bg-base-200 border border-base-300/50 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-      <div className="h-10 w-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+    <article className="group flex flex-col gap-4 p-6 rounded-xl bg-base-200 border border-base-300/50 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
+      <div className="h-10 w-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
         {icon}
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 grow">
         <h3 className="text-base font-semibold text-base-content">
           {title}
         </h3>
@@ -138,7 +138,7 @@ export default function Features() {
 
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature) => (
-            <StaggerItem key={feature.id}>
+            <StaggerItem key={feature.id} className="h-full">
               <FeatureCard
                 title={feature.title}
                 description={feature.description}

@@ -57,7 +57,7 @@ export const metadata = {
     siteName: "Cream & Co",
     images: [
       {
-        url: "https://i.ibb.co.com/ZRV9qq4X/image.png",
+        url: "https://i.ibb.co.com/S1mn5Pc/image.png",
         width: 1200,
         height: 630,
         alt: "Cream & Co Premium Cakes",
@@ -70,7 +70,7 @@ export const metadata = {
     title: "Cream & Co | Premium Cakes & Custom Desserts",
     description:
       "Freshly baked cakes, custom designs, and premium desserts for every celebration.",
-    images: ["https://i.ibb.co.com/ZRV9qq4X/image.png"],
+    images: ["https://i.ibb.co.com/S1mn5Pc/image.png"],
   },
 
   robots: {
